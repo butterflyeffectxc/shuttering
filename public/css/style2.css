@@ -1,0 +1,146 @@
+
+.heading{
+    height: 100vh;
+}
+.hero-section{
+    height:100vh; 
+    background: url("../assets/bg_satu.jpg") no-repeat center center/cover;
+}
+/* Custom transparent navbar */
+.navbar-transparent {
+    background-color: transparent !important;
+    position: absolute;   /* make it sit on top of hero section */
+    width: 100%;
+    top: 0;
+    left: 0;
+    z-index: 1000;
+}
+
+/* Make text white for visibility */
+.navbar-transparent .navbar-brand,
+.navbar-transparent .nav-link {
+    color: #fff !important;
+}
+
+.navbar-transparent .nav-link:hover {
+    color: #ddd !important;
+}
+
+/* Adjust search button */
+.navbar-transparent .btn-outline-success {
+    border-color: #fff;
+    color: #fff;
+}
+
+.navbar-transparent .btn-outline-success:hover {
+    background-color: #fff;
+    color: #002b86;
+}
+
+.glass-button {
+    /* display: inline-block; */
+    border: 0;
+    text-decoration: none;
+    border-radius: 15px;
+    background-color: rgba(255,255,255,0.1);
+    border: 1px solid rgba(255,255,255,0.1);
+    backdrop-filter: blur(30px);
+    color: rgba(255,255,255,0.8);
+  }
+
+.card-small{
+    max-width: 300px;
+    max-height: 130px;
+    overflow: hidden;
+    background-color: rgba(255,255,255,0.1);
+    border: 1px solid rgba(255,255,255,0.1);
+    backdrop-filter: blur(30px);
+    color: rgba(255,255,255,0.8);
+}
+
+.card-small img{
+    height: 100%;       
+    width: 100%;        
+    object-fit: cover; 
+}
+.text-small{
+    font-size: 0.8rem;
+}
+.text-color{
+    color: #205fe6;
+}
+
+.content-body{
+    background-color: rgb(42, 44, 53);
+    color: white;
+}
+.porto{
+    border-radius: 30px;
+    background-color: rgb(84, 87, 101);
+}
+.list{
+    background-color:  rgba(84, 87, 101, 0.112);
+}
+
+.rounded-image img {
+    width: 500px;     
+    height: 400px;         
+    object-fit: cover;     
+    border-radius: 12px;   
+}
+.overflow-auto {
+    white-space: nowrap;
+      scrollbar-width: thin;           
+  scrollbar-color: #888 #222;     
+}
+.overflow-auto::-webkit-scrollbar {
+  display: none;
+}
+
+/* Untuk Firefox */
+.overflow-auto {
+  scrollbar-width: none;  /* sembunyikan */
+  -ms-overflow-style: none; /* IE dan Edge lama */
+}
+
+.map{
+    border: 0;
+    width: 100%;
+    height: 450px;
+}
+
+.mapping{
+    height: 120vh;
+}
+
+.about{
+    height: 100vh;
+    display: flex;
+    align-items: center;
+}
+.footer {
+  background-color: rgb(84, 87, 101);
+  color: #fff;
+  border-radius: 20px 20px 0 0;
+  padding: 1rem;
+}
+
+.footer hr {
+  border: 0;
+  border-top: 1px solid rgba(255, 255, 255, 0.2);
+  margin-bottom: 1rem;
+}
+
+.footer-two {
+  display: flex;
+  justify-content: space-between; /* sejajar kiri, tengah, kanan */
+  align-items: center;            /* rata tengah vertical */
+  flex-wrap: wrap;                /* biar responsif */
+  gap: 1rem;
+}
+
+.footer-two h5,
+.footer-two p,
+.footer-two ul {
+  margin: 0; /* hapus jarak default */
+}
