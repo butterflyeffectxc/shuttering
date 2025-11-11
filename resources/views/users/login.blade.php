@@ -1,35 +1,37 @@
 @extends('layout.main')
 @section('content')
-    <div class="login-bg">
-        <div class="container page-content align-items-center">
-            <div class="row">
-                <div class="col-12 col-md-7">
-                    <div class="align-items-center d-flex text-white mt-5">
-                        <h1 class="font-super-large">Discover<br>Your<br>Moments.</h1>
-                    </div>
-                </div>
-                <div class="col-12 col-md-5">
-                    <div class="card card-glass px-3 py-4">
+    <div class="landing-bg">
+        <div class="container page-content">
+            <div class="mt-5 text-center text-white">
+                <img src="{{ asset('assets/Shuttering.svg') }}" alt="" class="logo-medium">
+                <div class="d-flex justify-content-center mt-3">
+                    <div class="card card-glass px-3 py-2">
                         <div class="card-body text-white">
-                            <div class="text-center">
-                                <img src="{{ asset('assets/Shuttering.svg') }}" alt="" class="logo-medium">
-                                <h3>Welcome Back</h3>
-                                <p>Please enter your details</p>
+                            <div class="py-1">
+                                <h5 class="fw-bold">Welcome Back</h5>
+                                <h6>Please sign in to continue</h6>
                             </div>
-                            <form method="GET" action="/login" class="text-white">
+                            <form method="GET" action="/login" class="text-white text-start">
                                 <div class="mb-3">
-                                    <input type="text" class="form-control input-glass text-white py-3" id="username"
-                                        placeholder="Username" name="username">
+                                    <label for="email" class="form-label"><b>Email</b></label>
+                                    <input type="text" class="form-control input-glass text-white py-2" id="email"
+                                        placeholder="email" name="email">
                                 </div>
                                 <div class="">
-                                    <input type="password" class="form-control input-glass text-white py-3" id="password"
+                                    <label for="Password" class="form-label"><b>Password</b></label>
+                                    <input type="password" class="form-control input-glass text-white py-2" id="password"
                                         placeholder="Password" name="password">
                                 </div>
-                                <div class="d-flex justify-content-end mb-3">
-                                    <a href="#">Forgot Password?</a>
+                                <div class="d-flex justify-content-end mt-2 mb-3">
+                                    <a href="#" class="font-color">Forgot Password?</a>
                                 </div>
                                 <div class="d-grid gap-2">
-                                    <button class="btn btn-glass">Login</button>
+                                    <button class="btn btn-primary-sm">Login</button>
+                                </div>
+                                <div class="d-flex justify-content-center mt-3">
+                                    <span>Dont have an Account?<a href="{{ url('register') }}"
+                                            class="ps-1 font-color">Create
+                                            Account</a></span>
                                 </div>
                             </form>
                         </div>

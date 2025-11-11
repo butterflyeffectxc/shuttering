@@ -19,11 +19,17 @@ Route::get('/coba', function () {
 Route::get('/login', function () {
     return view('users.login');
 });
+Route::get('/register', function () {
+    return view('users.register');
+});
 Route::get('/', function () {
     return view('users.landing-page');
 });
 Route::get('/homepage', function () {
     return view('users.home-page');
+});
+Route::get('/booking', function () {
+    return view('users.booking');
 });
 Route::get('/photographer', function () {
     return view('users.photographer.list');
