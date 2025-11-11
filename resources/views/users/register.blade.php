@@ -1,4 +1,4 @@
-@extends('layout.main')
+@extends('layouts.main')
 @section('content')
     <div class="landing-bg scroll-content">
         <div class="container page-content">

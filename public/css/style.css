@@ -6,6 +6,10 @@
     --text-primary : #FD7801;
     --text-black : #000000;
 }
+.main-bg{
+    background-color: #000000;
+    color: #FFFFFF;
+}
 body{
       font-family: "Inter", sans-serif;
 }
@@ -194,9 +198,54 @@ h1{
     color: var(--text-black) !important;
     font-weight: 600 !important;
 }
-.input-glass::placeholder{
+/* Text color inside date/time input */
+input[type="date"].input-glass,
+input[type="time"].input-glass {
+  color: var(--text-tertiary) !important;
+}
+
+/* Calendar and clock icons (WebKit browsers like Chrome, Edge, Safari) */
+input[type="date"]::-webkit-calendar-picker-indicator,
+input[type="time"]::-webkit-calendar-picker-indicator {
+  filter: invert(1); /* turns dark icons white */
+  cursor: pointer;
+}
+
+/* Placeholder-like text when no date selected */
+input[type="date"]:not(:valid)::before {
+  color: rgba(255, 255, 255, 0.7);
+  content: attr(placeholder);
+}
+.input-glass::placeholder, .input-glass-stretch::placeholder,
+.form-control::placeholder, .form-floating>label{
     color: var(--text-tertiary);
 }
+/* Force select and its options to be white */
+select.input-glass.form-select {
+  color: var(--text-tertiary) !important;
+  background-color: rgba(255, 255, 255, 0.1) !important;
+  border: 0.667px solid rgba(255, 255, 255, 0.2);
+  backdrop-filter: blur(0.1px);
+}
+
+/* Force dropdown options to be white text + dark background */
+select.input-glass.form-select option {
+  background-color: rgba(23, 23, 23, 0.95);
+  color: var(--text-tertiary);
+}
+
+/* Optional: style the arrow icon white */
+select.input-glass.form-select {
+  -webkit-appearance: none;
+  -moz-appearance: none;
+  appearance: none;
+  background-image: url("data:image/svg+xml;utf8,<svg fill='white' height='16' width='16' xmlns='http://www.w3.org/2000/svg'><polygon points='0,0 16,0 8,8'/></svg>");
+  background-repeat: no-repeat;
+  background-position: right 0.75rem center;
+  background-size: 12px;
+  padding-right: 2rem; /* give space for arrow */
+}
+
 .card-glass{
     /* From https://css.glass */
     width: 445px;
@@ -205,9 +254,19 @@ h1{
     background: rgba(23, 23, 23, 0.80);
     backdrop-filter: blur(0.1px);
     -webkit-backdrop-filter: blur(0.1px);
-    width: 26rem;
+    /* width: 26rem; */
 }
-
+.card-glass-stretch {
+    width: 90%; /* stretch full width */
+    border-radius: 20px;
+    opacity: 0.8;
+    background: rgba(23, 23, 23, 0.80);
+    backdrop-filter: blur(0.1px);
+    -webkit-backdrop-filter: blur(0.1px);
+}
+hr{
+    height: 2px;
+}
 a{
     font-style: normal;
     color: #FCF3EA;
@@ -376,11 +435,16 @@ a{
 
 /* booking start */
 /* booking card */
+.booking-container{
+    display: grid;
+    grid-template-columns: repeat(auto-fit, minmax(300px, 1fr));
+    gap: 1.5rem;
+}
 .booking-card {
   background-color: #1a1a1a;
-  color: #ffffff;
   border-radius: 20px;
-  width: 100%;
+  width: 342px;
+  height: 100%;
   max-width: 310px;
   padding: 1.5rem;
   box-shadow: 0 4px 12px rgba(0, 0, 0, 0.3);
@@ -405,30 +469,6 @@ a{
   border-radius: 15px;
   object-fit: cover;
   flex-shrink: 0;
-}
-
-.chip-status {
-    font-size: 14px;
-    font-weight: 600;
-    padding: 0.25rem 0.75rem;
-    border-radius: 100px;
-    margin-left: auto;
-}
-.chip-pending {
-  background-color: rgba(132, 104, 15, 0.80);
-  color: #FFC300;
-}
-.chip-confirmed {
-  background-color: rgba(47, 138, 207, 0.80);
-  color: #032C4B;
-}
-.chip-complete {
-  background-color: rgba(10, 225, 106, 0.80);
-  color: #01401D;
-}
-.chip-paid {
-  background-color: rgba(202, 76, 224, 0.80);;
-  color: #4B0257;
 }
 
 /* BODY */
@@ -477,7 +517,31 @@ a{
 }
 
 /* STATUS VARIANTS */
-.booking-card.pending .booking-card-status {
+.chip-status {
+    font-size: 14px;
+    font-weight: 600;
+    padding: 0.25rem 0.75rem;
+    border-radius: 100px;
+    margin-left: auto;
+}
+.chip-pending {
+  background-color: rgba(132, 104, 15, 0.80);
+  color: #FFC300;
+}
+.chip-confirmed {
+  background-color: rgba(47, 138, 207, 0.80);
+  color: #032C4B;
+}
+.chip-complete {
+  background-color: rgba(10, 225, 106, 0.80);
+  color: #01401D;
+}
+.chip-paid {
+  background-color: rgba(202, 76, 224, 0.80);;
+  color: #4B0257;
+}
+
+/* .booking-card.pending .booking-card-status {
   background-color: #b98b00;
 }
 .booking-card.pending .booking-card-btn {
@@ -508,7 +572,7 @@ a{
 }
 .booking-card.paid .booking-card-btn:hover {
   background: rgba(0, 168, 107, 0.35);
-}
+} */
 /* booking end */
 
 /* photograper start */
@@ -551,7 +615,33 @@ a{
     filter: brightness(1.2);
 }
 /* detail-photographer end */
-
+/* form photographer start */
+.img-form{
+    width: 293px;
+    height: 293px;
+    object-fit: cover;
+    border-radius: 20px;
+}
+.input-glass-stretch{
+    border-radius: 20px;
+    border: 0.667px solid rgba(255, 255, 255, 0.20);
+    background: rgba(255, 255, 255, 0.10);
+    backdrop-filter: blur(0.1px);
+    -webkit-backdrop-filter: blur(0.1px);
+    padding: 0.5rem 0.75rem;
+    color: var(--text-black) !important;
+    font-weight: 600 !important;
+}
+.input-glass-stretch::placeholder{
+    color: var(--text-tertiary);
+}
+.sticky-scroll{
+    position: sticky;
+    top: 40px;
+    align-self: flex-start;
+    height: fit-content;
+}
+/* form photographer end */
 @media (max-width: 600px) {
     small{
         font-size: 12px;

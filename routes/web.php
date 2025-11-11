@@ -29,10 +29,10 @@ Route::get('/homepage', function () {
     return view('users.home-page');
 });
 Route::get('/booking', function () {
-    return view('users.booking');
+    return view('users.bookings.list');
 });
-Route::get('/photographer', function () {
-    return view('users.photographer.list');
+Route::get('/booking/fill-form', function () {
+    return view('users.bookings.form');
 });
 Route::get('/photographer/detail', function () {
     return view('users.photographer.detail');
