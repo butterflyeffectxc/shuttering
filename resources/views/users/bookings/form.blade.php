@@ -15,7 +15,7 @@
                             <h6 class="photocard-location"><img src="{{ asset('assets/icon_star.svg') }}" width="24"
                                     alt=""> 5/5</h6>
                         </div>
-                        <p>Rate: Rp1.000.000/Session</p>
+                        <p>Start From: Rp1.000.000/Session</p>
                     </div>
                 </div>
                 <div class="col-12 col-md-8 mx-auto">
@@ -29,24 +29,6 @@
                                     <hr>
                                 </div>
                                 <form method="GET" action="/login" class="text-white text-start">
-                                    <h5>Personal Information</h5>
-                                    <div class="mb-3 row">
-                                        <div class="col">
-                                            <label for="name" class="form-label"><b>Full Name</b></label>
-                                            <input type="text" class="form-control input-glass text-white py-2"
-                                                id="name" placeholder="name" name="Nutty Matcha">
-                                        </div>
-                                        <div class="col">
-                                            <label for="phone" class="form-label"><b>Phone Number</b></label>
-                                            <input type="text" class="form-control input-glass text-white py-2"
-                                                id="phone" placeholder="+62 123 4567 8910" name="phone">
-                                        </div>
-                                    </div>
-                                    <div class="mb-3">
-                                        <label for="email" class="form-label"><b>Email</b></label>
-                                        <input type="text" class="form-control input-glass text-white py-2"
-                                            id="email" placeholder="nutmatch45@gmail.com" name="email">
-                                    </div>
                                     <h5>Session Details</h5>
                                     <div class="mb-3 row">
                                         <div class="col">
@@ -71,9 +53,16 @@
                                         <select class="form-select input-glass" aria-label="Default select example"
                                             name="photo_type">
                                             <option selected>Open this select menu</option>
-                                            <option value="1">One</option>
-                                            <option value="2">Two</option>
-                                            <option value="3">Three</option>
+                                            <option value="1">Commercial</option>
+                                            <option value="2">Event/Corporate</option>
+                                            <option value="3">Family/Maternity</option>
+                                            <option value="4">Fashion</option>
+                                            <option value="5">Graduation</option>
+                                            <option value="6">Lifestyle</option>
+                                            <option value="7">Potrait/Personal</option>
+                                            <option value="7">Prewedding/Wedding</option>
+                                            <option value="8">Street Photography</option>
+                                            <option value="9">Travel/Outdoor/Nature</option>
                                         </select>
                                     </div>
                                     <div class="mb-3">

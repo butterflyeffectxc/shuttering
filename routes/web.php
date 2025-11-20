@@ -1,5 +1,7 @@
 <?php
 
+use App\Http\Controllers\AuthController;
+use App\Http\Controllers\PhotographerController;
 use Illuminate\Support\Facades\Route;
 
 /*
@@ -12,8 +14,15 @@ use Illuminate\Support\Facades\Route;
 | be assigned to the "web" middleware group. Make something great!
 |
 */
+Route::get('/login', [AuthController::class, 'loginView']);
+Route::post('/login', [AuthController::class, 'login']);
+Route::get('/register', [AuthController::class, 'registerView']);
+Route::post('/register', [AuthController::class, 'register']);
+Route::get('/register/photographer', [PhotographerController::class, 'registerView']);
+Route::post('/register/photographer', [PhotographerController::class, 'register']);
 
-Route::get('/coba', function () {
+Route::get('/photographers', [PhotographerController::class, 'index']);
+Route::get('/demo', function () {
     return view('index');
 });
 Route::get('/login', function () {
@@ -35,5 +44,8 @@ Route::get('/booking/fill-form', function () {
     return view('users.bookings.form');
 });
 Route::get('/photographer/detail', function () {
-    return view('users.photographer.detail');
+    return view('users.bookings.detail');
+});
+Route::get('/admin', function () {
+    return view('admins.index');
 });

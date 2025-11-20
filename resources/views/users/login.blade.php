@@ -11,16 +11,21 @@
                                 <h5 class="fw-bold">Welcome Back</h5>
                                 <h6>Please sign in to continue</h6>
                             </div>
-                            <form method="GET" action="/login" class="text-white text-start">
+                            <form method="POST" action="/login" class="text-white text-start">
+                                @csrf
                                 <div class="mb-3">
                                     <label for="email" class="form-label"><b>Email</b></label>
                                     <input type="text" class="form-control input-glass text-white py-2" id="email"
-                                        placeholder="email" name="email">
+                                        placeholder="nutmatch45@gmail.com" name="email" required>
                                 </div>
-                                <div class="">
-                                    <label for="Password" class="form-label"><b>Password</b></label>
-                                    <input type="password" class="form-control input-glass text-white py-2" id="password"
-                                        placeholder="Password" name="password">
+                                <div class="position-relative mb-3">
+                                    <label for="password" class="form-label"><b>Password</b></label>
+                                    <input type="password" class="form-control input-glass text-white py-2 pe-5"
+                                        id="password" placeholder="******" name="password" required>
+
+                                    <!-- Ikon Mata -->
+                                    <span class="fa fa-fw fa-eye field-icon toggle-password"
+                                        onclick="visiblePassword()"></span>
                                 </div>
                                 <div class="d-flex justify-content-end mt-2 mb-3">
                                     <a href="#" class="font-color">Forgot Password?</a>

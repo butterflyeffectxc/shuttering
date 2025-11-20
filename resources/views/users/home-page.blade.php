@@ -34,7 +34,7 @@
             <div class="container py-5">
                 <div class="row photocard-container">
                     <div class="col-12 col-sm-6 col-md-4 col-lg-3 mb-4">
-                        <a href="{{ url('booking') }}">
+                        <a href="{{ url('photographer/detail') }}">
                             {{-- <div class="card text-bg-dark">
                                 <img src="https://images.unsplash.com/photo-1529626455594-4ff0802cfb7e" class="card-img"
                                     alt="Cecilia Bright">
