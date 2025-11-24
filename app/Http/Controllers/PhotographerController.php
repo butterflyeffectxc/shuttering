@@ -33,6 +33,10 @@ class PhotographerController extends Controller
     function index()
     {
         $photographers = Photographer::all();
-        return view('admin.photographer', compact('photographers'));
+        return view('admins.photographers.index', compact('photographers'));
+    }
+    function show(Photographer $photographer)
+    {
+        return view('admins.photographers.detail', compact('photographer'));
     }
 }

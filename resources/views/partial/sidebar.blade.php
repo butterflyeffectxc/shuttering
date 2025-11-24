@@ -43,7 +43,7 @@
              <ul class="menu">
                  <li class="sidebar-title">Menu</li>
 
-                 <li class="sidebar-item active">
+                 <li class="sidebar-item">
                      <a href="index.html" class="sidebar-link">
                          <i class="bi bi-grid-fill"></i>
                          <span>Dashboard</span>
@@ -60,23 +60,18 @@
                          <li class="submenu-item {{ Request::is('users') ? 'active' : '' }}">
                              <a href="{{ url('users') }}" class="submenu-link">Customer</a>
                          </li>
-                         <li class="submenu-item">
-                             <a href="{{ url('photographer') }}" class="submenu-link">Photographer</a>
+                         <li class="submenu-item" {{ Request::is('photographers') ? 'active' : '' }}">
+                             <a href="{{ url('photographers') }}" class="submenu-link">Photographer</a>
                          </li>
                      </ul>
                  </li>
-                 <li class="sidebar-item has-sub">
-                     <a href="#" class="sidebar-link">
+                 <li class="sidebar-item {{ Request::is('bookings') ? 'active' : '' }}">
+                     <a href="{{ url('bookings') }}" class="sidebar-link">
                          <i class="bi bi-basket-fill"></i>
-                         <span>Session</span>
+                         <span>Booking</span>
                      </a>
-
-                     <ul class="submenu">
-                         <li class="submenu-item">
-                             <a href="component-accordion.html" class="submenu-link">Booking</a>
-                         </li>
-                     </ul>
                  </li>
+
              </ul>
          </div>
      </div>

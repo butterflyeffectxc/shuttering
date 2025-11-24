@@ -18,12 +18,16 @@ class User extends Authenticatable
      *
      * @var array<int, string>
      */
-  protected $guarded = [
+    protected $guarded = [
         'id',
     ];
     protected $table = 'users';
     protected $primaryKey = 'id';
 
+      public function bookings()
+    {
+        return $this->hasMany(Booking::class, 'customer_id');
+    }
     /**
      * The attributes that should be hidden for serialization.
      *

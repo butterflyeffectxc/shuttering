@@ -8,10 +8,24 @@ use Illuminate\Database\Eloquent\SoftDeletes;
 
 class Photographer extends Model
 {
-    use HasFactory, SoftDeletes;
-      protected $guarded = [
-        'id',
-    ];
-    protected $table = 'photographers';
-    protected $primaryKey = 'id';
+  use HasFactory, SoftDeletes;
+  protected $guarded = [
+    'id',
+  ];
+  protected $table = 'photographers';
+  protected $primaryKey = 'id';
+
+  public function photoTypes()
+  {
+    return $this->belongsToMany(
+      PhotoType::class,
+      'photographer_photo_types',
+      'photographer_id',
+      'photo_type_id'
+    );
+  }
+  public function bookings()
+  {
+    return $this->hasMany(Booking::class, 'photographer_id');
+  }
 }
