@@ -8,7 +8,7 @@
             <div class="card-header mb-2">
                 <div class="d-flex justify-content-between">
                     <h5 class="card-title">
-                        booking List
+                        Confirmed Booking List
                     </h5>
                     <div class="ml-auto">
                         {{-- <a href="/bookings/create" class="btn btn-primary add-button"><span>Add Data</span></a> --}}
@@ -23,13 +23,12 @@
                             <tr>
                                 <th>#</th>
                                 <th>Customer Name</th>
-                                <th>Photographer Name</th>
                                 <th>Date</th>
                                 <th>Duration</th>
                                 <th>Location</th>
                                 <th>Photo Type</th>
                                 <th>Status</th>
-                                <th>Aksi</th>
+                                <th>Ubah Data</th>
                             </tr>
                         </thead>
                         <tbody>
@@ -40,7 +39,6 @@
                                         {{ $customer->name }}
                                     @endforeach</td> --}}
                                     <td>{{ $booking->customer->name }}</td>
-                                    <td>{{ $booking->photographer->name }}</td>
                                     <td>{{ $booking->session_date }}</td>
                                     <td>{{ $booking->session_duration }}</td>
                                     <td>{{ $booking->session_location }}</td>
@@ -48,11 +46,26 @@
                                     <td>{{ $booking->status }}</td>
                                     <td>
                                         <div class="btn-group mr-2" role="group" aria-label="Action Button">
-                                            <a href="/bookings/detail/{{ $booking->id }}" class="btn btn-primary"><i
-                                                    class="bi bi-eye-fill"></i></a>
-                                            {{-- <a href="/bookings/edit/{{ $booking->id }}" class="btn btn-warning"><i
-                                                    class="bi bi-pencil-square"></i></a>
-                                            <form action="/bookings/delete/{{ $booking->id }}" method="POST">
+                                            <form action="/photographers/bookings/update-status/{{ $booking->id }}"
+                                                method="POST" class="d-inline">
+                                                @csrf
+                                                @method('PUT')
+                                                <input type="hidden" name="status" value="Paid">
+                                                <button type="submit" class="btn btn-success w-100">
+                                                    <i class="bi bi-cash"></i>
+                                                </button>
+                                            </form>
+                                            {{-- <form action="/photographers/bookings/update-status/{{ $booking->id }}"
+                                                method="POST" class="d-inline">
+                                                @csrf
+                                                @method('PUT')
+                                                <input type="hidden" name="status" value="Canceled">
+                                                <button type="submit" class="btn btn-danger">
+                                                    <i class="bi bi-x-circle"></i>
+                                                </button>
+                                            </form> --}}
+
+                                            {{-- <form action="/bookings/delete/{{ $booking->id }}" method="POST">
                                                 @csrf
                                                 @method('DELETE')
                                                 <form action="bookings/delete/{{ $booking->id }}" method="POST">

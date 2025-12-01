@@ -60,47 +60,30 @@
                          <li class="submenu-item {{ Request::is('users') ? 'active' : '' }}">
                              <a href="{{ url('users') }}" class="submenu-link">Customer</a>
                          </li>
-                         <li class="submenu-item {{ Request::is('photographers') ? 'active' : '' }}">
+                         <li class="submenu-item" {{ Request::is('photographers') ? 'active' : '' }}">
                              <a href="{{ url('photographers') }}" class="submenu-link">Photographer</a>
                          </li>
                      </ul>
-                 </li>
-                 <li class="sidebar-item {{ Request::is('bookings') ? 'active' : '' }}">
-                     <a href="{{ url('bookings') }}" class="sidebar-link">
-                         <i class="bi bi-basket-fill"></i>
-                         <span>Incoming Booking</span>
-                     </a>
                  </li>
                  <li class="sidebar-item has-sub">
                      <a href="#" class="sidebar-link">
                          <i class="bi bi-stack"></i>
                          <span>Data Booking</span>
                      </a>
+
                      <ul class="submenu">
-                         {{-- @if (Auth::user()->role == '1') --}}
-                         <li class="submenu-item {{ Request::is('photographers/bookings') ? 'active' : '' }}">
-                             <a href="{{ url('admins/bookings') }}" class="submenu-link">Incoming Booking</a>
+                         <li class="sidebar-item {{ Request::is('bookings') ? 'active' : '' }}">
+                             <a href="{{ url('bookings') }}" class="sidebar-link">
+                                 <i class="bi bi-basket-fill"></i>
+                                 <span>Incoming Booking</span>
+                             </a>
                          </li>
-                         {{-- @endif --}}
-                         {{-- @if (Auth::user()->role == '2')     --}}
-                         <li class="submenu-item {{ Request::is('photographers/bookings') ? 'active' : '' }}">
-                             <a href="{{ url('photographers/bookings') }}" class="submenu-link">Incoming Booking</a>
+                         <li class="sidebar-item {{ Request::is('bookings') ? 'active' : '' }}">
+                             <a href="{{ url('bookings') }}" class="sidebar-link">
+                                 <i class="bi bi-basket-fill"></i>
+                                 <span>Booking</span>
+                             </a>
                          </li>
-                         <li
-                             class="submenu-item {{ Request::is('photographers/bookings/processed') ? 'active' : '' }}">
-                             <a href="{{ url('photographers/bookings/processed') }}" class="submenu-link">Processed
-                                 Booking</a>
-                         </li>
-                         <li
-                             class="submenu-item {{ Request::is('photographers/bookings/cancelled') ? 'active' : '' }}">
-                             <a href="{{ url('photographers/bookings/cancelled') }}" class="submenu-link">Cancelled
-                                 Booking</a>
-                         </li>
-                         <li class="submenu-item {{ Request::is('photographers/bookings/upload') ? 'active' : '' }}">
-                             <a href="{{ url('photographers/bookings/upload') }}" class="submenu-link">Upload Image
-                                 Booking</a>
-                         </li>
-                         {{-- @endif --}}
                      </ul>
                  </li>
              </ul>

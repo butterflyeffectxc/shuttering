@@ -23,7 +23,7 @@ class BookingSeeder extends Seeder
                 'total_price' => 2000,
                 'photo_type' => 'coba',
                 'notes' => '',
-                'status' => '1',
+                'status' => 'Pending',
             ],
             [
                 'customer_id' => 3,
@@ -34,7 +34,7 @@ class BookingSeeder extends Seeder
                 'total_price' => 2000,
                 'photo_type' => 'coba',
                 'notes' => '',
-                'status' => '1',
+                'status' => 'Pending',
             ],
         ]);
     }

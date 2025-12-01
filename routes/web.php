@@ -3,7 +3,9 @@
 use App\Http\Controllers\AuthController;
 use App\Http\Controllers\BookingController;
 use App\Http\Controllers\PhotographerController;
+use App\Http\Controllers\PhotoResultController;
 use App\Http\Controllers\UserController;
+use App\Http\Controllers\UserViewController;
 use Illuminate\Support\Facades\Route;
 
 /*
@@ -22,28 +24,44 @@ Route::post('/login', [AuthController::class, 'login']);
 Route::get('/register', [AuthController::class, 'registerView']);
 Route::post('/register', [AuthController::class, 'register']);
 Route::get('/register/photographer', [PhotographerController::class, 'registerView']);
-Route::post('/register/photographer', [PhotographerController::class, 'register']);
-// Admin
-Route::get('/photographers', [PhotographerController::class, 'index']);
-Route::get('/photographers/detail/{photographer:id}', [PhotographerController::class, 'show']);
+Route::post('/register/photographer', [PhotographerController::class, 'registerPhotographer']);
+// Admin Start
+// Verified Photographer Account
+Route::get('/photographers', [PhotographerController::class, 'showAll']);
+Route::get('/photographers/detail/{photographer:id}', [PhotographerController::class, 'showDetail']);
+// See User Account
 Route::get('/users', [UserController::class, 'index']);
-Route::get('/bookings/detail/{booking:id}', [BookingController::class, 'show']);
-Route::get('/bookings', [BookingController::class, 'index']);
+// See Booking
+Route::get('/bookings/detail/{booking:id}', [BookingController::class, 'showDetail']);
+Route::get('/bookings', [BookingController::class, 'showAll']);
+// Admin End
 
+// Photographer Start
+// Booking
+Route::get('/photographers/bookings/detail/{booking:id}', [BookingController::class, 'showPerPhotographerDetail']);
+Route::get('/photographers/bookings', [BookingController::class, 'showPending']);
+Route::get('/photographers/bookings/processed', [BookingController::class, 'showAlreadyProcessed']);
+Route::get('/photographers/bookings/cancelled', [BookingController::class, 'showAlreadyCancelled']);
+Route::get('/photographers/bookings/upload', [BookingController::class, 'showToUpload']);
+Route::post('/photographer/bookings/upload-images', [PhotographerController::class, 'uploadImages']);
+Route::put('/photographers/bookings/update-status/{booking:id}', [BookingController::class, 'updateConfirmStatus']);
+// Photo Result
+Route::post('/photographers/photo-result/{booking}', [PhotoResultController::class, 'store'])
+    ->name('photoresult.store');
+// Review
+// Upload
+
+
+// User
+Route::get('/homepage', [UserViewController::class, 'showPhotographer']);
+Route::get('/user/photographers/detail/{photographer:id}', [UserViewController::class, 'showPhotographerDetail']);
+
+// sampah
 Route::get('/demo', function () {
     return view('index');
 });
-Route::get('/login', function () {
-    return view('users.login');
-});
-Route::get('/register', function () {
-    return view('users.register');
-});
 Route::get('/', function () {
     return view('users.landing-page');
-});
-Route::get('/homepage', function () {
-    return view('users.home-page');
 });
 Route::get('/booking', function () {
     return view('users.bookings.list');

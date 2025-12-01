@@ -13,7 +13,7 @@
                                 <p>From creative shoots to cinematic storytelling — Shuttering is where emotions meet
                                     artistry.
                                 </p>
-                                <input type="text" class="form-control input-glass text-white py-2" id="search"
+                                <input type="text" class="form-control input-glass text-white py-2 mb-3" id="search"
                                     placeholder="Search" name="search">
                             </div>
                             <div class="my-3">
@@ -30,26 +30,13 @@
                 </div>
             </div>
         </div>
-        <div class="photocard-bg">
-            <div class="container py-5">
-                <div class="row photocard-container">
-                    <div class="col-12 col-sm-6 col-md-4 col-lg-3 mb-4">
-                        <a href="{{ url('photographer/detail') }}">
-                            {{-- <div class="card text-bg-dark">
-                                <img src="https://images.unsplash.com/photo-1529626455594-4ff0802cfb7e" class="card-img"
-                                    alt="Cecilia Bright">
-                                <div class="photocard-overlay">
-                                    <div class="d-flex align-items-end">
-                                        <span class="photocard-location"><img src="{{ asset('assets/location.svg') }}"
-                                                width="24" alt=""> Jakarta</span>
-                                        <h3 class="card-title">Cecilia Bright</h3>
-                                        <p class="card-text">Wedding & Lifestyle</p>
-                                    </div>
-                                </div>
-                            </div> --}}
+        <div class="photocard-bg py-3">
+            <div class="container">
+                <div class="photocard-container">
+                    @foreach ($photographers as $photographer)
+                        <a href="{{ url('user/photographers/detail/' . $photographer->id) }}" class="photocard-wrapper">
                             <div class="photocard">
-                                <img src="https://images.unsplash.com/photo-1529626455594-4ff0802cfb7e"
-                                    alt="Cecilia Bright">
+                                <img src="https://images.unsplash.com/photo-1529626455594-4ff0802cfb7e" alt="">
                                 <div class="photocard-overlay">
                                     <div class="photocard-top">
                                         <button class="photocard-fav active btn-primary-sm">
@@ -57,118 +44,43 @@
                                         </button>
                                     </div>
                                     <div class="photocard-bottom">
-                                        <span class="photocard-location"><img src="{{ asset('assets/location.svg') }}"
-                                                width="24" alt=""> Jakarta</span>
-                                        <h3>Cecilia Bright</h3>
-                                        <p>Wedding & Lifestyle</p>
+                                        <span class="photocard-location">
+                                            <img src="{{ asset('assets/location.svg') }}" width="24">
+                                            {{ $photographer->location }}
+                                        </span>
+                                        <div class="d-flex justify-content-start align-items-center gap-2">
+                                            <h3>{{ $photographer->user->name }}</h3>
+                                            @if ($photographer->verified_by_admin === '2')
+                                                <img src="{{ asset('assets/icon_verified.svg') }}" alt=""
+                                                    style="width:24px; height:24px;">
+                                            @endif
+                                        </div>
+                                        <p>
+                                            @foreach ($photographer->photoTypes as $type)
+                                                {{ $type->name }}{{ !$loop->last ? ' & ' : '' }}
+                                            @endforeach
+                                        </p>
                                     </div>
                                 </div>
                             </div>
                         </a>
-                    </div>
-                    <div class="col-12 col-sm-6 col-md-4 col-lg-3 mb-4">
-                        <a href="{{ url('booking') }}">
-                            {{-- <div class="card text-bg-dark">
-                                <img src="https://images.unsplash.com/photo-1529626455594-4ff0802cfb7e" class="card-img"
-                                    alt="Cecilia Bright">
-                                <div class="photocard-overlay">
-                                    <div class="d-flex align-items-end">
-                                        <span class="photocard-location"><img src="{{ asset('assets/location.svg') }}"
-                                                width="24" alt=""> Jakarta</span>
-                                        <h3 class="card-title">Cecilia Bright</h3>
-                                        <p class="card-text">Wedding & Lifestyle</p>
-                                    </div>
-                                </div>
-                            </div> --}}
-                            <div class="photocard">
-                                <img src="https://images.unsplash.com/photo-1529626455594-4ff0802cfb7e"
-                                    alt="Cecilia Bright">
-                                <div class="photocard-overlay">
-                                    <div class="photocard-top">
-                                        <button class="photocard-fav active btn-primary-sm">
-                                            <img src="{{ asset('assets/favorite_outline.svg') }}" alt="">
-                                        </button>
-                                    </div>
-                                    <div class="photocard-bottom">
-                                        <span class="photocard-location"><img src="{{ asset('assets/location.svg') }}"
-                                                width="24" alt=""> Jakarta</span>
-                                        <h3>Cecilia Bright</h3>
-                                        <p>Wedding & Lifestyle</p>
-                                    </div>
-                                </div>
-                            </div>
-                        </a>
-                    </div>
-                    <div class="col-12 col-sm-6 col-md-4 col-lg-3 mb-4">
-                        <a href="{{ url('booking') }}">
-                            {{-- <div class="card text-bg-dark">
-                                <img src="https://images.unsplash.com/photo-1529626455594-4ff0802cfb7e" class="card-img"
-                                    alt="Cecilia Bright">
-                                <div class="photocard-overlay">
-                                    <div class="d-flex align-items-end">
-                                        <span class="photocard-location"><img src="{{ asset('assets/location.svg') }}"
-                                                width="24" alt=""> Jakarta</span>
-                                        <h3 class="card-title">Cecilia Bright</h3>
-                                        <p class="card-text">Wedding & Lifestyle</p>
-                                    </div>
-                                </div>
-                            </div> --}}
-                            <div class="photocard">
-                                <img src="https://images.unsplash.com/photo-1529626455594-4ff0802cfb7e"
-                                    alt="Cecilia Bright">
-                                <div class="photocard-overlay">
-                                    <div class="photocard-top">
-                                        <button class="photocard-fav active btn-primary-sm">
-                                            <img src="{{ asset('assets/favorite_outline.svg') }}" alt="">
-                                        </button>
-                                    </div>
-                                    <div class="photocard-bottom">
-                                        <span class="photocard-location"><img src="{{ asset('assets/location.svg') }}"
-                                                width="24" alt=""> Jakarta</span>
-                                        <h3>Cecilia Bright</h3>
-                                        <p>Wedding & Lifestyle</p>
-                                    </div>
-                                </div>
-                            </div>
-                        </a>
-                    </div>
-                    <div class="col-12 col-sm-6 col-md-4 col-lg-3 mb-4">
-                        <a href="{{ url('booking') }}">
-                            {{-- <div class="card text-bg-dark">
-                                <img src="https://images.unsplash.com/photo-1529626455594-4ff0802cfb7e" class="card-img"
-                                    alt="Cecilia Bright">
-                                <div class="photocard-overlay">
-                                    <div class="d-flex align-items-end">
-                                        <span class="photocard-location"><img src="{{ asset('assets/location.svg') }}"
-                                                width="24" alt=""> Jakarta</span>
-                                        <h3 class="card-title">Cecilia Bright</h3>
-                                        <p class="card-text">Wedding & Lifestyle</p>
-                                    </div>
-                                </div>
-                            </div> --}}
-                            <div class="photocard">
-                                <img src="https://images.unsplash.com/photo-1529626455594-4ff0802cfb7e"
-                                    alt="Cecilia Bright">
-                                <div class="photocard-overlay">
-                                    <div class="photocard-top">
-                                        <button class="photocard-fav active btn-primary-sm">
-                                            <img src="{{ asset('assets/favorite_outline.svg') }}" alt="">
-                                        </button>
-                                    </div>
-                                    <div class="photocard-bottom">
-                                        <span class="photocard-location"><img src="{{ asset('assets/location.svg') }}"
-                                                width="24" alt=""> Jakarta</span>
-                                        <h3>Cecilia Bright</h3>
-                                        <p>Wedding & Lifestyle</p>
-                                    </div>
-                                </div>
-                            </div>
-                        </a>
-                    </div>
-                    <!-- Tambahkan photocard lainnya di sini -->
+                    @endforeach
                 </div>
+
             </div>
         </div>
     </div>
     @include('partial.footer')
 @endsection
+{{-- <div class="card text-bg-dark">
+                                <img src="https://images.unsplash.com/photo-1529626455594-4ff0802cfb7e" class="card-img"
+                                    alt="Cecilia Bright">
+                                <div class="photocard-overlay">
+                                    <div class="d-flex align-items-end">
+                                        <span class="photocard-location"><img src="{{ asset('assets/location.svg') }}"
+                                                width="24" alt=""> Jakarta</span>
+                                        <h3 class="card-title">Cecilia Bright</h3>
+                                        <p class="card-text">Wedding & Lifestyle</p>
+                                    </div>
+                                </div>
+                            </div> --}}

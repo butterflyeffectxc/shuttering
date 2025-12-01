@@ -16,13 +16,8 @@ class PhotoType extends Model
     protected $table = 'photo_types';
     protected $primaryKey = 'id';
 
-    public function photographers()
+    public function photoTypeDetails()
     {
-        return $this->belongsToMany(
-            Photographer::class,
-            'photographer_photo_types',
-            'photo_type_id',
-            'photographer_id'
-        );
+        return $this->hasMany(PhotographerPhotoType::class, 'id', 'photo_type_id');
     }
 }

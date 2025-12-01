@@ -6,23 +6,15 @@ use Illuminate\Database\Eloquent\Factories\HasFactory;
 use Illuminate\Database\Eloquent\Model;
 use Illuminate\Database\Eloquent\SoftDeletes;
 
-class PhotographerPhotoType extends Model
+class Catalogue extends Model
 {
     use HasFactory, SoftDeletes;
-
-    protected $guarded = [
-        'id',
-    ];
-    protected $table = 'photographer_photo_types';
+    protected $table = 'catalogues';
     protected $primaryKey = 'id';
+    protected $guarded = ['id'];
 
     public function photographer()
     {
         return $this->belongsTo(Photographer::class, 'photographer_id', 'id');
-    }
-
-    public function photoType()
-    {
-        return $this->belongsTo(PhotoType::class, 'photo_type_id', 'id');
     }
 }

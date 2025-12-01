@@ -49,7 +49,7 @@
                                     <div class="position-relative">
                                         <input type="password" class="form-control input-glass text-white py-2 pe-5"
                                             id="password" placeholder="*****" name="password" minlength="8"
-                                            value="{{ old('password') }}" @error('password') is-invalid @enderror required>
+                                            value="{{ old('password') }}" required>
                                         <span
                                             class="fa fa-fw fa-eye field-icon toggle-password position-absolute top-50 end-0 translate-middle-y me-3"
                                             onclick="visiblePassword()"></span>
@@ -58,15 +58,13 @@
                                         <small class="text-danger">{{ $message }}</small>
                                     @enderror
                                 </div>
-
                                 <div class="mb-3 position-relative">
                                     <label for="password_confirmation" class="form-label"><b>Confirm
                                             Password</b></label>
                                     <div class="position-relative">
                                         <input type="password" class="form-control input-glass text-white py-2 pe-5"
-                                            @error('password') is-invalid @enderror id="password_confirmation"
-                                            placeholder="*****" name="password_confirmation"
-                                            value="{{ old('password_confirmation') }}" minlength="8" required>
+                                            id="password_confirmation" placeholder="*****" name="password_confirmation"
+                                            minlength="8" value="{{ old('password_confirmation') }}" required>
                                         <span
                                             class="fa fa-fw fa-eye field-icon toggle-password position-absolute top-50 end-0 translate-middle-y me-3"
                                             onclick="visiblePasswordConfirmation()"></span>

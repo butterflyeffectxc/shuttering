@@ -127,12 +127,12 @@
                                         <label for="password" class="form-label"><b>Password</b></label>
                                         <div class="position-relative">
                                             <input type="password" class="form-control input-glass text-white py-2 pe-5"
-                                                id="password" placeholder="*****" name="password" minlength="8"
-                                                value="{{ old('password') }}" @error('password') is-invalid @enderror
-                                                required>
+                                                id="password_photographer" placeholder="*****" name="password"
+                                                minlength="8" value="{{ old('password') }}"
+                                                @error('password') is-invalid @enderror required>
                                             <span
                                                 class="fa fa-fw fa-eye field-icon toggle-password position-absolute top-50 end-0 translate-middle-y me-3"
-                                                onclick="visiblePassword()"></span>
+                                                onclick="visiblePasswordPhotographer()"></span>
                                         </div>
                                         @error('password')
                                             <small class="text-danger">{{ $message }}</small>
@@ -144,12 +144,13 @@
                                                 Password</b></label>
                                         <div class="position-relative">
                                             <input type="password" class="form-control input-glass text-white py-2 pe-5"
-                                                @error('password') is-invalid @enderror id="password_confirmation"
-                                                placeholder="*****" name="password_confirmation"
-                                                value="{{ old('password_confirmation') }}" minlength="8" required>
+                                                @error('password') is-invalid @enderror
+                                                id="password_confirmation_photographer" placeholder="*****"
+                                                name="password_confirmation" value="{{ old('password_confirmation') }}"
+                                                minlength="8" required>
                                             <span
                                                 class="fa fa-fw fa-eye field-icon toggle-password position-absolute top-50 end-0 translate-middle-y me-3"
-                                                onclick="visiblePasswordConfirmation()"></span>
+                                                onclick="visiblePasswordConfirmationPhotographer()"></span>
                                         </div>
                                         @error('password_confirmation')
                                             <small class="text-danger">{{ $message }}</small>

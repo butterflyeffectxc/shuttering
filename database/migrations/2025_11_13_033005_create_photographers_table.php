@@ -13,15 +13,13 @@ return new class extends Migration
     {
         Schema::create('photographers', function (Blueprint $table) {
             $table->id();
-            $table->string('name');
-            $table->string('phone');
-            $table->string('email')->unique();
-            $table->string('password');
+            $table->integer('user_id');
+            $table->string('profile_photo')->nullable();
             $table->string('location');
-            $table->string('role')->default('2');
             $table->string('start_rate');
             $table->string('description')->nullable();
             $table->string('status'); // 1=available, 2=unavailable
+            $table->string('verified_by_admin'); // 1=amateur, 2=verified
             $table->timestamps();
             $table->softDeletes();
         });

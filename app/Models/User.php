@@ -24,9 +24,13 @@ class User extends Authenticatable
     protected $table = 'users';
     protected $primaryKey = 'id';
 
-      public function bookings()
+    public function bookings()
     {
         return $this->hasMany(Booking::class, 'customer_id');
+    }
+    public function photographer()
+    {
+        return $this->hasOne(Photographer::class);
     }
     /**
      * The attributes that should be hidden for serialization.

@@ -15,17 +15,28 @@ class Photographer extends Model
   protected $table = 'photographers';
   protected $primaryKey = 'id';
 
+  public function user()
+  {
+    return $this->belongsTo(User::class);
+  }
   public function photoTypes()
   {
-    return $this->belongsToMany(
-      PhotoType::class,
-      'photographer_photo_types',
-      'photographer_id',
-      'photo_type_id'
-    );
+    return $this->belongsToMany(PhotoType::class, 'photographer_photo_types', 'photographer_id', 'photo_type_id');
+  }
+  public function photoTypeDetails()
+  {
+    return $this->hasMany(PhotoType::class);
   }
   public function bookings()
   {
     return $this->hasMany(Booking::class, 'photographer_id');
+  }
+  public function photoResults()
+  {
+    return $this->hasMany(PhotoResult::class);
+  }
+  public function catalogues()
+  {
+    return $this->hasMany(Catalogue::class, 'photographer_id');
   }
 }

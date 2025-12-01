@@ -21,6 +21,8 @@
     <link rel="stylesheet" href="{{ asset('assets/assets/extensions/simple-datatables/style.css') }}" />
     <link rel="stylesheet" href="{{ asset('assets/assets/compiled/css/table-datatable.css') }}" />
     <link rel="stylesheet" href="{{ asset('style.css') }}">
+    <!-- Dependencies for scriptupload.js -->
+    <link rel="stylesheet" href="https://cdn.jsdelivr.net/npm/izitoast@1.4.0/dist/css/iziToast.min.css">
 </head>
 
 <body>
@@ -38,6 +40,8 @@
         </div>
         {{-- @include('partial.footer') --}}
     </div>
+    <script src="https://code.jquery.com/jquery-3.5.1.slim.min.js"></script>
+    <script src="https://cdn.jsdelivr.net/npm/bootstrap@4.6.2/dist/js/bootstrap.bundle.min.js"></script>
     <script src="{{ asset('assets/assets/static/js/components/dark.js') }}"></script>
     <script src="{{ asset('assets/assets/extensions/perfect-scrollbar/perfect-scrollbar.min.js') }}"></script>
 
@@ -53,6 +57,13 @@
     <script src="{{ asset('assets/assets/extensions/dayjs/dayjs.min.js') }}"></script>
     <script src="{{ asset('assets/assets/extensions/apexcharts/apexcharts.min.js') }}"></script>
     <script src="{{ asset('assets/assets/static/js/pages/ui-apexchart.js') }}"></script>
+    {{-- js --}}
+    {{-- <script src="{{ asset('js/scriptupload.js') }}"></script> --}}
+    <script src="{{ asset('js/script.js') }}"></script>
+    <!-- Dependencies for scriptupload.js -->
+    <script src="https://cdn.jsdelivr.net/npm/izitoast@1.4.0/dist/js/iziToast.min.js"></script>
+    <script src="https://unpkg.com/tippy.js@6"></script>
+    <script src="https://cdn.jsdelivr.net/npm/autosize@5.0.1/dist/autosize.min.js"></script>
 </body>
 
 </html>

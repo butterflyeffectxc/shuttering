@@ -7,32 +7,33 @@
                 <div class="mt-5 text-white">
                     <div class="row">
                         <div class="col-3">
-                            <h3>Wedding & Lifestyle Photographer based in</h3>
-                            <h3 class="font-instrument">Jakarta</h3>
+                            <h3>
+                                @foreach ($photographer->photoTypes as $type)
+                                    {{ $type->name }}{{ !$loop->last ? ' & ' : '' }}
+                                @endforeach Photographer based in
+                            </h3>
+                            <h3 class="font-instrument">{{ $photographer->location }}</h3>
                             <div class="py-1">
                                 <p><i class="fa-solid fa-circle-check"></i> Available for session</p>
-                                <p><i class="fa-solid fa-location-dot"></i> Jakarta</p>
+                                <p><i class="fa-solid fa-location-dot"></i> {{ $photographer->location }}</p>
                             </div>
                             <div class="py-1">
                                 <p>Interest</p>
                                 <div class="justify-content-start">
-                                    <a href="" class="chip-status chip-pending">Wedding</a>
-                                    <a href="" class="chip-status chip-pending">Lifestyle</a>
-                                    <a href="" class="chip-status chip-pending">Nature</a>
+                                    @foreach ($photographer->photoTypes as $type)
+                                        <a href="" class="chip-status chip-pending">{{ $type->name }}</a>
+                                    @endforeach
                                 </div>
                             </div>
                         </div>
                         <div class="col-6"></div>
                         <div class="col-3">
-                            <h6>Hey, I’m <b>Cecilia Bright</b> — I shoot love stories, candid smiles, and those in-between
-                                moments
-                                that
-                                make everything feel real.</h6>
+                            <h6>{{ $photographer->description }}</h6>
                             <a href="{{ url('booking/fill-form') }}" class="btn btn-primary-sm">Book a Session <i
                                     class="fa-solid fa-chevron-right"></i></a>
                         </div>
                     </div>
-                    <h1 class="font-super-large">Cecilia Bright</h1>
+                    <h1 class="font-super-large">{{ $photographer->user->name }}</h1>
                 </div>
             </div>
         </div>
