@@ -8,14 +8,14 @@
                     <div class="sticky-scroll">
                         <h2>The Photographer.</h2>
                         <img src="{{ asset('assets/Cecilia.jpg') }}" alt="" class="img-form">
-                        <h2>Cecilia Bright</h2>
+                        <h2>{{ $photographer->user->name }}</h2>
                         <div class="d-flex justify-content-start gap-3 pb-2">
                             <h6 class="photocard-location"><img src="{{ asset('assets/location.svg') }}" width="24"
-                                    alt=""> Jakarta</h6>
+                                    alt=""> {{ $photographer->location }}</h6>
                             <h6 class="photocard-location"><img src="{{ asset('assets/icon_star.svg') }}" width="24"
                                     alt=""> 5/5</h6>
                         </div>
-                        <p>Start From: Rp1.000.000/Session</p>
+                        <p>Start From: Rp{{ $photographer->start_rate }}/Session</p>
                     </div>
                 </div>
                 <div class="col-12 col-md-8 mx-auto">
@@ -28,25 +28,28 @@
                                         confirm your request.</p>
                                     <hr>
                                 </div>
-                                <form method="GET" action="/login" class="text-white text-start">
+                                <form method="POST" action="{{ url('booking/fill-form/' . $photographer->id) }}"
+                                    class="text-white text-start">
+                                    @csrf
                                     <h5>Session Details</h5>
                                     <div class="mb-3 row">
                                         <div class="col">
                                             <label for="date" class="form-label"><b>Session Date</b></label>
                                             <input type="date" class="form-control input-glass text-white py-2"
-                                                id="date" placeholder="date" name="date">
+                                                id="date" placeholder="date" name="session_date">
                                         </div>
                                         <div class="col">
                                             <label for="duration" class="form-label"><b>Duration</b></label>
                                             <input type="time" class="form-control input-glass text-white py-2"
-                                                id="duration" placeholder="duration" name="duration">
+                                                id="duration" placeholder="duration" name="session_duration"
+                                                data-rate="{{ $photographer->start_rate }}">
                                         </div>
                                     </div>
                                     <div class="mb-3">
                                         <label for="location" class="form-label"><b>Session Location</b></label>
                                         <input type="text" class="form-control input-glass text-white py-2"
                                             id="location" placeholder="e.g. Grand Ballroom, Hotel XYZ, Jakarta"
-                                            name="location">
+                                            name="session_location">
                                     </div>
                                     <div class="mb-3">
                                         <label for="photo_type" class="form-label"><b>Type of Photoshoot</b></label>
@@ -64,6 +67,11 @@
                                             <option value="8">Street Photography</option>
                                             <option value="9">Travel/Outdoor/Nature</option>
                                         </select>
+                                    </div>
+                                    <div class="mb-3">
+                                        <label for="total_price" class="form-label"><b>Total Price</b></label>
+                                        <input type="number" class="form-control input-glass text-white py-2"
+                                            id="total_price" name="total_price" readonly>
                                     </div>
                                     <div class="mb-3">
                                         <label for="notes" class="form-label"><b>Additional Notes</b></label>
@@ -94,3 +102,10 @@
         @include('partial.footer')
     </div>
 @endsection
+@push('scripts')
+    <script>
+        document.addEventListener("DOMContentLoaded", function() {
+            initTotalPrice();
+        });
+    </script>
+@endpush

@@ -6,7 +6,7 @@
                 @include('partial.navbar')
                 <div class="mt-5 text-white">
                     <div class="row">
-                        <div class="col-3">
+                        <div class="col-4">
                             <h3>
                                 @foreach ($photographer->photoTypes as $type)
                                     {{ $type->name }}{{ !$loop->last ? ' & ' : '' }}
@@ -21,16 +21,19 @@
                                 <p>Interest</p>
                                 <div class="justify-content-start">
                                     @foreach ($photographer->photoTypes as $type)
-                                        <a href="" class="chip-status chip-pending">{{ $type->name }}</a>
+                                        <a href="" class="chip">{{ $type->name }}</a>
                                     @endforeach
                                 </div>
                             </div>
                         </div>
-                        <div class="col-6"></div>
-                        <div class="col-3">
+                        <div class="col-4"></div>
+                        <div class="col-4 d-flex flex-column justify-content-center">
                             <h6>{{ $photographer->description }}</h6>
-                            <a href="{{ url('booking/fill-form') }}" class="btn btn-primary-sm">Book a Session <i
-                                    class="fa-solid fa-chevron-right"></i></a>
+                            <div class="">
+                                <a href="{{ url('booking/fill-form/' . $photographer->id) }}"
+                                    class="btn btn-primary-sm px-4">Book a Session <i
+                                        class="fa-solid fa-chevron-right"></i></a>
+                            </div>
                         </div>
                     </div>
                     <h1 class="font-super-large">{{ $photographer->user->name }}</h1>

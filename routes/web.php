@@ -4,6 +4,7 @@ use App\Http\Controllers\AuthController;
 use App\Http\Controllers\BookingController;
 use App\Http\Controllers\PhotographerController;
 use App\Http\Controllers\PhotoResultController;
+use App\Http\Controllers\UserBookingController;
 use App\Http\Controllers\UserController;
 use App\Http\Controllers\UserViewController;
 use Illuminate\Support\Facades\Route;
@@ -55,6 +56,8 @@ Route::post('/photographers/photo-result/{booking}', [PhotoResultController::cla
 // User
 Route::get('/homepage', [UserViewController::class, 'showPhotographer']);
 Route::get('/user/photographers/detail/{photographer:id}', [UserViewController::class, 'showPhotographerDetail']);
+Route::get('/booking/fill-form/{photographer:id}', [UserBookingController::class, 'showForm']);
+Route::post('/booking/fill-form/{photographer:id}', [UserBookingController::class, 'fillForm']);
 
 // sampah
 Route::get('/demo', function () {

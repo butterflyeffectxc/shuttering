@@ -1,6 +1,10 @@
+document.addEventListener("DOMContentLoaded", function () {
+    initTotalPrice();
+});
 // password eye visibility start
 function visiblePassword() {
     const x = document.getElementById("password");
+    if (!x) return;
     const icon = x.nextElementSibling;
     if (x.type === "password") {
         x.type = "text";
@@ -14,6 +18,7 @@ function visiblePassword() {
 }
 function visiblePasswordConfirmation() {
     const x = document.getElementById("password_confirmation");
+    if (!x) return;
     const icon = x.nextElementSibling;
     if (x.type === "password") {
         x.type = "text";
@@ -27,6 +32,7 @@ function visiblePasswordConfirmation() {
 }
 function visiblePasswordPhotographer() {
     const x = document.getElementById("password_photographer");
+    if (!x) return;
     const icon = x.nextElementSibling;
     if (x.type === "password") {
         x.type = "text";
@@ -40,6 +46,7 @@ function visiblePasswordPhotographer() {
 }
 function visiblePasswordConfirmationPhotographer() {
     const x = document.getElementById("password_confirmation_photographer");
+    if (!x) return;
     const icon = x.nextElementSibling;
     if (x.type === "password") {
         x.type = "text";
@@ -59,30 +66,66 @@ const btnCustomer = document.getElementById("btnCustomer");
 const btnPhotographer = document.getElementById("btnPhotographer");
 const customerForm = document.getElementById("customerForm");
 const photographerForm = document.getElementById("photographerForm");
-document.addEventListener("DOMContentLoaded", () => {
-    btnCustomer.classList.add("active");
-    btnPhotographer.classList.remove("active");
-    customerForm.style.display = "block";
-    photographerForm.style.display = "none";
-});
-btnCustomer.addEventListener("click", () => {
-    btnCustomer.classList.add("active");
-    btnPhotographer.classList.remove("active");
-    customerForm.style.display = "block";
-    photographerForm.style.display = "none";
-});
+if (btnCustomer && btnPhotographer && customerForm && photographerForm) {
+    document.addEventListener("DOMContentLoaded", () => {
+        btnCustomer.classList.add("active");
+        btnPhotographer.classList.remove("active");
+        customerForm.style.display = "block";
+        photographerForm.style.display = "none";
+    });
+    btnCustomer.addEventListener("click", () => {
+        btnCustomer.classList.add("active");
+        btnPhotographer.classList.remove("active");
+        customerForm.style.display = "block";
+        photographerForm.style.display = "none";
+    });
 
-btnPhotographer.addEventListener("click", () => {
-    btnPhotographer.classList.add("active");
-    btnCustomer.classList.remove("active");
-    customerForm.style.display = "none";
-    photographerForm.style.display = "block";
-});
+    btnPhotographer.addEventListener("click", () => {
+        btnPhotographer.classList.add("active");
+        btnCustomer.classList.remove("active");
+        customerForm.style.display = "none";
+        photographerForm.style.display = "block";
+    });
+}
 
 // button toggle register end
+
+// total price start
+function initTotalPrice() {
+    const durationInput = document.getElementById("duration");
+    const totalPriceInput = document.getElementById("total_price");
+
+    if (!durationInput || !totalPriceInput) return;
+
+    durationInput.addEventListener("input", function () {
+        let timeValue = this.value;
+        let rate = parseInt(this.dataset.rate);
+
+        if (!timeValue || !rate) {
+            totalPriceInput.value = "";
+            return;
+        }
+
+        let parts = timeValue.split(":");
+        let hours = parseInt(parts[0]) || 0;
+        let minutes = parseInt(parts[1]) || 0;
+        let durationInHours = hours + minutes / 60;
+
+        let total = durationInHours * rate;
+        let formatted = total.toLocaleString("id-ID");
+
+        totalPriceInput.value = "Rp " + formatted;
+    });
+}
+
+// total price end
+
 // Membuka input file yang disembunyikan
 function openInput() {
-    document.getElementById("imageInput").click();
+    const imageInput = document.getElementById("imageInput");
+    if (imageInput) {
+        imageInput.click();
+    }
 }
 
 // Menampilkan preview gambar
@@ -90,7 +133,7 @@ function previewImage(input) {
     const file = input.files[0];
     const preview = document.getElementById("imagePreview");
 
-    if (!file) return;
+    if (!file || !preview) return;
 
     const reader = new FileReader();
 

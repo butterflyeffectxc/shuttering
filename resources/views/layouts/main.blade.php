@@ -18,6 +18,7 @@
         integrity="sha384-FKyoEForCGlyvwx9Hj09JcYn3nv7wiPVlz7YYwJrWVcXK/BmnVDxM+D2scQbITxI" crossorigin="anonymous">
     </script>
     <script src="{{ asset('js/script.js') }}"></script>
+    @stack('scripts')
 </body>
 
 </html>
