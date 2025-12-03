@@ -15,11 +15,10 @@ class Booking extends Model
     protected $table = 'bookings';
     protected $primaryKey = 'id';
 
-    public function customer()
+    public function user()
     {
-        return $this->belongsTo(User::class, 'customer_id');
+        return $this->belongsTo(User::class, 'user_id');
     }
-
     public function photographer()
     {
         return $this->belongsTo(Photographer::class, 'photographer_id');

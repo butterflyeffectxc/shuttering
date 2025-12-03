@@ -1,6 +1,3 @@
-document.addEventListener("DOMContentLoaded", function () {
-    initTotalPrice();
-});
 // password eye visibility start
 function visiblePassword() {
     const x = document.getElementById("password");
@@ -61,98 +58,92 @@ function visiblePasswordConfirmationPhotographer() {
 // password eye visibility end
 
 // button toggle register start
+document.addEventListener("DOMContentLoaded", () => {
+    // button toggle register
+    const btnCustomer = document.getElementById("btnCustomer");
+    const btnPhotographer = document.getElementById("btnPhotographer");
+    const customerForm = document.getElementById("customerForm");
+    const photographerForm = document.getElementById("photographerForm");
 
-const btnCustomer = document.getElementById("btnCustomer");
-const btnPhotographer = document.getElementById("btnPhotographer");
-const customerForm = document.getElementById("customerForm");
-const photographerForm = document.getElementById("photographerForm");
-if (btnCustomer && btnPhotographer && customerForm && photographerForm) {
-    document.addEventListener("DOMContentLoaded", () => {
+    if (btnCustomer && btnPhotographer && customerForm && photographerForm) {
         btnCustomer.classList.add("active");
-        btnPhotographer.classList.remove("active");
         customerForm.style.display = "block";
         photographerForm.style.display = "none";
-    });
-    btnCustomer.addEventListener("click", () => {
-        btnCustomer.classList.add("active");
-        btnPhotographer.classList.remove("active");
-        customerForm.style.display = "block";
-        photographerForm.style.display = "none";
-    });
 
-    btnPhotographer.addEventListener("click", () => {
-        btnPhotographer.classList.add("active");
-        btnCustomer.classList.remove("active");
-        customerForm.style.display = "none";
-        photographerForm.style.display = "block";
-    });
-}
+        btnCustomer.addEventListener("click", () => {
+            btnCustomer.classList.add("active");
+            btnPhotographer.classList.remove("active");
+            customerForm.style.display = "block";
+            photographerForm.style.display = "none";
+        });
 
-// button toggle register end
+        btnPhotographer.addEventListener("click", () => {
+            btnPhotographer.classList.add("active");
+            btnCustomer.classList.remove("active");
+            customerForm.style.display = "none";
+            photographerForm.style.display = "block";
+        });
+    }
 
-// total price start
-function initTotalPrice() {
+    // total price
     const durationInput = document.getElementById("duration");
     const totalPriceInput = document.getElementById("total_price");
+    const totalPriceRaw = document.getElementById("total_price_raw");
 
-    if (!durationInput || !totalPriceInput) return;
+    if (!durationInput) return;
 
-    durationInput.addEventListener("input", function () {
-        let timeValue = this.value;
-        let rate = parseInt(this.dataset.rate);
+    durationInput.addEventListener("change", function () {
+        let rate = parseInt(durationInput.dataset.rate); // start rate
+        let duration = durationInput.value;
 
-        if (!timeValue || !rate) {
-            totalPriceInput.value = "";
-            return;
-        }
+        if (!duration) return;
 
-        let parts = timeValue.split(":");
-        let hours = parseInt(parts[0]) || 0;
-        let minutes = parseInt(parts[1]) || 0;
-        let durationInHours = hours + minutes / 60;
+        // Hitung durasi dalam jam
+        let [hour, minute] = duration.split(":").map(Number);
+        let durInHours = hour + minute / 60;
 
-        let total = durationInHours * rate;
-        let formatted = total.toLocaleString("id-ID");
+        // Hitung harga
+        let total = Math.round(rate * durInHours);
 
-        totalPriceInput.value = "Rp " + formatted;
+        // Masukkan ke hidden input (nilai bersih)
+        totalPriceRaw.value = total;
+
+        // Format rupiah untuk user
+        totalPriceInput.value = formatRupiah(total.toString());
     });
-}
 
-// total price end
-
-// Membuka input file yang disembunyikan
-function openInput() {
-    const imageInput = document.getElementById("imageInput");
-    if (imageInput) {
-        imageInput.click();
+    function formatRupiah(angka) {
+        return "Rp " + angka.replace(/\B(?=(\d{3})+(?!\d))/g, ".");
     }
-}
 
-// Menampilkan preview gambar
-function previewImage(input) {
-    const file = input.files[0];
+    // preview image
+    const imageInput = document.getElementById("imageInput");
     const preview = document.getElementById("imagePreview");
 
-    if (!file || !preview) return;
+    if (imageInput && preview) {
+        imageInput.addEventListener("change", function () {
+            const file = this.files[0];
+            if (!file) return;
 
-    const reader = new FileReader();
+            const reader = new FileReader();
+            reader.onload = (e) => {
+                preview.src = e.target.result;
+                preview.classList.remove("d-none");
+            };
+            reader.readAsDataURL(file);
+        });
+    }
 
-    reader.onload = function (e) {
-        preview.src = e.target.result;
-        preview.classList.remove("d-none"); // Menampilkan gambar
-    };
-
-    reader.readAsDataURL(file);
-}
-
-// preview image end
-const thumbs = document.querySelectorAll(".thumb");
-const carousel = new bootstrap.Carousel("#weddingCarousel");
-
-thumbs.forEach((thumb, index) => {
-    thumb.addEventListener("click", () => {
-        carousel.to(index);
-        thumbs.forEach((t) => t.classList.remove("active-thumb"));
-        thumb.classList.add("active-thumb");
-    });
+    // carousel thumbs
+    const thumbs = document.querySelectorAll(".thumb");
+    if (thumbs.length > 0) {
+        const carousel = new bootstrap.Carousel("#weddingCarousel");
+        thumbs.forEach((thumb, index) => {
+            thumb.addEventListener("click", () => {
+                carousel.to(index);
+                thumbs.forEach((t) => t.classList.remove("active-thumb"));
+                thumb.classList.add("active-thumb");
+            });
+        });
+    }
 });

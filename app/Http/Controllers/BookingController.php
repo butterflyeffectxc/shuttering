@@ -55,7 +55,7 @@ class BookingController extends Controller
 
         return view('photographers.bookings.confirm', compact('bookings'));
     }
-    public function showAlreadyCancelled(Booking $booking)
+    public function showAlreadyCanceled(Booking $booking)
     {
         // id user yang login
         $userId = auth()->id();
@@ -67,11 +67,11 @@ class BookingController extends Controller
         }
         // ambil booking sesuai id photographer
         $bookings = Booking::with(['customer'])
-            ->where('photographer_id', $photographer->id)->where('status', 'Cancelled')
+            ->where('photographer_id', $photographer->id)->where('status', 'Canceled')
             ->orderBy('id', 'desc')
             ->get();
 
-        return view('photographers.bookings.cancelled', compact('bookings'));
+        return view('photographers.bookings.canceled', compact('bookings'));
     }
     public function showPerPhotographerDetail(Booking $booking)
     {

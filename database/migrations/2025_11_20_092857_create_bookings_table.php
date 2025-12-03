@@ -13,15 +13,15 @@ return new class extends Migration
     {
         Schema::create('bookings', function (Blueprint $table) {
             $table->id();
-            $table->integer('customer_id');
+            $table->integer('user_id');
             $table->integer('photographer_id');
             $table->date('session_date');
             $table->time('session_duration');
             $table->string('session_location');
             $table->float('total_price');
-            $table->string('photo_type');
+            $table->integer('photo_type_id');
             $table->text('notes')->nullable();
-            $table->string('status')->default("1");
+            $table->string('status')->default("pending");
             $table->timestamps();
             $table->softDeletes();
         });

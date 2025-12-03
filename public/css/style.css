@@ -502,7 +502,7 @@ a{
 /* booking card */
 .booking-container{
     display: grid;
-    grid-template-columns: repeat(auto-fit, minmax(300px, 1fr));
+    grid-template-columns: repeat(auto-fill, minmax(270px, 1fr));
     gap: 1.5rem;
 }
 .booking-card {
@@ -602,8 +602,12 @@ a{
   color: #01401D;
 }
 .chip-paid {
-  background-color: rgba(202, 76, 224, 0.80);;
+  background-color: rgba(202, 76, 224, 0.80);
   color: #4B0257;
+}
+.chip-canceled {
+  background-color: rgba(87, 2, 3, 0.80);
+  color: #FF5557;
 }
 
 /* .booking-card.pending .booking-card-status {

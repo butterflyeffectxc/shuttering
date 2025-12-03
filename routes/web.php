@@ -58,6 +58,7 @@ Route::get('/homepage', [UserViewController::class, 'showPhotographer']);
 Route::get('/user/photographers/detail/{photographer:id}', [UserViewController::class, 'showPhotographerDetail']);
 Route::get('/booking/fill-form/{photographer:id}', [UserBookingController::class, 'showForm']);
 Route::post('/booking/fill-form/{photographer:id}', [UserBookingController::class, 'fillForm']);
+Route::get('/user/booking', [UserBookingController::class, 'showBooking']);
 
 // sampah
 Route::get('/demo', function () {
@@ -68,9 +69,6 @@ Route::get('/', function () {
 });
 Route::get('/booking', function () {
     return view('users.bookings.list');
-});
-Route::get('/booking/fill-form', function () {
-    return view('users.bookings.form');
 });
 Route::get('/photographer/detail', function () {
     return view('users.bookings.detail');

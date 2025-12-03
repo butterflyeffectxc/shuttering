@@ -15,26 +15,26 @@ class BookingSeeder extends Seeder
     {
         DB::table('bookings')->insert([
             [
-                'customer_id' => 2,
+                'user_id' => 2,
                 'photographer_id' => 1,
                 'session_date' => '2024-08-10',
                 'session_duration' => '01:30:00',
                 'session_location' => 'Jakarta',
                 'total_price' => 2000,
-                'photo_type' => 'coba',
+                'photo_type_id' => 1,
                 'notes' => '',
-                'status' => 'Pending',
+                'status' => 'pending',
             ],
             [
-                'customer_id' => 3,
+                'user_id' => 3,
                 'photographer_id' => 2,
                 'session_date' => '2024-08-10',
                 'session_duration' => '02:00:00',
                 'session_location' => 'Jakarta',
                 'total_price' => 2000,
-                'photo_type' => 'coba',
+                'photo_type_id' => 1,
                 'notes' => '',
-                'status' => 'Pending',
+                'status' => 'pending',
             ],
         ]);
     }

@@ -15,7 +15,7 @@
                             <h6 class="photocard-location"><img src="{{ asset('assets/icon_star.svg') }}" width="24"
                                     alt=""> 5/5</h6>
                         </div>
-                        <p>Start From: Rp{{ $photographer->start_rate }}/Session</p>
+                        <p>Start From: Rp{{ number_format($photographer->start_rate, 0, ',', '.') }}/Session</p>
                     </div>
                 </div>
                 <div class="col-12 col-md-8 mx-auto">
@@ -54,38 +54,35 @@
                                     <div class="mb-3">
                                         <label for="photo_type" class="form-label"><b>Type of Photoshoot</b></label>
                                         <select class="form-select input-glass" aria-label="Default select example"
-                                            name="photo_type">
+                                            name="photo_type_id">
                                             <option selected>Open this select menu</option>
-                                            <option value="1">Commercial</option>
-                                            <option value="2">Event/Corporate</option>
-                                            <option value="3">Family/Maternity</option>
-                                            <option value="4">Fashion</option>
-                                            <option value="5">Graduation</option>
-                                            <option value="6">Lifestyle</option>
-                                            <option value="7">Potrait/Personal</option>
-                                            <option value="7">Prewedding/Wedding</option>
-                                            <option value="8">Street Photography</option>
-                                            <option value="9">Travel/Outdoor/Nature</option>
+                                            @foreach ($photoTypes as $type)
+                                                <option value="{{ $type->id }}">{{ $type->name }}</option>
+                                            @endforeach
                                         </select>
                                     </div>
                                     <div class="mb-3">
                                         <label for="total_price" class="form-label"><b>Total Price</b></label>
-                                        <input type="number" class="form-control input-glass text-white py-2"
-                                            id="total_price" name="total_price" readonly>
-                                    </div>
-                                    <div class="mb-3">
-                                        <label for="notes" class="form-label"><b>Additional Notes</b></label>
+                                        <input type="text" class="form-control input-glass text-white py-2"
+                                            id="total_price_raw" name="total_price" readonly>
+                                        </div>
+                                        <div class="mb-3">
+                                            <label for="notes" class="form-label"><b>Additional Notes</b></label>
                                         <div class="form-floating">
-                                            <textarea class="form-control input-glass-stretch" placeholder="Leave a comment here" id="floatingTextarea2"
-                                                style="height: 100px"></textarea>
-                                            <label for="floatingTextarea2">Any special requests or details...</label>
+                                            <textarea class="form-control input-glass-stretch" placeholder="Leave a comment here" id="notes"
+                                                style="height: 100px" name="notes"></textarea>
+                                            <label for="notes">Any special requests or details...</label>
                                         </div>
                                         <small>*Includes 20 edited soft files (digital photos) and 5 printed photos per
                                             session</small>
                                     </div>
+                                    {{-- hidden input --}}
+                                    <input type="text" class="form-control input-glass text-white py-2"
+                                    id="status" name="status" value="pending" hidden>
+                                    {{-- hidden input --}}
                                     <div class="my-3">
                                         <div class="d-grid gap-2">
-                                            <button class="btn btn-primary-sm">Register</button>
+                                            <button class="btn btn-primary-sm">Submit Booking Request</button>
                                         </div>
                                         <div class="d-flex justify-content-center mt-3">
                                             <small>* Required fields. Your booking will be pending until the photographer
@@ -102,10 +99,3 @@
         @include('partial.footer')
     </div>
 @endsection
-@push('scripts')
-    <script>
-        document.addEventListener("DOMContentLoaded", function() {
-            initTotalPrice();
-        });
-    </script>
-@endpush
