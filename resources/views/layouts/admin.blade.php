@@ -18,9 +18,12 @@
     <link rel="stylesheet" href="{{ asset('assets/assets/compiled/css/app.css') }}" />
     <link rel="stylesheet" href="{{ asset('assets/assets/compiled/css/app-dark.css') }}" />
     <link rel="stylesheet" href="{{ asset('assets/assets/compiled/css/iconly.css') }}" />
+    <link rel="stylesheet" href="{{ asset('assets/assets/extensions/sweetalert2/sweetalert2.min.css') }}">
     <link rel="stylesheet" href="{{ asset('assets/assets/extensions/simple-datatables/style.css') }}" />
     <link rel="stylesheet" href="{{ asset('assets/assets/compiled/css/table-datatable.css') }}" />
     <link rel="stylesheet" href="{{ asset('style.css') }}">
+    <link rel="stylesheet" href="{{ asset('assets/assets/compiled/svg/favicon.svg') }}">
+    <link rel="stylesheet" href="{{ asset('assets/assets/compiled/svg/favicon.svg.css') }}">
     <!-- Dependencies for scriptupload.js -->
     <link rel="stylesheet" href="https://cdn.jsdelivr.net/npm/izitoast@1.4.0/dist/css/iziToast.min.css">
 </head>
@@ -48,22 +51,25 @@
     <script src="{{ asset('assets/assets/compiled/js/app.js') }}"></script>
 
     <!-- Need: Apexcharts -->
-    <script src="{{ asset('assets/assets/extensions/apexcharts/apexcharts.min.js') }}"></script>
     <script src="{{ asset('assets/assets/static/js/pages/dashboard.js') }}"></script>
     <!-- datatables -->
     <script src="{{ asset('assets/assets/extensions/simple-datatables/umd/simple-datatables.js') }}"></script>
-    <script src="{{ asset('assets/assets/static/js/pages/simple-') }}datatables.js"></script>
+    <script src="{{ asset('assets/assets/static/js/pages/simple-datatables.js') }}"></script>
     <!-- carts -->
     <script src="{{ asset('assets/assets/extensions/dayjs/dayjs.min.js') }}"></script>
     <script src="{{ asset('assets/assets/extensions/apexcharts/apexcharts.min.js') }}"></script>
     <script src="{{ asset('assets/assets/static/js/pages/ui-apexchart.js') }}"></script>
+    {{-- sweet alert --}}
+    <script src="{{ asset('assets/assets/extensions/sweetalert2/sweetalert2.min.js') }}"></script>
+    <script src="{{ asset('assets/assets/static/js/pages/sweetalert2.js') }}"></script>
     {{-- js --}}
-    {{-- <script src="{{ asset('js/scriptupload.js') }}"></script> --}}
+    <script src="{{ asset('js/scriptupload.js') }}"></script>
     <script src="{{ asset('js/script.js') }}"></script>
     <!-- Dependencies for scriptupload.js -->
     <script src="https://cdn.jsdelivr.net/npm/izitoast@1.4.0/dist/js/iziToast.min.js"></script>
     <script src="https://unpkg.com/tippy.js@6"></script>
     <script src="https://cdn.jsdelivr.net/npm/autosize@5.0.1/dist/autosize.min.js"></script>
+    @yield('scripts')
 </body>
 
 </html>

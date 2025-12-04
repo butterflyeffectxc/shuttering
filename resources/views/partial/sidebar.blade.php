@@ -49,6 +49,12 @@
                          <span>Dashboard</span>
                      </a>
                  </li>
+                 <li class="sidebar-item">
+                     <a href="{{ url('photographers/profile') }}" class="sidebar-link">
+                         <i class="bi bi-grid-fill"></i>
+                         <span>Profile</span>
+                     </a>
+                 </li>
 
                  <li class="sidebar-item has-sub">
                      <a href="#" class="sidebar-link">
@@ -93,7 +99,7 @@
                          </li>
                          <li
                              class="submenu-item {{ Request::is('photographers/bookings/cancelled') ? 'active' : '' }}">
-                             <a href="{{ url('photographers/bookings/cancelled') }}" class="submenu-link">Cancelled
+                             <a href="{{ url('photographers/bookings/canceled') }}" class="submenu-link">Canceled
                                  Booking</a>
                          </li>
                          <li class="submenu-item {{ Request::is('photographers/bookings/upload') ? 'active' : '' }}">

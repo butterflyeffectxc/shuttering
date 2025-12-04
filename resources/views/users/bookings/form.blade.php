@@ -65,9 +65,9 @@
                                         <label for="total_price" class="form-label"><b>Total Price</b></label>
                                         <input type="text" class="form-control input-glass text-white py-2"
                                             id="total_price_raw" name="total_price" readonly>
-                                        </div>
-                                        <div class="mb-3">
-                                            <label for="notes" class="form-label"><b>Additional Notes</b></label>
+                                    </div>
+                                    <div class="mb-3">
+                                        <label for="notes" class="form-label"><b>Additional Notes</b></label>
                                         <div class="form-floating">
                                             <textarea class="form-control input-glass-stretch" placeholder="Leave a comment here" id="notes"
                                                 style="height: 100px" name="notes"></textarea>
@@ -77,8 +77,8 @@
                                             session</small>
                                     </div>
                                     {{-- hidden input --}}
-                                    <input type="text" class="form-control input-glass text-white py-2"
-                                    id="status" name="status" value="pending" hidden>
+                                    <input type="text" class="form-control input-glass text-white py-2" id="status"
+                                        name="status" value="pending" hidden>
                                     {{-- hidden input --}}
                                     <div class="my-3">
                                         <div class="d-grid gap-2">

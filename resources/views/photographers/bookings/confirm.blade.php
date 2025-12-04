@@ -38,7 +38,7 @@
                                     {{-- <td>@foreach ($booking->customer as $customer)
                                         {{ $customer->name }}
                                     @endforeach</td> --}}
-                                    <td>{{ $booking->customer->name }}</td>
+                                    <td>{{ $booking->user->name }}</td>
                                     <td>{{ $booking->session_date }}</td>
                                     <td>{{ $booking->session_duration }}</td>
                                     <td>{{ $booking->session_location }}</td>

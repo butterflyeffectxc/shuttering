@@ -1,10 +1,14 @@
 @import url('https://fonts.googleapis.com/css2?family=Instrument+Serif:ital@0;1&family=Inter:ital,opsz,wght@0,14..32,100..900;1,14..32,100..900&display=swap');
 @import url('https://fonts.googleapis.com/css2?family=Inter:ital,opsz,wght@0,14..32,100..900;1,14..32,100..900&display=swap');
 /* global start*/
+/* * {
+    outline: 1px solid red !important;
+} */
 :root{
     --text-tertiary : #A3A3A3;
     --text-primary : #FD7801;
     --text-black : #000000;
+    --background-secondary : #171717;
 }
 .main-bg{
     background-color: #000000;
@@ -609,39 +613,30 @@ a{
   background-color: rgba(87, 2, 3, 0.80);
   color: #FF5557;
 }
-
-/* .booking-card.pending .booking-card-status {
-  background-color: #b98b00;
+.booking-modal .modal-footer {
+    position: relative !important;
+    z-index: 1100 !important;
 }
-.booking-card.pending .booking-card-btn {
-  background: rgba(185, 139, 0, 0.2);
-  color: #f6c75d;
-}
-.booking-card.pending .booking-card-btn:hover {
-  background: rgba(185, 139, 0, 0.35);
-}
-
-.booking-card.confirmed .booking-card-status {
-  background-color: #246fbd;
-}
-.booking-card.confirmed .booking-card-btn {
-  background: rgba(36, 111, 189, 0.2);
-  color: #64a7ff;
-}
-.booking-card.confirmed .booking-card-btn:hover {
-  background: rgba(36, 111, 189, 0.35);
+.booking-modal {
+    background: #1c1c1c;
+    color: #fff;
+    border-radius: 20px;
+    padding-bottom: 20px;
+    overflow: visible !important;
 }
 
-.booking-card.paid .booking-card-status {
-  background-color: #00a86b;
+/* Photographer mini card */
+.photographer-box {
+    background: #2a2a2a;
+    border-radius: 16px;
 }
-.booking-card.paid .booking-card-btn {
-  background: rgba(0, 168, 107, 0.2);
-  color: #5df5b0;
+
+.photographer-photo {
+    width: 55px;
+    height: 55px;
+    border-radius: 50%;
+    object-fit: cover;
 }
-.booking-card.paid .booking-card-btn:hover {
-  background: rgba(0, 168, 107, 0.35);
-} */
 /* booking end */
 
 /* photograper start */

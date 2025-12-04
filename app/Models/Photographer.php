@@ -21,12 +21,12 @@ class Photographer extends Model
   }
   public function photoTypes()
   {
-    return $this->belongsToMany(PhotoType::class, 'photographer_photo_types', 'photographer_id', 'photo_type_id');
+    return $this->belongsToMany(PhotoType::class, 'photographer_photo_types');
   }
-  public function photoTypeDetails()
-  {
-    return $this->hasMany(PhotoType::class);
-  }
+  // public function photoTypeDetails()
+  // {
+  //   return $this->hasMany(PhotoType::class);
+  // }
   public function bookings()
   {
     return $this->hasMany(Booking::class, 'photographer_id');

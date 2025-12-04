@@ -30,13 +30,13 @@
                 </div>
             </div>
         </div>
-        <div class="photocard-bg py-3">
+        <div class="photocard-bg pt-3 pb-5">
             <div class="container">
                 <div class="photocard-container">
                     @foreach ($photographers as $photographer)
-                        <a href="{{ url('user/photographers/detail/' . $photographer->id) }}" class="photocard-wrapper">
+                        <a href="{{ url('users/photographers/detail/' . $photographer->id) }}" class="photocard-wrapper">
                             <div class="photocard">
-                                <img src="https://images.unsplash.com/photo-1529626455594-4ff0802cfb7e" alt="">
+                                <img src="{{ asset('profile_photos/' . $photographer->profile_photo) }}" alt="">
                                 <div class="photocard-overlay">
                                     <div class="photocard-top">
                                         <button class="photocard-fav active btn-primary-sm">

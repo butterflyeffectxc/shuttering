@@ -18,7 +18,7 @@ return new class extends Migration
             $table->date('session_date');
             $table->time('session_duration');
             $table->string('session_location');
-            $table->float('total_price');
+            $table->decimal('total_price', 15, 2);
             $table->integer('photo_type_id');
             $table->text('notes')->nullable();
             $table->string('status')->default("pending");

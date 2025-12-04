@@ -38,13 +38,17 @@ Route::get('/bookings', [BookingController::class, 'showAll']);
 // Admin End
 
 // Photographer Start
+// Profile
+Route::get('/photographers/profile', [PhotographerController::class, 'updateProfile']);
+Route::put('/photographers/profile/{photographer}', [PhotographerController::class, 'editProfile']);
+
 // Booking
 Route::get('/photographers/bookings/detail/{booking:id}', [BookingController::class, 'showPerPhotographerDetail']);
 Route::get('/photographers/bookings', [BookingController::class, 'showPending']);
 Route::get('/photographers/bookings/processed', [BookingController::class, 'showAlreadyProcessed']);
 Route::get('/photographers/bookings/cancelled', [BookingController::class, 'showAlreadyCancelled']);
 Route::get('/photographers/bookings/upload', [BookingController::class, 'showToUpload']);
-Route::post('/photographer/bookings/upload-images', [PhotographerController::class, 'uploadImages']);
+Route::post('/photographers/bookings/upload-images', [PhotographerController::class, 'uploadImages']);
 Route::put('/photographers/bookings/update-status/{booking:id}', [BookingController::class, 'updateConfirmStatus']);
 // Photo Result
 Route::post('/photographers/photo-result/{booking}', [PhotoResultController::class, 'store'])
@@ -55,11 +59,14 @@ Route::post('/photographers/photo-result/{booking}', [PhotoResultController::cla
 
 // User
 Route::get('/homepage', [UserViewController::class, 'showPhotographer']);
-Route::get('/user/photographers/detail/{photographer:id}', [UserViewController::class, 'showPhotographerDetail']);
+Route::get('/users/photographers/detail/{photographer:id}', [UserViewController::class, 'showPhotographerDetail']);
 Route::get('/booking/fill-form/{photographer:id}', [UserBookingController::class, 'showForm']);
 Route::post('/booking/fill-form/{photographer:id}', [UserBookingController::class, 'fillForm']);
-Route::get('/user/booking', [UserBookingController::class, 'showBooking']);
-
+Route::get('/users/booking', [UserBookingController::class, 'showBooking']);
+Route::put('/users/booking/cancel/{booking:id}', [UserBookingController::class, 'cancelBooking']);
+Route::get('/sweetalert', function () {
+    return view('admins.sweetalert');
+});
 // sampah
 Route::get('/demo', function () {
     return view('index');

@@ -5,6 +5,7 @@ namespace App\Http\Controllers;
 use App\Models\Booking;
 use App\Models\Photographer;
 use App\Models\User;
+use Carbon\Carbon;
 use Illuminate\Http\Request;
 
 class UserBookingController extends Controller
@@ -37,18 +38,43 @@ class UserBookingController extends Controller
             'status' => 'pending',
         ]);
         // dd($booking);
-        return redirect()->to('user/booking')->with('success', 'Booking berhasil dibuat!');
+        return redirect()->to('users/booking')->with('success', 'Booking berhasil dibuat!');
     }
     public function showBooking()
     {
         $userId = auth()->id();
-        $customer = User::where('id', $userId)->first();
 
-        if (!$customer) {
-            abort(403, "Access denied");
-        }
-        // dd($userId);
-        $bookings = Booking::where('user_id', $userId)->get();
+        // eager load to avoid N+1
+        $bookings = Booking::with(['photographer.user', 'photoType'])
+            ->where('user_id', $userId)
+            ->orderByDesc('created_at')
+            ->get();
+
+        // Format dates if you want here (optional)
+        // We'll also keep raw values so blade/JS can use either
+        $bookings->transform(function ($b) {
+            // example: format session_date (if stored as date or datetime)
+            if ($b->session_date) {
+                try {
+                    $b->formatted_session_date = Carbon::parse($b->session_date)->translatedFormat('l, F j, Y');
+                    // combine times if you store duration/time differently
+                } catch (\Exception $e) {
+                    $b->formatted_session_date = $b->session_date;
+                }
+            } else {
+                $b->formatted_session_date = '-';
+            }
+
+            return $b;
+        });
+        // dd($bookings);
         return view('users.bookings.list', compact('bookings'));
+    }
+    public function cancelBooking(Booking $booking)
+    {
+        $booking->update([
+            'status' => 'canceled'
+        ]);
+        return redirect()->to('users/booking')->with('success', 'Booking berhasil dibatalkan!');
     }
 }

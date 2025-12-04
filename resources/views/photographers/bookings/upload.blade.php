@@ -35,7 +35,7 @@
                             @foreach ($bookings as $booking)
                                 <tr>
                                     <td>{{ $loop->iteration }}</td>
-                                    <td>{{ $booking->customer->name }}</td>
+                                    <td>{{ $booking->user->name }}</td>
                                     <td>{{ $booking->session_date }}</td>
                                     <td>{{ $booking->session_duration }}</td>
                                     <td>{{ $booking->session_location }}</td>
@@ -52,35 +52,45 @@
                                                 <div class="modal-content">
 
                                                     <div class="modal-header">
-                                                        <h5 class="modal-title">Upload Gambar</h5>
+                                                        <h5 class="modal-title">Add Content</h5>
                                                         <button type="button" class="close" data-dismiss="modal">
                                                             <span>&times;</span>
                                                         </button>
                                                     </div>
 
-                                                    <div class="modal-body">
+                                                    <form action="upload.php" method="POST" enctype="multipart/form-data">
+                                                        <div class="modal-body">
 
-                                                        <!-- Input file yang disembunyikan -->
-                                                        <input type="file" id="imageInput" class="d-none"
-                                                            accept="image/*" onchange="previewImage(this)">
+                                                            <div class="media mb-3">
+                                                                <img src="https://s3.amazonaws.com/creativetim_bucket/new_logo.png"
+                                                                    class="mr-3 images">
 
-                                                        <!-- Tombol trigger -->
-                                                        <button class="btn btn-info" onclick="openInput()">Pilih
-                                                            Gambar</button>
+                                                                <div class="media-body">
+                                                                    <textarea name="note" class="autosize" placeholder="add..." rows="1" id="note" data-emoji="true"></textarea>
 
-                                                        <!-- Preview -->
-                                                        <div class="mt-3 text-center">
-                                                            <img id="imagePreview" class="img-preview d-none"
-                                                                alt="Preview">
+                                                                    <div class="position-relative mt-2">
+                                                                        <input type="file" name="inputUp[]"
+                                                                            class="d-none inputUp"
+                                                                            id="inputUp-{{ $booking->id }}" multiple
+                                                                            accept="audio/*,video/*,image/*">
+                                                                        <a class="mediaUp mr-4" role="button"
+                                                                            onclick="document.getElementById('inputUp-{{ $booking->id }}').click()">
+                                                                            <i class="bi bi-cloud-upload"></i>
+                                                                        </a>
+                                                                    </div>
+                                                                </div>
+                                                            </div>
+
+                                                            <div class="row col-md-12 preview"></div>
                                                         </div>
 
-                                                    </div>
-
-                                                    <div class="modal-footer">
-                                                        <button class="btn btn-secondary"
-                                                            data-dismiss="modal">Tutup</button>
-                                                        <button class="btn btn-primary">Simpan</button>
-                                                    </div>
+                                                        <div class="modal-footer">
+                                                            <button type="button" class="btn btn-secondary btn-sm"
+                                                                data-dismiss="modal">Close</button>
+                                                            <button type="submit" class="btn btn-info btn-sm">Save
+                                                                changes</button>
+                                                        </div>
+                                                    </form>
 
                                                 </div>
                                             </div>
