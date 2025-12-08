@@ -8,7 +8,7 @@
             <div class="card-header mb-2">
                 <div class="d-flex justify-content-between">
                     <h5 class="card-title">
-                        Canceled Booking List
+                        History Booking List
                     </h5>
                     <div class="ml-auto">
                         {{-- <a href="/bookings/create" class="btn btn-primary add-button"><span>Add Data</span></a> --}}
@@ -40,7 +40,19 @@
                                     <td>{{ $booking->session_duration }}</td>
                                     <td>{{ $booking->session_location }}</td>
                                     <td>{{ $booking->photoType->name }}</td>
-                                    <td><span class="chip-status chip-canceled">Canceled</span></td>
+                                    <td>
+                                        @if ($booking->status == 'pending')
+                                            <span class="chip-status chip-pending">Pending</span>
+                                        @elseif($booking->status == 'confirmed')
+                                            <span class="chip-status chip-confirmed">Confirmed</span>
+                                        @elseif($booking->status == 'complete')
+                                            <span class="chip-status chip-complete">Complete</span>
+                                        @elseif($booking->status == 'paid')
+                                            <span class="chip-status chip-paid">Paid</span>
+                                        @else
+                                            <span class="chip-status chip-canceled">Canceled</span>
+                                        @endif
+                                    </td>
                                     <td>
                                         <a href="/bookings/detail/{{ $booking->id }}" class="btn btn-primary w-100"><i
                                                 class="bi bi-info-circle-fill"></i></a>

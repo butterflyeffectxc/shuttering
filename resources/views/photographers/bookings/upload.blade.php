@@ -40,7 +40,7 @@
                                     <td>{{ $booking->session_duration }}</td>
                                     <td>{{ $booking->session_location }}</td>
                                     <td>{{ $booking->photoType->name }}</td>
-                                    <td>{{ $booking->status }}</td>
+                                    <td><span class="chip-status chip-paid">Paid</span></td>
                                     <td>
                                         <button type="button" class="btn btn-primary w-100" data-toggle="modal"
                                             data-target="#uploadModal">

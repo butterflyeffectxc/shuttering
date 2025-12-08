@@ -43,7 +43,7 @@
                                     <td>{{ $booking->session_duration }}</td>
                                     <td>{{ $booking->session_location }}</td>
                                     <td>{{ $booking->photoType->name }}</td>
-                                    <td>{{ $booking->status }}</td>
+                                    <td><span class="chip-status chip-confirmed">Confirmed</span></td>
                                     <td>
                                         {{-- <div class="btn-group mr-2" role="group" aria-label="Action Button"> --}}
                                         <form action="/photographers/bookings/update-status/{{ $booking->id }}"

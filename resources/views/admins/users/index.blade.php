@@ -25,7 +25,7 @@
                                 <th>Name</th>
                                 <th>Email</th>
                                 <th>Telephone</th>
-                                <th>Action</th>
+                                {{-- <th>Detail</th> --}}
                             </tr>
                         </thead>
                         <tbody>
@@ -35,11 +35,10 @@
                                     <td>{{ $user->name }}</td>
                                     <td>{{ $user->email }}</td>
                                     <td>{{ $user->phone }}</td>
-                                    <td>
-                                        <div class="btn-group mr-2" role="group" aria-label="Action Button">
-                                            <a href="/users/detail/{{ $user->id }}" class="btn btn-primary"><i
-                                                    class="bi bi-eye-fill"></i></a>
-                                            {{-- <a href="/users/edit/{{ $user->id }}" class="btn btn-warning"><i
+                                    {{-- <td>
+                                        <a href="/users/detail/{{ $user->id }}" class="btn btn-primary w-100"><i
+                                                class="bi bi-eye-fill"></i></a>
+                                        <a href="/users/edit/{{ $user->id }}" class="btn btn-warning"><i
                                                     class="bi bi-pencil-square"></i></a>
                                             <form action="/users/delete/{{ $user->id }}" method="POST">
                                                 @csrf
@@ -47,9 +46,8 @@
                                                 <form action="users/delete/{{ $user->id }}" method="POST">
                                                     <button type="submit" class="btn btn-danger"><i
                                                             class="bi bi-trash3-fill"></i></button>
-                                                </form> --}}
-                                        </div>
-                                    </td>
+                                                </form>
+                                    </td> --}}
                                 </tr>
                             @endforeach
                         </tbody>

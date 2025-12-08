@@ -50,6 +50,8 @@ Route::get('/photographers/bookings/detail/{booking:id}', [BookingController::cl
 Route::get('/photographers/bookings', [BookingController::class, 'showPending']);
 Route::get('/photographers/bookings/processed', [BookingController::class, 'showAlreadyProcessed']);
 Route::get('/photographers/bookings/canceled', [BookingController::class, 'showAlreadyCanceled']);
+Route::get('/photographers/bookings/completed', [BookingController::class, 'showAlreadyCompleted']);
+Route::get('/photographers/bookings/history', [BookingController::class, 'showHistory']);
 Route::get('/photographers/bookings/upload', [BookingController::class, 'showToUpload']);
 Route::post('/photographers/bookings/upload-images', [PhotographerController::class, 'uploadImages']);
 Route::put('/photographers/bookings/update-status/{booking:id}', [BookingController::class, 'updateConfirmStatus']);
@@ -57,7 +59,7 @@ Route::put('/photographers/bookings/update-status/{booking:id}', [BookingControl
 Route::post('/photographers/photo-result/{booking}', [PhotoResultController::class, 'store'])
     ->name('photoresult.store');
 // Review
-Route::get('/photographers/bookings/review', [ReviewController::class, 'showPhotographer']);
+Route::get('/photographers/bookings/completed/detail/{booking:id}', [ReviewController::class, 'showBookingDetail']);
 // Upload
 
 

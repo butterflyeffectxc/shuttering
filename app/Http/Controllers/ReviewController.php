@@ -3,6 +3,7 @@
 namespace App\Http\Controllers;
 
 use App\Models\Booking;
+use App\Models\Photographer;
 use App\Models\Review;
 use Illuminate\Http\Request;
 use Illuminate\Support\Facades\Auth;
@@ -49,13 +50,31 @@ class ReviewController extends Controller
 
         return redirect()->route('user.bookings')->with('success', 'Review berhasil dikirim.');
     }
-    public function showPhotographer()
+    public function showBookingDetail(Booking $booking)
     {
-        $photographerId = Auth::id();
+        $userId = auth()->id();
 
-        $reviews = Review::whereHas('booking', function ($q) use ($photographerId) {
-            $q->where('photographer_id', $photographerId);
-        })->with(['user', 'booking'])->latest()->get();
-        return view('reviews.photographer_index', compact('reviews'));
+        // Ambil photographer yang login
+        $photographer = Photographer::where('user_id', $userId)->first();
+
+        if (!$photographer) {
+            abort(403, "Access denied");
+        }
+
+        // Pastikan booking ini memang milik fotografer tersebut
+        if ($booking->photographer_id !== $photographer->id) {
+            abort(403, "This booking does not belong to you");
+        }
+
+        // Load semua relasi yang dibutuhkan
+        $booking->load([
+            'user',
+            'review.user',
+            'photographer.user',
+            'photoType',
+            'photoResults'
+        ]);
+        // dd($booking->review);
+        return view('photographers.bookings.detail', compact('booking'));
     }
 }

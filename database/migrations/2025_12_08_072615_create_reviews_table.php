@@ -15,9 +15,10 @@ return new class extends Migration
             $table->id();
             $table->integer('user_id');
             $table->integer('booking_id');
-            $table->string('rating');
-            $table->text('note');
+            $table->float('rating');
+            $table->text('note')->nullable();
             $table->timestamps();
+            $table->softDeletes();
         });
     }
 

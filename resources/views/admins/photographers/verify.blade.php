@@ -38,20 +38,32 @@
                                     <td>{{ $photographer->user->phone }}</td>
                                     <td>{{ $photographer->location }}</td>
                                     <td>
+                                        <div class="d-flex gap-2">
+                                            <form action="/photographers/to-verify/{{ $photographer->id }}" method="POST"
+                                                class="flex-fill">
+                                                @csrf
+                                                @method('PUT')
+                                                <input type="hidden" name="status" value="2">
+                                                <button type="submit" class="btn btn-success w-100"><i
+                                                        class="bi bi-check-lg"></i></button>
+                                            </form>
+
+                                            <a href="/photographers/detail/{{ $photographer->id }}"
+                                                class="btn btn-primary flex-fill"><i class="bi bi-eye-fill"></i></a>
+                                        </div>
                                         {{-- <div class="btn-group mr-2" role="group" aria-label="Action Button"> --}}
                                         {{-- <a href="/photographers/detail/{{ $photographer->id }}"
                                                 class="btn btn-primary"><i class="bi bi-eye-fill"></i></a>
                                             <a href="/photographers/edit/{{ $photographer->id }}" class="btn btn-warning"><i
                                                     class="bi bi-pencil-square"></i></a> --}}
-                                        <form action="/photographers/to-verify/{{ $photographer->id }}" method="POST">
+                                        {{-- <form action="/photographers/to-verify/{{ $photographer->id }}" method="POST">
                                             @csrf
-                                            @method('PUT')
-                                            <form action="photographers/to-verify/{{ $photographer->id }}" method="POST">
-                                                <input type="hidden" name="status" value="2">
-                                                <button type="submit" class="btn btn-primary w-100"><i
-                                                        class="bi bi-check-lg"></i></button>
-                                            </form>
-                                            {{-- </div> --}}
+                                            @method('DELETE')
+                                            <input type="hidden" name="status" value="2">
+                                            <button type="submit" class="btn btn-primary w-100"><i
+                                                    class="bi bi-check-lg"></i></button>
+                                        </form> --}}
+                                        {{-- </div> --}}
                                     </td>
                                 </tr>
                             @endforeach

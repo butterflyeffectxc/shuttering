@@ -142,4 +142,41 @@ class BookingController extends Controller
 
         return back()->with('success', 'Foto berhasil diupload!');
     }
+
+    public function showAlreadyCompleted(Booking $booking)
+    {
+        // id user yang login
+        $userId = auth()->id();
+        // cari photographer berdasarkan user_id
+        $photographer = Photographer::where('user_id', $userId)->first();
+
+        if (!$photographer) {
+            abort(403, "Access denied");
+        }
+        // ambil booking sesuai id photographer
+        $bookings = Booking::with(['user', 'photoType'])
+            ->where('photographer_id', $photographer->id)->where('status', 'Completed')
+            ->orderBy('id', 'desc')
+            ->get();
+
+        return view('photographers.bookings.completed', compact('bookings'));
+    }
+    public function showHistory(Booking $booking)
+    {
+        // id user yang login
+        $userId = auth()->id();
+        // cari photographer berdasarkan user_id
+        $photographer = Photographer::where('user_id', $userId)->first();
+
+        if (!$photographer) {
+            abort(403, "Access denied");
+        }
+        // ambil booking sesuai id photographer
+        $bookings = Booking::with(['user', 'photoType'])
+            ->where('photographer_id', $photographer->id)
+            ->orderBy('id', 'desc')
+            ->get();
+
+        return view('photographers.bookings.history', compact('bookings'));
+    }
 }

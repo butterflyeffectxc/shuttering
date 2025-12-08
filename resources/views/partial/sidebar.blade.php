@@ -92,6 +92,11 @@
                              <span>Data Booking</span>
                          </a>
                          <ul class="submenu">
+                             <li
+                                 class="submenu-item {{ Request::is('photographers/bookings/history') ? 'active' : '' }}">
+                                 <a href="{{ url('photographers/bookings/history') }}" class="submenu-link">History
+                                     Booking</a>
+                             </li>
                              <li class="submenu-item {{ Request::is('photographers/bookings') ? 'active' : '' }}">
                                  <a href="{{ url('photographers/bookings') }}" class="submenu-link">Incoming
                                      Booking</a>
@@ -109,6 +114,12 @@
                              <li
                                  class="submenu-item {{ Request::is('photographers/bookings/upload') ? 'active' : '' }}">
                                  <a href="{{ url('photographers/bookings/upload') }}" class="submenu-link">Upload Image
+                                     Booking</a>
+                             </li>
+                             <li
+                                 class="submenu-item {{ Request::is('photographers/bookings/completed') ? 'active' : '' }}">
+                                 <a href="{{ url('photographers/bookings/completed') }}"
+                                     class="submenu-link">Completed
                                      Booking</a>
                              </li>
                          </ul>

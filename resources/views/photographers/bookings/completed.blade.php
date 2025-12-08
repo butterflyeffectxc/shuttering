@@ -8,7 +8,7 @@
             <div class="card-header mb-2">
                 <div class="d-flex justify-content-between">
                     <h5 class="card-title">
-                        Canceled Booking List
+                        Cmpleted Booking List
                     </h5>
                     <div class="ml-auto">
                         {{-- <a href="/bookings/create" class="btn btn-primary add-button"><span>Add Data</span></a> --}}
@@ -40,10 +40,10 @@
                                     <td>{{ $booking->session_duration }}</td>
                                     <td>{{ $booking->session_location }}</td>
                                     <td>{{ $booking->photoType->name }}</td>
-                                    <td><span class="chip-status chip-canceled">Canceled</span></td>
+                                    <td><span class="chip-status chip-complete">Completed</span></td>
                                     <td>
-                                        <a href="/bookings/detail/{{ $booking->id }}" class="btn btn-primary w-100"><i
-                                                class="bi bi-info-circle-fill"></i></a>
+                                        <a href="/photographers/bookings/completed/detail/{{ $booking->id }}"
+                                            class="btn btn-primary w-100"><i class="bi bi-info-circle-fill"></i></a>
                                     </td>
                                 </tr>
                             @endforeach

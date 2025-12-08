@@ -43,7 +43,7 @@
                                     <td>{{ $booking->session_duration }}</td>
                                     <td>{{ $booking->session_location }}</td>
                                     <td>{{ $booking->photoType->name }}</td>
-                                    <td>{{ $booking->status }}</td>
+                                    <td><span class="chip-status chip-pending">Pending</span></td>
                                     <td>
                                         <div class="d-flex gap-2">
                                             <form action="/photographers/bookings/update-status/{{ $booking->id }}"

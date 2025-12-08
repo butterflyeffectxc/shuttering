@@ -26,7 +26,7 @@
                                 <th>Email</th>
                                 <th>Telephone</th>
                                 <th>Location</th>
-                                <th>Action</th>
+                                <th>Detail</th>
                             </tr>
                         </thead>
                         <tbody>
