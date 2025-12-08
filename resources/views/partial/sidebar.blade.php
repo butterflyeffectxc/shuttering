@@ -3,7 +3,8 @@
          <div class="sidebar-header position-relative">
              <div class="d-flex justify-content-between align-items-center">
                  <div class="logo">
-                     <a href="index.html"><img src="./assets/compiled/svg/logo.svg" alt="Logo" srcset="" /></a>
+                     <a href="index.html"><img src="{{ asset('assets/Shuttering.svg') }}" class="logo-medium" alt="Logo"
+                             srcset="" /></a>
                  </div>
                  <div class="theme-toggle d-flex gap-2 align-items-center mt-2">
                      <svg xmlns="http://www.w3.org/2000/svg" xmlns:xlink="http://www.w3.org/1999/xlink"
@@ -49,66 +50,70 @@
                          <span>Dashboard</span>
                      </a>
                  </li>
-                 <li class="sidebar-item">
-                     <a href="{{ url('photographers/profile') }}" class="sidebar-link">
-                         <i class="bi bi-grid-fill"></i>
-                         <span>Profile</span>
-                     </a>
-                 </li>
+                 @if (Auth::user()->role == '2')
+                     <li class="sidebar-item {{ Request::is('photographers/profile') ? 'active' : '' }}">
+                         <a href="{{ url('photographers/profile') }}" class="sidebar-link">
+                             <i class="bi bi-grid-fill"></i>
+                             <span>Profile</span>
+                         </a>
+                     </li>
+                 @endif
+                 @if (Auth::user()->role == '1')
+                     <li class="sidebar-item has-sub">
+                         <a href="#" class="sidebar-link">
+                             <i class="bi bi-stack"></i>
+                             <span>Data Master</span>
+                         </a>
 
-                 <li class="sidebar-item has-sub">
-                     <a href="#" class="sidebar-link">
-                         <i class="bi bi-stack"></i>
-                         <span>Data Master</span>
-                     </a>
-
-                     <ul class="submenu">
-                         <li class="submenu-item {{ Request::is('users') ? 'active' : '' }}">
-                             <a href="{{ url('users') }}" class="submenu-link">Customer</a>
-                         </li>
-                         <li class="submenu-item {{ Request::is('photographers') ? 'active' : '' }}">
-                             <a href="{{ url('photographers') }}" class="submenu-link">Photographer</a>
-                         </li>
-                     </ul>
-                 </li>
-                 <li class="sidebar-item {{ Request::is('bookings') ? 'active' : '' }}">
-                     <a href="{{ url('bookings') }}" class="sidebar-link">
-                         <i class="bi bi-basket-fill"></i>
-                         <span>Incoming Booking</span>
-                     </a>
-                 </li>
-                 <li class="sidebar-item has-sub">
-                     <a href="#" class="sidebar-link">
-                         <i class="bi bi-stack"></i>
-                         <span>Data Booking</span>
-                     </a>
-                     <ul class="submenu">
-                         {{-- @if (Auth::user()->role == '1') --}}
-                         <li class="submenu-item {{ Request::is('photographers/bookings') ? 'active' : '' }}">
-                             <a href="{{ url('admins/bookings') }}" class="submenu-link">Incoming Booking</a>
-                         </li>
-                         {{-- @endif --}}
-                         {{-- @if (Auth::user()->role == '2')     --}}
-                         <li class="submenu-item {{ Request::is('photographers/bookings') ? 'active' : '' }}">
-                             <a href="{{ url('photographers/bookings') }}" class="submenu-link">Incoming Booking</a>
-                         </li>
-                         <li
-                             class="submenu-item {{ Request::is('photographers/bookings/processed') ? 'active' : '' }}">
-                             <a href="{{ url('photographers/bookings/processed') }}" class="submenu-link">Processed
-                                 Booking</a>
-                         </li>
-                         <li
-                             class="submenu-item {{ Request::is('photographers/bookings/cancelled') ? 'active' : '' }}">
-                             <a href="{{ url('photographers/bookings/canceled') }}" class="submenu-link">Canceled
-                                 Booking</a>
-                         </li>
-                         <li class="submenu-item {{ Request::is('photographers/bookings/upload') ? 'active' : '' }}">
-                             <a href="{{ url('photographers/bookings/upload') }}" class="submenu-link">Upload Image
-                                 Booking</a>
-                         </li>
-                         {{-- @endif --}}
-                     </ul>
-                 </li>
+                         <ul class="submenu">
+                             <li class="submenu-item {{ Request::is('users') ? 'active' : '' }}">
+                                 <a href="{{ url('users') }}" class="submenu-link">Customer</a>
+                             </li>
+                             <li class="submenu-item {{ Request::is('photographers') ? 'active' : '' }}">
+                                 <a href="{{ url('photographers') }}" class="submenu-link">Photographer</a>
+                             </li>
+                             <li class="submenu-item {{ Request::is('photographers/to-verify') ? 'active' : '' }}">
+                                 <a href="{{ url('photographers/to-verify') }}" class="submenu-link">Unverify
+                                     Photographer</a>
+                             </li>
+                         </ul>
+                     </li>
+                     <li class="sidebar-item {{ Request::is('bookings') ? 'active' : '' }}">
+                         <a href="{{ url('bookings') }}" class="sidebar-link">
+                             <i class="bi bi-basket-fill"></i>
+                             <span>Booking</span>
+                         </a>
+                     </li>
+                 @endif
+                 @if (Auth::user()->role == '2')
+                     <li class="sidebar-item has-sub">
+                         <a href="#" class="sidebar-link">
+                             <i class="bi bi-stack"></i>
+                             <span>Data Booking</span>
+                         </a>
+                         <ul class="submenu">
+                             <li class="submenu-item {{ Request::is('photographers/bookings') ? 'active' : '' }}">
+                                 <a href="{{ url('photographers/bookings') }}" class="submenu-link">Incoming
+                                     Booking</a>
+                             </li>
+                             <li
+                                 class="submenu-item {{ Request::is('photographers/bookings/processed') ? 'active' : '' }}">
+                                 <a href="{{ url('photographers/bookings/processed') }}" class="submenu-link">Processed
+                                     Booking</a>
+                             </li>
+                             <li
+                                 class="submenu-item {{ Request::is('photographers/bookings/canceled') ? 'active' : '' }}">
+                                 <a href="{{ url('photographers/bookings/canceled') }}" class="submenu-link">Canceled
+                                     Booking</a>
+                             </li>
+                             <li
+                                 class="submenu-item {{ Request::is('photographers/bookings/upload') ? 'active' : '' }}">
+                                 <a href="{{ url('photographers/bookings/upload') }}" class="submenu-link">Upload Image
+                                     Booking</a>
+                             </li>
+                         </ul>
+                     </li>
+                 @endif
              </ul>
          </div>
      </div>

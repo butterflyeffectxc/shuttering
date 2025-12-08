@@ -26,11 +26,15 @@ class User extends Authenticatable
 
     public function bookings()
     {
-        return $this->hasMany(Booking::class, 'customer_id');
+        return $this->hasMany(Booking::class,);
     }
     public function photographer()
     {
         return $this->hasOne(Photographer::class);
+    }
+    public function reviews()
+    {
+        return $this->hasMany(Review::class);
     }
     /**
      * The attributes that should be hidden for serialization.

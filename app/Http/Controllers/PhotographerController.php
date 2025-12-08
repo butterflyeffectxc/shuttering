@@ -55,8 +55,30 @@ class PhotographerController extends Controller
 
     function showAll()
     {
-        $photographers = Photographer::all();
+        $photographers = Photographer::with(['user', 'photoTypes'])->where('status', 2)->get();
         return view('admins.photographers.index', compact('photographers'));
+    }
+    function showAllUnverify()
+    {
+        $photographers = Photographer::with(['user', 'photoTypes'])->where('status', 1)->get();
+        return view('admins.photographers.verify', compact('photographers'));
+    }
+    function updatePhotographerVerify(Request $request, Photographer $photographer) {
+         $request->validate([
+            'status' => 'required'
+        ]);
+
+        // $userId = auth()->id();
+        // $photographer = Photographer::where('user_id', $userId)->first();
+
+        // if ($booking->photographer_id !== $photographer->id) {
+        //     abort(403, "You cannot modify this booking");
+        // }
+
+        $photographer->status = $request->status;
+        $photographer->save();
+
+        return redirect()->back()->with('success', 'Booking status updated successfully.');
     }
     function showDetail(Photographer $photographer)
     {
@@ -129,4 +151,5 @@ class PhotographerController extends Controller
 
         return back()->with('success', 'Profile berhasil diperbarui!');
     }
+
 }

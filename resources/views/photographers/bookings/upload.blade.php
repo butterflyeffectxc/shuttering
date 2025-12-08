@@ -39,12 +39,12 @@
                                     <td>{{ $booking->session_date }}</td>
                                     <td>{{ $booking->session_duration }}</td>
                                     <td>{{ $booking->session_location }}</td>
-                                    <td>{{ $booking->photo_type }}</td>
+                                    <td>{{ $booking->photoType->name }}</td>
                                     <td>{{ $booking->status }}</td>
                                     <td>
                                         <button type="button" class="btn btn-primary w-100" data-toggle="modal"
                                             data-target="#uploadModal">
-                                            Upload Gambar
+                                            <i class="bi bi-cloud-upload"></i>
                                         </button>
                                         <!-- Upload Modal -->
                                         <div class="modal fade" id="uploadModal" tabindex="-1" role="dialog">

@@ -39,13 +39,25 @@
                                     {{-- <td>@foreach ($booking->customer as $customer)
                                         {{ $customer->name }}
                                     @endforeach</td> --}}
-                                    <td>{{ $booking->customer->name }}</td>
-                                    <td>{{ $booking->photographer->name }}</td>
+                                    <td>{{ $booking->user->name }}</td>
+                                    <td>{{ $booking->photographer->user->name }}</td>
                                     <td>{{ $booking->session_date }}</td>
                                     <td>{{ $booking->session_duration }}</td>
                                     <td>{{ $booking->session_location }}</td>
-                                    <td>{{ $booking->photo_type }}</td>
-                                    <td>{{ $booking->status }}</td>
+                                    <td>{{ $booking->photoType->name }}</td>
+                                    <td>
+                                        @if ($booking->status == 'pending')
+                                            <span class="chip-status chip-pending">Pending</span>
+                                        @elseif($booking->status == 'confirmed')
+                                            <span class="chip-status chip-confirmed">Confirmed</span>
+                                        @elseif($booking->status == 'complete')
+                                            <span class="chip-status chip-complete">Complete</span>
+                                        @elseif($booking->status == 'paid')
+                                            <span class="chip-status chip-paid">Paid</span>
+                                        @else
+                                            <span class="chip-status chip-canceled">Canceled</span>
+                                        @endif
+                                    </td>
                                     <td>
                                         <div class="btn-group mr-2" role="group" aria-label="Action Button">
                                             <a href="/bookings/detail/{{ $booking->id }}" class="btn btn-primary"><i

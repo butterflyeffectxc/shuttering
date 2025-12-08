@@ -28,7 +28,7 @@
                                 <th>Location</th>
                                 <th>Photo Type</th>
                                 <th>Status</th>
-                                <th>Ubah Data</th>
+                                <th>Approval</th>
                             </tr>
                         </thead>
                         <tbody>
@@ -42,7 +42,7 @@
                                     <td>{{ $booking->session_date }}</td>
                                     <td>{{ $booking->session_duration }}</td>
                                     <td>{{ $booking->session_location }}</td>
-                                    <td>{{ $booking->photo_type }}</td>
+                                    <td>{{ $booking->photoType->name }}</td>
                                     <td>{{ $booking->status }}</td>
                                     <td>
                                         <div class="d-flex gap-2">

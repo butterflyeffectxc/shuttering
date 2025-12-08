@@ -31,4 +31,8 @@ class Booking extends Model
     {
         return $this->belongsTo(PhotoType::class, 'photo_type_id');
     }
+    public function review()
+    {
+        return $this->hasOne(Review::class);
+    }
 }

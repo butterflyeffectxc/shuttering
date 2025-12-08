@@ -4,6 +4,7 @@ use App\Http\Controllers\AuthController;
 use App\Http\Controllers\BookingController;
 use App\Http\Controllers\PhotographerController;
 use App\Http\Controllers\PhotoResultController;
+use App\Http\Controllers\ReviewController;
 use App\Http\Controllers\UserBookingController;
 use App\Http\Controllers\UserController;
 use App\Http\Controllers\UserViewController;
@@ -29,6 +30,8 @@ Route::post('/register/photographer', [PhotographerController::class, 'registerP
 // Admin Start
 // Verified Photographer Account
 Route::get('/photographers', [PhotographerController::class, 'showAll']);
+Route::get('/photographers/to-verify', [PhotographerController::class, 'showAllUnverify']);
+Route::put('/photographers/to-verify/{photographer:id}', [PhotographerController::class, 'updatePhotographerVerify']);
 Route::get('/photographers/detail/{photographer:id}', [PhotographerController::class, 'showDetail']);
 // See User Account
 Route::get('/users', [UserController::class, 'index']);
@@ -46,7 +49,7 @@ Route::put('/photographers/profile/{photographer}', [PhotographerController::cla
 Route::get('/photographers/bookings/detail/{booking:id}', [BookingController::class, 'showPerPhotographerDetail']);
 Route::get('/photographers/bookings', [BookingController::class, 'showPending']);
 Route::get('/photographers/bookings/processed', [BookingController::class, 'showAlreadyProcessed']);
-Route::get('/photographers/bookings/cancelled', [BookingController::class, 'showAlreadyCancelled']);
+Route::get('/photographers/bookings/canceled', [BookingController::class, 'showAlreadyCanceled']);
 Route::get('/photographers/bookings/upload', [BookingController::class, 'showToUpload']);
 Route::post('/photographers/bookings/upload-images', [PhotographerController::class, 'uploadImages']);
 Route::put('/photographers/bookings/update-status/{booking:id}', [BookingController::class, 'updateConfirmStatus']);
@@ -54,6 +57,7 @@ Route::put('/photographers/bookings/update-status/{booking:id}', [BookingControl
 Route::post('/photographers/photo-result/{booking}', [PhotoResultController::class, 'store'])
     ->name('photoresult.store');
 // Review
+Route::get('/photographers/bookings/review', [ReviewController::class, 'showPhotographer']);
 // Upload
 
 
@@ -64,6 +68,8 @@ Route::get('/booking/fill-form/{photographer:id}', [UserBookingController::class
 Route::post('/booking/fill-form/{photographer:id}', [UserBookingController::class, 'fillForm']);
 Route::get('/users/booking', [UserBookingController::class, 'showBooking']);
 Route::put('/users/booking/cancel/{booking:id}', [UserBookingController::class, 'cancelBooking']);
+Route::get('/users/booking/review/{booking:id}', [ReviewController::class, 'showFormUser']);
+Route::get('/users/booking/review/{booking:id}', [ReviewController::class, 'store']);
 Route::get('/sweetalert', function () {
     return view('admins.sweetalert');
 });

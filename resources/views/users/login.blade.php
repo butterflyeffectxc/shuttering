@@ -16,16 +16,24 @@
                                 <div class="mb-3">
                                     <label for="email" class="form-label"><b>Email</b></label>
                                     <input type="text" class="form-control input-glass text-white py-2" id="email"
-                                        placeholder="nutmatch45@gmail.com" name="email" required>
+                                        placeholder="nutmatch45@gmail.com" name="email" value="{{ old('email') }}"
+                                        required>
+                                    @error('email')
+                                        <small class="text-danger">{{ $message }}</small>
+                                    @enderror
                                 </div>
                                 <div class="position-relative mb-3">
                                     <label for="password" class="form-label"><b>Password</b></label>
                                     <input type="password" class="form-control input-glass text-white py-2 pe-5"
-                                        id="password" placeholder="******" name="password" required>
+                                        id="password" placeholder="******" name="password" value="{{ old('password') }}"
+                                        required>
 
                                     <!-- Ikon Mata -->
                                     <span class="fa fa-fw fa-eye field-icon toggle-password"
                                         onclick="visiblePassword()"></span>
+                                    @error('name')
+                                        <small class="text-danger">{{ $message }}</small>
+                                    @enderror
                                 </div>
                                 <div class="d-flex justify-content-end mt-2 mb-3">
                                     <a href="#" class="font-color">Forgot Password?</a>

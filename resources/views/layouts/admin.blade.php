@@ -15,13 +15,13 @@
     <link
         href="https://fonts.googleapis.com/css2?family=Inter:ital,opsz,wght@0,14..32,100..900;1,14..32,100..900&display=swap"
         rel="stylesheet">
+    <link rel="stylesheet" href="{{ asset('css/style.css') }}">
     <link rel="stylesheet" href="{{ asset('assets/assets/compiled/css/app.css') }}" />
     <link rel="stylesheet" href="{{ asset('assets/assets/compiled/css/app-dark.css') }}" />
     <link rel="stylesheet" href="{{ asset('assets/assets/compiled/css/iconly.css') }}" />
     <link rel="stylesheet" href="{{ asset('assets/assets/extensions/sweetalert2/sweetalert2.min.css') }}">
     <link rel="stylesheet" href="{{ asset('assets/assets/extensions/simple-datatables/style.css') }}" />
     <link rel="stylesheet" href="{{ asset('assets/assets/compiled/css/table-datatable.css') }}" />
-    <link rel="stylesheet" href="{{ asset('style.css') }}">
     <link rel="stylesheet" href="{{ asset('assets/assets/compiled/svg/favicon.svg') }}">
     <link rel="stylesheet" href="{{ asset('assets/assets/compiled/svg/favicon.svg.css') }}">
     <!-- Dependencies for scriptupload.js -->

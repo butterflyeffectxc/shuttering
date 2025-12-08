@@ -10,7 +10,7 @@ class BookingController extends Controller
 {
     public function showAll()
     {
-        $bookings = Booking::with(['user', 'photographer'])->orderBy('id', 'desc')->get();
+        $bookings = Booking::with(['user', 'photographer', 'photoType'])->orderBy('id', 'desc')->get();
         return view('admins.bookings.index', compact('bookings'));
     }
 
@@ -30,7 +30,7 @@ class BookingController extends Controller
             abort(403, "Access denied");
         }
         // ambil booking sesuai id photographer
-        $bookings = Booking::with(['user'])
+        $bookings = Booking::with(['user', 'photoType'])
             ->where('photographer_id', $photographer->id)->where('status', 'Pending')
             ->orderBy('id', 'desc')
             ->get();
@@ -48,7 +48,7 @@ class BookingController extends Controller
             abort(403, "Access denied");
         }
         // ambil booking sesuai id photographer
-        $bookings = Booking::with(['user'])
+        $bookings = Booking::with(['user', 'photoType'])
             ->where('photographer_id', $photographer->id)->where('status', 'Confirmed')
             ->orderBy('id', 'desc')
             ->get();
@@ -66,7 +66,7 @@ class BookingController extends Controller
             abort(403, "Access denied");
         }
         // ambil booking sesuai id photographer
-        $bookings = Booking::with(['user'])
+        $bookings = Booking::with(['user', 'photoType'])
             ->where('photographer_id', $photographer->id)->where('status', 'Canceled')
             ->orderBy('id', 'desc')
             ->get();
@@ -115,7 +115,7 @@ class BookingController extends Controller
             abort(403, "Access denied");
         }
         // ambil booking sesuai id photographer
-        $bookings = Booking::with(['user'])
+        $bookings = Booking::with(['user', 'photoType'])
             ->where('photographer_id', $photographer->id)->where('status', 'Paid')
             ->orderBy('id', 'desc')
             ->get();

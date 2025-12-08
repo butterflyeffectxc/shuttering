@@ -8,7 +8,7 @@
             <div class="card-header mb-2">
                 <div class="d-flex justify-content-between">
                     <h5 class="card-title">
-                        Confirmed Booking List
+                        Canceled Booking List
                     </h5>
                     <div class="ml-auto">
                         {{-- <a href="/bookings/create" class="btn btn-primary add-button"><span>Add Data</span></a> --}}
@@ -28,22 +28,22 @@
                                 <th>Location</th>
                                 <th>Photo Type</th>
                                 <th>Status</th>
-                                <th>Ubah Data</th>
+                                <th>Detail</th>
                             </tr>
                         </thead>
                         <tbody>
                             @foreach ($bookings as $booking)
                                 <tr>
                                     <td>{{ $loop->iteration }}</td>
-                                    <td>{{ $booking->customer->name }}</td>
+                                    <td>{{ $booking->user->name }}</td>
                                     <td>{{ $booking->session_date }}</td>
                                     <td>{{ $booking->session_duration }}</td>
                                     <td>{{ $booking->session_location }}</td>
-                                    <td>{{ $booking->photo_type }}</td>
+                                    <td>{{ $booking->photoType->name }}</td>
                                     <td>{{ $booking->status }}</td>
                                     <td>
                                         <a href="/bookings/detail/{{ $booking->id }}" class="btn btn-primary w-100"><i
-                                                class="bi bi-eye-fill"></i></a>
+                                                class="bi bi-info-circle-fill"></i></a>
                                     </td>
                                 </tr>
                             @endforeach
