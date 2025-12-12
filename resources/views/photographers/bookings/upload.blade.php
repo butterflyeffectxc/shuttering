@@ -22,13 +22,13 @@
                         <thead>
                             <tr>
                                 <th>#</th>
-                                <th>Customer Name</th>
+                                <th>Customer</th>
                                 <th>Date</th>
                                 <th>Duration</th>
                                 <th>Location</th>
                                 <th>Photo Type</th>
                                 <th>Status</th>
-                                <th>Upload Gambar</th>
+                                <th>Images Upload</th>
                             </tr>
                         </thead>
                         <tbody>
@@ -43,65 +43,16 @@
                                     <td><span class="chip-status chip-paid">Paid</span></td>
                                     <td>
                                         <button type="button" class="btn btn-primary w-100" data-toggle="modal"
-                                            data-target="#uploadModal">
+                                            data-target="#uploadPhotoModal_{{ $booking->id }}">
                                             <i class="bi bi-cloud-upload"></i>
                                         </button>
-                                        <!-- Upload Modal -->
-                                        <div class="modal fade" id="uploadModal" tabindex="-1" role="dialog">
-                                            <div class="modal-dialog" role="document">
-                                                <div class="modal-content">
-
-                                                    <div class="modal-header">
-                                                        <h5 class="modal-title">Add Content</h5>
-                                                        <button type="button" class="close" data-dismiss="modal">
-                                                            <span>&times;</span>
-                                                        </button>
-                                                    </div>
-
-                                                    <form action="upload.php" method="POST" enctype="multipart/form-data">
-                                                        <div class="modal-body">
-
-                                                            <div class="media mb-3">
-                                                                <img src="https://s3.amazonaws.com/creativetim_bucket/new_logo.png"
-                                                                    class="mr-3 images">
-
-                                                                <div class="media-body">
-                                                                    <textarea name="note" class="autosize" placeholder="add..." rows="1" id="note" data-emoji="true"></textarea>
-
-                                                                    <div class="position-relative mt-2">
-                                                                        <input type="file" name="inputUp[]"
-                                                                            class="d-none inputUp"
-                                                                            id="inputUp-{{ $booking->id }}" multiple
-                                                                            accept="audio/*,video/*,image/*">
-                                                                        <a class="mediaUp mr-4" role="button"
-                                                                            onclick="document.getElementById('inputUp-{{ $booking->id }}').click()">
-                                                                            <i class="bi bi-cloud-upload"></i>
-                                                                        </a>
-                                                                    </div>
-                                                                </div>
-                                                            </div>
-
-                                                            <div class="row col-md-12 preview"></div>
-                                                        </div>
-
-                                                        <div class="modal-footer">
-                                                            <button type="button" class="btn btn-secondary btn-sm"
-                                                                data-dismiss="modal">Close</button>
-                                                            <button type="submit" class="btn btn-info btn-sm">Save
-                                                                changes</button>
-                                                        </div>
-                                                    </form>
-
-                                                </div>
-                                            </div>
-                                        </div>
-                                        <!-- End Modal -->
                                     </td>
                                 </tr>
                             @endforeach
 
                         </tbody>
                     </table>
+
 
 
 
@@ -157,4 +108,65 @@
             </div>
         </div>
     </div>
+    <!-- Upload Photo Modal -->
+    @foreach ($bookings as $booking)
+        <div class="modal fade" id="uploadPhotoModal_{{ $booking->id }}" tabindex="-1" aria-hidden="true">
+            <div class="modal-dialog modal-dialog-centered modal">
+                <div class="modal-content">
+                    <div class="modal-header border-0">
+                        <h5 class="modal-title">Upload Photo Result</h5>
+                        <button type="button" class="btn-close" data-bs-dismiss="modal"></button>
+                    </div>
+                    <form id="uploadForm" action="{{ url('photographers/photo-result/' . $booking->id) }}" method="POST"
+                        enctype="multipart/form-data">
+                        @csrf
+                        <input type="hidden" name="booking_id" value="{{ $booking->id }}">
+                        <input type="hidden" name="photographer_id" value="{{ Auth::user('id') }}">
+                        <div class="modal-body">
+                            <div class="mt-3">
+                                <label for="photo_link" class="form-label">Photo Link <small><i>(must be drive
+                                            link)</i></small></label>
+                                <input type="text" name="photo_link" id="photo_link" class="form-control">
+                            </div>
+                            {{-- <div id="dropArea" class="border border-2 rounded p-5 text-center"
+                                style="border-style: dashed;">
+                                <h6>Drag & Drop your images here</h6>
+                                <p class="text-muted">or click to browse</p>
+                                <input type="file" name="photo[]" id="fileInput" class="d-none" multiple
+                                    accept="image/*">
+                                <button type="button" id="triggerBtn" class="btn btn-primary mt-3">
+                                    Choose Files
+                                </button>
+                            </div>
+                            <div id="preview" class="row mt-4 g-3"></div> --}}
+                        </div>
+                        <div class="modal-footer border-0">
+                            <button class="btn btn-success" type="submit">Upload</button>
+                        </div>
+                    </form>
+                </div>
+            </div>
+        </div>
+    @endforeach
+    <!-- End Modal -->
 @endsection
+@push('scripts')
+    <script>
+        // submit review
+        document.querySelectorAll('form[action*="/photographers/photo-result/"]').forEach(form => {
+            form.addEventListener('submit', function(e) {
+                e.preventDefault();
+                Swal.fire({
+                    title: 'Submit Upload Link?',
+                    text: 'Are you sure your image link is correct?',
+                    icon: 'question',
+                    showCancelButton: true,
+                    confirmButtonText: 'Submit',
+                    cancelButtonText: 'Cancel'
+                }).then(result => {
+                    if (result.isConfirmed) this.submit();
+                });
+            });
+        });
+    </script>
+@endpush

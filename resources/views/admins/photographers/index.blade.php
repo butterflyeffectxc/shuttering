@@ -8,7 +8,7 @@
             <div class="card-header mb-2">
                 <div class="d-flex justify-content-between">
                     <h5 class="card-title">
-                        photographer List
+                        Photographer List
                     </h5>
                     <div class="ml-auto">
                         {{-- <a href="/photographers/create" class="btn btn-primary add-button"><span>Add Data</span></a> --}}
@@ -26,6 +26,7 @@
                                 <th>Email</th>
                                 <th>Telephone</th>
                                 <th>Location</th>
+                                <th>Num of Book</th>
                                 <th>Detail</th>
                             </tr>
                         </thead>
@@ -37,6 +38,7 @@
                                     <td>{{ $photographer->user->email }}</td>
                                     <td>{{ $photographer->user->phone }}</td>
                                     <td>{{ $photographer->location }}</td>
+                                    <td>{{ $photographer->bookings->count() }}</td>
                                     <td>
                                         {{-- <div class="btn-group mr-2" role="group" aria-label="Action Button"> --}}
                                         <a href="/photographers/detail/{{ $photographer->id }}"

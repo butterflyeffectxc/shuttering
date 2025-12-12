@@ -22,7 +22,7 @@
                         <thead>
                             <tr>
                                 <th>#</th>
-                                <th>Customer Name</th>
+                                <th>Customer</th>
                                 <th>Date</th>
                                 <th>Duration</th>
                                 <th>Location</th>

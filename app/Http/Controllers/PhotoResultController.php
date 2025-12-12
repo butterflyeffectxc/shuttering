@@ -12,33 +12,37 @@ class PhotoResultController extends Controller
 {
     public function store(Request $request, Booking $booking)
     {
+        $photographer = Photographer::where('user_id', Auth::id())->first();
+        if (!$photographer) {
+            abort(403, 'Photographer not found for this user.');
+        }
+        // Booking harus milik photographer
+        if ($booking->photographer_id !== $photographer->id) {
+            abort(403, 'Unauthorized');
+        }
+
+        if ($booking->photoResult) {
+            return back()->with('error', 'You have already submitted a photo result..');
+        }
+        // dd($request);
         $request->validate([
-            'photos.*' => 'required|image|mimes:jpg,jpeg,png|max:4096',
+            'booking_id' => 'required',
+            'photo_link' => [
+                'required',
+                'url',
+                'regex:/^https?:\/\/(?:www\.)?drive\.google\.com\/.+$/'
+            ],
+            'status' => 'required'
+        ], [
+            'photo_link.regex' => 'Photo link must be a valid Google Drive link.',
         ]);
 
-        // Validasi photographer
-        $photographer = Photographer::where('user_id', Auth::id())->first();
-
-        if ($photographer->id != $booking->photographer_id) {
-            abort(403, 'Anda tidak berhak upload ke booking ini.');
-        }
-
-        // Simpan foto
-        foreach ($request->file('photos') as $photo) {
-
-            $filename = time() . '_' . uniqid() . '.' . $photo->getClientOriginalExtension();
-
-            // storage/app/public/photo_results
-            $photo->storeAs('photo_results', $filename, 'public');
-
-            PhotoResult::create([
-                'booking_id' => $booking->id,
-                'photographer_id' => $photographer->id,
-                'photo' => $filename,
-                'status_approve' => 'pending',
-            ]);
-        }
-
-        return back()->with('success', 'Hasil foto berhasil diupload.');
+        PhotoResult::create([
+            'photographer_id' => $photographer,
+            'booking_id' => $request->booking_id,
+            'photo_link' => $request->photo_link,
+            'status' => "1",
+        ]);
+        return back()->with('success', 'Photos uploaded successfully!');
     }
 }

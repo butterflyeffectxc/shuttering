@@ -36,7 +36,8 @@
                     @foreach ($photographers as $photographer)
                         <a href="{{ url('users/photographers/detail/' . $photographer->id) }}" class="photocard-wrapper">
                             <div class="photocard">
-                                <img src="{{ asset('profile_photos/' . $photographer->profile_photo) }}" alt="">
+                                <img src="{{ $photographer->profile_photo ? asset('profile_photos/' . $photographer->profile_photo) : asset('assets/default_profile.png') }}"
+                                    alt="">
                                 <div class="photocard-overlay">
                                     <div class="photocard-top">
                                         <button class="photocard-fav active btn-primary-sm">

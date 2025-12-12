@@ -1,7 +1,7 @@
 @extends('layouts.admin')
 @section('contentCms')
     <div class="page-heading">
-        <h3>Profile Statistics</h3>
+        <h3>Booking Detail</h3>
     </div>
     <div class="page-content">
         <div class="card px-5 py-3">
@@ -34,39 +34,29 @@
                             </tr>
                             <tr>
                                 <td>Status</td>
-                                <td><span class="chip-status chip-complete">Completed</span></td>
+                                <td><span class="chip-status chip-completed">Completed</span></td>
                             </tr>
                         </tbody>
                     </table>
-                    <table class="table p-0 m-0">
-                        <thead>
-                            <tr>
-                                <th colspan="2">Review:</th>
-                            </tr>
-                        </thead>
-                        <tbody>
-                            @if ($booking->review)
+                    <table class="table table-borderless p-0 m-0">
+                        @if ($booking->review)
+                            <thead>
                                 <tr>
-                                    <td>Rating</td>
-                                    <td>{{ $booking->review->rating }}</td>
+                                    <th colspan="2">Review Rating:
+                                        {{ optional($booking->review)->rating ?? '' }}</th>
+                                </tr>
+                            </thead>
+                            <tbody>
+                                <tr>
+                                    <td>Notes:</td>
                                 </tr>
                                 <tr>
-                                    <td>Notes</td>
                                     <td>{{ $booking->review->note }}</td>
                                 </tr>
-                            @endif
-                            {{-- @forelse ($booking->products as $product)
-                                <tr>
-                                    <td class="ps-0">{{ $loop->iteration }}</td>
-                                    <td>{{ $product->images }}</td>
-                                    <td class="ps-0">
-                                        {{ $product->name }}
-                                    </td>
-                                @empty
-                                    <td class="ps-0" colspan="2">Belum ada produk.</td>
-                                </tr>
-                            @endforelse --}}
-                        </tbody>
+                            @else
+                                <p>There is no review yet.</p>
+                            </tbody>
+                        @endif
                     </table>
                 </div>
             </div>

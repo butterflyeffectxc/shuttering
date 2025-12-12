@@ -15,8 +15,8 @@ return new class extends Migration
             $table->id();
             $table->integer('photographer_id');
             $table->integer('booking_id');
-            $table->string('photo');
-            $table->string('status'); // approved, pending
+            $table->string('photo_link');
+            $table->string('status'); // 1 = pending, 2 = approve
             $table->timestamps();
             $table->softDeletes();
         });

@@ -25,6 +25,7 @@
                                 <th>Name</th>
                                 <th>Email</th>
                                 <th>Telephone</th>
+                                <th>Num of Book</th>
                                 {{-- <th>Detail</th> --}}
                             </tr>
                         </thead>
@@ -35,6 +36,7 @@
                                     <td>{{ $user->name }}</td>
                                     <td>{{ $user->email }}</td>
                                     <td>{{ $user->phone }}</td>
+                                    <td>{{ $user->bookings->count() }}</td>
                                     {{-- <td>
                                         <a href="/users/detail/{{ $user->id }}" class="btn btn-primary w-100"><i
                                                 class="bi bi-eye-fill"></i></a>

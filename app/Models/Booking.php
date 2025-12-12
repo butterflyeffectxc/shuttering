@@ -23,9 +23,9 @@ class Booking extends Model
     {
         return $this->belongsTo(Photographer::class, 'photographer_id');
     }
-    public function photoResults()
+    public function photoResult()
     {
-        return $this->hasMany(PhotoResult::class);
+        return $this->hasOne(PhotoResult::class);
     }
     public function photoType()
     {

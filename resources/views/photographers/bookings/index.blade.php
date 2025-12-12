@@ -22,7 +22,7 @@
                         <thead>
                             <tr>
                                 <th>#</th>
-                                <th>Customer Name</th>
+                                <th>Customer</th>
                                 <th>Date</th>
                                 <th>Duration</th>
                                 <th>Location</th>
@@ -50,7 +50,7 @@
                                                 method="POST" class="flex-fill">
                                                 @csrf
                                                 @method('PUT')
-                                                <input type="hidden" name="status" value="Confirmed">
+                                                <input type="hidden" name="status" value="confirmed">
                                                 <button type="submit" class="btn btn-success w-100">
                                                     <i class="bi bi-check-lg"></i>
                                                 </button>
@@ -60,7 +60,7 @@
                                                 method="POST" class="flex-fill">
                                                 @csrf
                                                 @method('PUT')
-                                                <input type="hidden" name="status" value="Cancelled">
+                                                <input type="hidden" name="status" value="cance led">
                                                 <button type="submit" class="btn btn-danger w-100">
                                                     <i class="bi bi-x-circle"></i>
                                                 </button>

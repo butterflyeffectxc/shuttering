@@ -56,9 +56,70 @@ function visiblePasswordConfirmationPhotographer() {
     }
 }
 // password eye visibility end
-// sweetalert start
 
-// sweetalert end
+// fill star review start
+// document.querySelectorAll(".stars .star").forEach((star) => {
+//     star.addEventListener("click", function () {
+//         let index = this.getAttribute("data-index");
+
+//         document.querySelectorAll(".stars .star").forEach((s, i) => {
+//             if (i < index) {
+//                 s.classList.remove("bi-star");
+//                 s.classList.add("bi-star-fill");
+//             } else {
+//                 s.classList.remove("bi-star-fill");
+//                 s.classList.add("bi-star");
+//             }
+//         });
+//     });
+// });
+document.querySelectorAll(".modal").forEach((modal) => {
+    let stars = modal.querySelectorAll(".star");
+
+    // Ambil hidden input yang ID-nya dinamis
+    let ratingInput = modal.querySelector("input[id^='ratingInput_']");
+
+    if (!stars.length || !ratingInput) return;
+
+    stars.forEach((star) => {
+        star.addEventListener("click", function () {
+            let value = this.getAttribute("data-value");
+            ratingInput.value = value;
+
+            // Fill/unfill stars inside this modal only
+            stars.forEach((s) => {
+                if (s.getAttribute("data-value") <= value) {
+                    s.classList.remove("bi-star");
+                    s.classList.add("bi-star-fill");
+                } else {
+                    s.classList.remove("bi-star-fill");
+                    s.classList.add("bi-star");
+                }
+            });
+        });
+    });
+});
+// fill star review end
+// toast and sweetalert start
+// reusable Swal instances
+const Swal2 = Swal.mixin({
+    customClass: { input: "form-control" },
+});
+
+const Toast = Swal.mixin({
+    toast: true,
+    position: "top-end",
+    showConfirmButton: false,
+    timer: 3000,
+    timerProgressBar: true,
+    didOpen: (toast) => {
+        toast.addEventListener("mouseenter", Swal.stopTimer);
+        toast.addEventListener("mouseleave", Swal.resumeTimer);
+    },
+});
+
+// toast and sweetalert end
+
 // button toggle register start
 document.addEventListener("DOMContentLoaded", () => {
     // button toggle register

@@ -43,21 +43,6 @@
          <div class="sidebar-menu">
              <ul class="menu">
                  <li class="sidebar-title">Menu</li>
-
-                 <li class="sidebar-item">
-                     <a href="index.html" class="sidebar-link">
-                         <i class="bi bi-grid-fill"></i>
-                         <span>Dashboard</span>
-                     </a>
-                 </li>
-                 @if (Auth::user()->role == '2')
-                     <li class="sidebar-item {{ Request::is('photographers/profile') ? 'active' : '' }}">
-                         <a href="{{ url('photographers/profile') }}" class="sidebar-link">
-                             <i class="bi bi-grid-fill"></i>
-                             <span>Profile</span>
-                         </a>
-                     </li>
-                 @endif
                  @if (Auth::user()->role == '1')
                      <li class="sidebar-item has-sub">
                          <a href="#" class="sidebar-link">
@@ -66,26 +51,42 @@
                          </a>
 
                          <ul class="submenu">
-                             <li class="submenu-item {{ Request::is('users') ? 'active' : '' }}">
-                                 <a href="{{ url('users') }}" class="submenu-link">Customer</a>
+                             <li class="submenu-item {{ Request::is('admins/users') ? 'active' : '' }}">
+                                 <a href="{{ url('admins/users') }}" class="submenu-link">Customer</a>
                              </li>
-                             <li class="submenu-item {{ Request::is('photographers') ? 'active' : '' }}">
-                                 <a href="{{ url('photographers') }}" class="submenu-link">Photographer</a>
+                             <li class="submenu-item {{ Request::is('admins/photographers') ? 'active' : '' }}">
+                                 <a href="{{ url('admins/photographers') }}" class="submenu-link">Photographer</a>
                              </li>
-                             <li class="submenu-item {{ Request::is('photographers/to-verify') ? 'active' : '' }}">
-                                 <a href="{{ url('photographers/to-verify') }}" class="submenu-link">Unverify
+                             <li
+                                 class="submenu-item {{ Request::is('admins/photographers/to-verify') ? 'active' : '' }}">
+                                 <a href="{{ url('admins/photographers/to-verify') }}" class="submenu-link">Unverify
                                      Photographer</a>
                              </li>
                          </ul>
                      </li>
-                     <li class="sidebar-item {{ Request::is('bookings') ? 'active' : '' }}">
-                         <a href="{{ url('bookings') }}" class="sidebar-link">
+                     <li class="sidebar-item {{ Request::is('admins/bookings') ? 'active' : '' }}">
+                         <a href="{{ url('admins/bookings') }}" class="sidebar-link">
                              <i class="bi bi-basket-fill"></i>
                              <span>Booking</span>
                          </a>
                      </li>
                  @endif
                  @if (Auth::user()->role == '2')
+                     <li class="sidebar-item has-sub">
+                         <a href="#" class="sidebar-link">
+                             <i class="bi bi-stack"></i>
+                             <span>Profile</span>
+                         </a>
+
+                         <ul class="submenu">
+                             <li class="submenu-item {{ Request::is('photographers/profile') ? 'active' : '' }}">
+                                 <a href="{{ url('photographers/profile') }}" class="submenu-link">Your Profile</a>
+                             </li>
+                             <li class="submenu-item {{ Request::is('photographer/catalogue') ? 'active' : '' }}">
+                                 <a href="{{ url('photographer/catalogue') }}" class="submenu-link">Portofolio</a>
+                             </li>
+                         </ul>
+                     </li>
                      <li class="sidebar-item has-sub">
                          <a href="#" class="sidebar-link">
                              <i class="bi bi-stack"></i>
@@ -113,7 +114,8 @@
                              </li>
                              <li
                                  class="submenu-item {{ Request::is('photographers/bookings/upload') ? 'active' : '' }}">
-                                 <a href="{{ url('photographers/bookings/upload') }}" class="submenu-link">Upload Image
+                                 <a href="{{ url('photographers/bookings/upload') }}" class="submenu-link">Upload
+                                     Image
                                      Booking</a>
                              </li>
                              <li

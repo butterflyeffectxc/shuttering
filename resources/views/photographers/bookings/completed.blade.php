@@ -8,7 +8,7 @@
             <div class="card-header mb-2">
                 <div class="d-flex justify-content-between">
                     <h5 class="card-title">
-                        Cmpleted Booking List
+                        Completed Booking List
                     </h5>
                     <div class="ml-auto">
                         {{-- <a href="/bookings/create" class="btn btn-primary add-button"><span>Add Data</span></a> --}}
@@ -22,7 +22,7 @@
                         <thead>
                             <tr>
                                 <th>#</th>
-                                <th>Customer Name</th>
+                                <th>Customer</th>
                                 <th>Date</th>
                                 <th>Duration</th>
                                 <th>Location</th>
@@ -40,7 +40,7 @@
                                     <td>{{ $booking->session_duration }}</td>
                                     <td>{{ $booking->session_location }}</td>
                                     <td>{{ $booking->photoType->name }}</td>
-                                    <td><span class="chip-status chip-complete">Completed</span></td>
+                                    <td><span class="chip-status chip-completed">Completed</span></td>
                                     <td>
                                         <a href="/photographers/bookings/completed/detail/{{ $booking->id }}"
                                             class="btn btn-primary w-100"><i class="bi bi-info-circle-fill"></i></a>

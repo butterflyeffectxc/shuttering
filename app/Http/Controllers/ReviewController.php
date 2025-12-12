@@ -10,20 +10,20 @@ use Illuminate\Support\Facades\Auth;
 
 class ReviewController extends Controller
 {
-    public function showFormUser(Booking $booking)
-    {
-        // Pastikan booking milik user
-        if ($booking->user_id !== Auth::id()) {
-            abort(403, 'Unauthorized');
-        }
+    // public function showFormUser(Booking $booking)
+    // {
+    //     // Pastikan booking milik user
+    //     if ($booking->user_id !== Auth::id()) {
+    //         abort(403, 'Unauthorized');
+    //     }
 
-        // Cek jika review sudah ada
-        if ($booking->review) {
-            return back()->with('error', 'Anda sudah memberikan review.');
-        }
+    //     // Cek jika review sudah ada
+    //     if ($booking->review) {
+    //         return back()->with('error', 'Anda sudah memberikan review.');
+    //     }
 
-        return view('reviews.user_form', compact('booking'));
-    }
+    //     return view('reviews.user_form', compact('booking'));
+    // }
 
     public function store(Request $request, Booking $booking)
     {
@@ -33,22 +33,22 @@ class ReviewController extends Controller
         }
 
         if ($booking->review) {
-            return back()->with('error', 'Review untuk booking ini sudah ada.');
+            return back()->with('error', 'You have already submitted a review..');
         }
-
         $request->validate([
+            'booking_id' => 'required',
             'rating' => 'required|integer|min:1|max:5',
             'note' => 'nullable|string'
         ]);
 
         Review::create([
             'user_id' => Auth::id(),
-            'booking_id' => $booking->id,
+            'booking_id' => $request->booking_id,
             'rating' => $request->rating,
             'note' => $request->note,
         ]);
 
-        return redirect()->route('user.bookings')->with('success', 'Review berhasil dikirim.');
+        return redirect()->to('users/booking')->with('success', 'Review added successfully.');
     }
     public function showBookingDetail(Booking $booking)
     {

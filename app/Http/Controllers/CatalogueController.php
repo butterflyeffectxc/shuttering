@@ -60,5 +60,30 @@ class CatalogueController extends Controller
 
     return back()->with('success', 'Foto katalog berhasil diupload.');
 }
+//   public function store(Request $request, Booking $booking)
+//     {
+//         dd($request->request());
+//         $request->validate([
+//             'booking_id' => 'required|integer',
+//             'photographer_id' => 'required|integer',
+//             'photo.*' => 'required|image|mimes:jpg,jpeg,png,webp|max:8192'
+//         ]);
 
+//         if ($request->hasFile('photo')) {
+//             foreach ($request->file('photo') as $file) {
+
+//                 $filename = time() . '_' . uniqid() . '.' . $file->getClientOriginalExtension();
+//                 $file->move(public_path('photo_result'), $filename);
+
+//                 PhotoResult::create([
+//                     'booking_id' => $request->booking_id,
+//                     'photographer_id' => $request->photographer_id,
+//                     'photo' => $filename,
+//                     'status_approve' => '1', // pending
+//                 ]);
+//             }
+//         }
+
+//         return back()->with('success', 'Photos uploaded successfully!');
+//     }
 }

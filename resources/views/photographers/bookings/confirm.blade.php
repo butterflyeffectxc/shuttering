@@ -22,7 +22,7 @@
                         <thead>
                             <tr>
                                 <th>#</th>
-                                <th>Customer Name</th>
+                                <th>Customer</th>
                                 <th>Date</th>
                                 <th>Duration</th>
                                 <th>Location</th>
@@ -50,7 +50,7 @@
                                             method="POST" class="d-inline">
                                             @csrf
                                             @method('PUT')
-                                            <input type="hidden" name="status" value="Paid">
+                                            <input type="hidden" name="status" value="paid">
                                             <button type="submit" class="btn btn-success w-100">
                                                 <i class="bi bi-cash"></i>
                                             </button>

@@ -34,7 +34,7 @@ class BookingSeeder extends Seeder
                 'total_price' => 2000,
                 'photo_type_id' => 1,
                 'notes' => '',
-                'status' => 'pending',
+                'status' => 'completed',
             ],
             [
                 'user_id' => 3,

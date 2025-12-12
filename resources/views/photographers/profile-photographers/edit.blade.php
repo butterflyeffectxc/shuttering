@@ -3,32 +3,26 @@
     <div class="page-heading">
         <h3>Photographer Profile</h3>
     </div>
-
     <div class="page-content">
         <div class="card">
             <div class="card-header mb-2">
                 <div class="d-flex justify-content-between">
                     <h5 class="card-title">
-                        Edit Photographer Profile
+                        Edit Profile
                     </h5>
                     <div class="ml-auto">
                         {{-- optional button --}}
                     </div>
                 </div>
             </div>
-
             <div class="card-body">
-
                 <form method="POST" action="{{ url('photographers/profile/' . $photographer->id) }}"
                     enctype="multipart/form-data">
                     @csrf
                     @method('PUT')
-
                     <div class="row">
-
                         {{-- LEFT COLUMN --}}
                         <div class="col-md-6">
-
                             {{-- NAME --}}
                             <div class="mb-3">
                                 <label class="form-label fw-bold">Full Name</label>
@@ -122,7 +116,7 @@
 
                     {{-- PHOTO TYPES --}}
                     <div class="mb-3">
-                        <label class="form-label fw-bold">Photo Types (max 3)</label>
+                        <label class="form-label fw-bold">Photo Types (max 2)</label>
 
                         <div class="d-flex flex-wrap gap-3">
                             @foreach ($photoTypes as $type)
@@ -148,4 +142,11 @@
             </div>
         </div>
     </div>
+@endsection
+@section('scripts')
+    <script>
+        document.getElementById("title").addEventListener("click", (e) => {
+            Swal2.fire("The Internet?", "That thing is still around?", "question")
+        })
+    </script>
 @endsection

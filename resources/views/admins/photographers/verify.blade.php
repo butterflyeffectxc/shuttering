@@ -11,8 +11,8 @@
                         Unverified Photographer List
                     </h5>
                     <div class="ml-auto">
-                        {{-- <a href="/photographers/create" class="btn btn-primary add-button"><span>Add Data</span></a> --}}
-                        {{-- <a href="/photographers/index" class="btn btn-warning back-button"><span>Back</span></a> --}}
+                        {{-- <a href="/admins/photographers/create" class="btn btn-primary add-button"><span>Add Data</span></a> --}}
+                        {{-- <a href="/admins/photographers/index" class="btn btn-warning back-button"><span>Back</span></a> --}}
                     </div>
                 </div>
             </div>
@@ -39,31 +39,19 @@
                                     <td>{{ $photographer->location }}</td>
                                     <td>
                                         <div class="d-flex gap-2">
-                                            <form action="/photographers/to-verify/{{ $photographer->id }}" method="POST"
-                                                class="flex-fill">
+                                            <form action="/admins/photographers/to-verify/{{ $photographer->id }}"
+                                                method="POST" class="flex-fill" id="verify-form-{{ $photographer->id }}">
                                                 @csrf
                                                 @method('PUT')
                                                 <input type="hidden" name="status" value="2">
-                                                <button type="submit" class="btn btn-success w-100"><i
+                                                <button type="submit" class="btn btn-success verify-btn w-100"
+                                                    data-id="{{ $photographer->id }}"><i
                                                         class="bi bi-check-lg"></i></button>
                                             </form>
 
-                                            <a href="/photographers/detail/{{ $photographer->id }}"
+                                            <a href="/admins/photographers/detail/{{ $photographer->id }}"
                                                 class="btn btn-primary flex-fill"><i class="bi bi-eye-fill"></i></a>
                                         </div>
-                                        {{-- <div class="btn-group mr-2" role="group" aria-label="Action Button"> --}}
-                                        {{-- <a href="/photographers/detail/{{ $photographer->id }}"
-                                                class="btn btn-primary"><i class="bi bi-eye-fill"></i></a>
-                                            <a href="/photographers/edit/{{ $photographer->id }}" class="btn btn-warning"><i
-                                                    class="bi bi-pencil-square"></i></a> --}}
-                                        {{-- <form action="/photographers/to-verify/{{ $photographer->id }}" method="POST">
-                                            @csrf
-                                            @method('DELETE')
-                                            <input type="hidden" name="status" value="2">
-                                            <button type="submit" class="btn btn-primary w-100"><i
-                                                    class="bi bi-check-lg"></i></button>
-                                        </form> --}}
-                                        {{-- </div> --}}
                                     </td>
                                 </tr>
                             @endforeach
@@ -74,3 +62,26 @@
         </div>
     </div>
 @endsection
+@push('scripts')
+    <script>
+        document.querySelectorAll('.verify-btn').forEach(btn => {
+            btn.addEventListener('click', function(e) {
+                e.preventDefault();
+                const id = this.dataset.id;
+                const form = document.getElementById('verify-form-' + id);
+
+                Swal.fire({
+                    title: 'Verify this Photographer?',
+                    text: 'Are you sure you want to make this photographer profesional?',
+                    icon: 'warning',
+                    showCancelButton: true,
+                    confirmButtonColor: '#fd7801',
+                    cancelButtonColor: '#818181',
+                    confirmButtonText: 'Yes, proceed'
+                }).then(result => {
+                    if (result.isConfirmed) form.submit();
+                });
+            });
+        });
+    </script>
+@endpush

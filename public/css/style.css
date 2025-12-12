@@ -601,7 +601,7 @@ a{
   background-color: rgba(47, 138, 207, 0.80);
   color: #032C4B;
 }
-.chip-complete {
+.chip-completed {
   background-color: rgba(10, 225, 106, 0.80);
   color: #01401D;
 }
@@ -721,6 +721,11 @@ a{
     height: fit-content;
 }
 /* form photographer end */
+/* user - review start */
+.star{
+    font-size: 50px;
+}
+/* user - review end */
 /* detail photographer start */
 .wedding-carousel {
   background-color: #111;
