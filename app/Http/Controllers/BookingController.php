@@ -31,7 +31,7 @@ class BookingController extends Controller
         }
         // ambil booking sesuai id photographer
         $bookings = Booking::with(['user', 'photoType'])
-            ->where('photographer_id', $photographer->id)->where('status', 'Pending')
+            ->where('photographer_id', $photographer->id)->where('status', 'pending')
             ->orderBy('id', 'desc')
             ->get();
 
@@ -49,7 +49,7 @@ class BookingController extends Controller
         }
         // ambil booking sesuai id photographer
         $bookings = Booking::with(['user', 'photoType'])
-            ->where('photographer_id', $photographer->id)->where('status', 'Confirmed')
+            ->where('photographer_id', $photographer->id)->where('status', 'confirmed')
             ->orderBy('id', 'desc')
             ->get();
 
@@ -67,7 +67,7 @@ class BookingController extends Controller
         }
         // ambil booking sesuai id photographer
         $bookings = Booking::with(['user', 'photoType'])
-            ->where('photographer_id', $photographer->id)->where('status', 'Canceled')
+            ->where('photographer_id', $photographer->id)->where('status', 'canceled')
             ->orderBy('id', 'desc')
             ->get();
 
@@ -88,7 +88,7 @@ class BookingController extends Controller
     public function updateConfirmStatus(Request $request, Booking $booking)
     {
         $request->validate([
-            'status' => 'required|in:Confirmed,Canceled,Paid'
+            'status' => 'required|in:confirmed,canceled,paid'
         ]);
 
         $userId = auth()->id();
@@ -116,7 +116,7 @@ class BookingController extends Controller
         }
         // ambil booking sesuai id photographer
         $bookings = Booking::with(['user', 'photoType'])
-            ->where('photographer_id', $photographer->id)->where('status', 'Paid')
+            ->where('photographer_id', $photographer->id)->where('status', 'paid')
             ->orderBy('id', 'desc')
             ->get();
 
@@ -155,7 +155,7 @@ class BookingController extends Controller
         }
         // ambil booking sesuai id photographer
         $bookings = Booking::with(['user', 'photoType'])
-            ->where('photographer_id', $photographer->id)->where('status', 'Completed')
+            ->where('photographer_id', $photographer->id)->where('status', 'completed')
             ->orderBy('id', 'desc')
             ->get();
 

@@ -2,6 +2,7 @@
 
 use App\Http\Controllers\AuthController;
 use App\Http\Controllers\BookingController;
+use App\Http\Controllers\CatalogueController;
 use App\Http\Controllers\PhotographerController;
 use App\Http\Controllers\PhotoResultController;
 use App\Http\Controllers\ReviewController;
@@ -54,17 +55,18 @@ Route::middleware(['auth', 'role:2'])->group(function () {
     Route::get('/photographers/bookings/canceled', [BookingController::class, 'showAlreadyCanceled']);
     Route::get('/photographers/bookings/completed', [BookingController::class, 'showAlreadyCompleted']);
     Route::get('/photographers/bookings/history', [BookingController::class, 'showHistory']);
-    Route::get('/photographers/bookings/upload', [BookingController::class, 'showToUpload']);
     // Route::post('/photographers/bookings/upload-images', [PhotographerController::class, 'uploadImages']);
     Route::put('/photographers/bookings/update-status/{booking:id}', [BookingController::class, 'updateConfirmStatus']);
     // Review
     Route::get('/photographers/bookings/completed/detail/{booking:id}', [ReviewController::class, 'showBookingDetail']);
     // Photo Result
+    Route::get('/photographers/bookings/upload', [BookingController::class, 'showToUpload']);
     Route::post('/photographers/photo-result/{booking:id}', [PhotoResultController::class, 'store'])
     ->name('photoresult.store');
+    Route::get('/photographers/bookings/upload/status', [BookingController::class, 'showToUploadStatus']);
     // Catalogue
-    Route::get('/photographers/catalogue', [PhotographerController::class, 'index']);
-    Route::put('/photographers/catalogue/{photographer:id}', [PhotographerController::class, 'store']);
+    Route::get('/photographers/catalogue', [CatalogueController::class, 'showPerPhotographer']);
+    Route::put('/photographers/catalogue/{photographer:id}', [CatalogueController::class, 'store']);
 });
 
 // User

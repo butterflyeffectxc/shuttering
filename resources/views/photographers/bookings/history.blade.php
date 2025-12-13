@@ -45,8 +45,8 @@
                                             <span class="chip-status chip-pending">Pending</span>
                                         @elseif($booking->status == 'confirmed')
                                             <span class="chip-status chip-confirmed">Confirmed</span>
-                                        @elseif($booking->status == 'complete')
-                                            <span class="chip-status chip-complete">Complete</span>
+                                        @elseif($booking->status == 'completed')
+                                            <span class="chip-status chip-completed">Completed</span>
                                         @elseif($booking->status == 'paid')
                                             <span class="chip-status chip-paid">Paid</span>
                                         @else

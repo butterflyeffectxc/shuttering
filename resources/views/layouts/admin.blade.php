@@ -71,6 +71,23 @@
     <script src="{{ asset('js/scriptupload.js') }}"></script>
     <script src="{{ asset('js/script.js') }}"></script>
     @stack('scripts')
+    @if (session('success'))
+        <script>
+            Toast.fire({
+                icon: 'success',
+                title: "{{ session('success') }}"
+            });
+        </script>
+    @endif
+
+    @if (session('error'))
+        <script>
+            Toast.fire({
+                icon: 'error',
+                title: "{{ session('error') }}"
+            });
+        </script>
+    @endif
 </body>
 
 </html>

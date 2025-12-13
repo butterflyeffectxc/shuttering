@@ -122,6 +122,7 @@
                         @csrf
                         <input type="hidden" name="booking_id" value="{{ $booking->id }}">
                         <input type="hidden" name="photographer_id" value="{{ Auth::user('id') }}">
+                        <input type="hidden" name="status" value="1">
                         <div class="modal-body">
                             <div class="mt-3">
                                 <label for="photo_link" class="form-label">Photo Link <small><i>(must be drive

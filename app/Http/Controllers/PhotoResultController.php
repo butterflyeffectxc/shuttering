@@ -38,11 +38,14 @@ class PhotoResultController extends Controller
         ]);
 
         PhotoResult::create([
-            'photographer_id' => $photographer,
+            'photographer_id' => $photographer->id,
             'booking_id' => $request->booking_id,
             'photo_link' => $request->photo_link,
             'status' => "1",
         ]);
-        return back()->with('success', 'Photos uploaded successfully!');
+        $booking->update([
+            'status' => 'completed'
+        ]);
+        return redirect()->to('photographers/bookings/completed')->with('success', 'Photos uploaded successfully!');
     }
 }

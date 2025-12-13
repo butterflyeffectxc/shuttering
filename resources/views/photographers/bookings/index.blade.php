@@ -60,14 +60,13 @@
                                                 method="POST" class="flex-fill">
                                                 @csrf
                                                 @method('PUT')
-                                                <input type="hidden" name="status" value="cance led">
+                                                <input type="hidden" name="status" value="canceled">
                                                 <button type="submit" class="btn btn-danger w-100">
                                                     <i class="bi bi-x-circle"></i>
                                                 </button>
                                             </form>
                                         </div>
                                     </td>
-
                                 </tr>
                             @endforeach
                         </tbody>
@@ -77,3 +76,46 @@
         </div>
     </div>
 @endsection
+@push('scripts')
+    <script>
+        document.querySelectorAll('form[action*="/photographers/bookings/update-status/"]').forEach(form => {
+            form.addEventListener('submit', function(e) {
+                e.preventDefault();
+
+                const status = this.querySelector('input[name="status"]').value;
+
+                let title = 'Change Booking Status?';
+                let text = 'Are you sure you want to change booking status?';
+                let icon = 'question';
+                let confirmText = 'Yes';
+
+                if (status === 'canceled') {
+                    title = 'Cancel Booking?';
+                    text = 'Are you sure you want to cancel this booking?';
+                    icon = 'warning';
+                    confirmText = 'Yes, Cancel';
+                }
+
+                if (status === 'confirmed') {
+                    title = 'Confirm Booking?';
+                    text = 'Are you sure you want to confirm this booking?';
+                    icon = 'success';
+                    confirmText = 'Yes, Confirm';
+                }
+
+                Swal.fire({
+                    title: title,
+                    text: text,
+                    icon: icon,
+                    showCancelButton: true,
+                    confirmButtonText: confirmText,
+                    cancelButtonText: 'Back'
+                }).then((result) => {
+                    if (result.isConfirmed) {
+                        this.submit();
+                    }
+                });
+            });
+        });
+    </script>
+@endpush

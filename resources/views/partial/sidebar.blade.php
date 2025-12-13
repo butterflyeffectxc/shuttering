@@ -82,8 +82,8 @@
                              <li class="submenu-item {{ Request::is('photographers/profile') ? 'active' : '' }}">
                                  <a href="{{ url('photographers/profile') }}" class="submenu-link">Your Profile</a>
                              </li>
-                             <li class="submenu-item {{ Request::is('photographer/catalogue') ? 'active' : '' }}">
-                                 <a href="{{ url('photographer/catalogue') }}" class="submenu-link">Portofolio</a>
+                             <li class="submenu-item {{ Request::is('photographers/catalogue') ? 'active' : '' }}">
+                                 <a href="{{ url('photographers/catalogue') }}" class="submenu-link">Portofolio</a>
                              </li>
                          </ul>
                      </li>
