@@ -19,22 +19,30 @@ class PhotographerController extends Controller
         $photographers = Photographer::with(['user', 'photoTypes'])->where('status', 1)->get();
         return view('admins.photographers.verify', compact('photographers'));
     }
-    function updatePhotographerVerify(Request $request, Photographer $photographer) {
-         $request->validate([
+    function showAllSuspended()
+    {
+        $photographers = Photographer::with(['user', 'photoTypes'])->where('status', 3)->get();
+        return view('admins.photographers.suspended', compact('photographers'));
+    }
+    function updatePhotographerVerify(Request $request, Photographer $photographer)
+    {
+        $request->validate([
             'status' => 'required'
         ]);
-
-        // $userId = auth()->id();
-        // $photographer = Photographer::where('user_id', $userId)->first();
-
-        // if ($booking->photographer_id !== $photographer->id) {
-        //     abort(403, "You cannot modify this booking");
-        // }
-
         $photographer->status = $request->status;
         $photographer->save();
 
-        return redirect()->back()->with('success', 'Booking status updated successfully.');
+        return redirect()->back()->with('success', 'Photographer status updated successfully.');
+    }
+    function suspendPhotographer(Request $request, Photographer $photographer)
+    {
+        $request->validate([
+            'status' => 'required'
+        ]);
+        $photographer->status = $request->status;
+        $photographer->save();
+
+        return redirect()->back()->with('success', 'Photographer status updated successfully.');
     }
     function showDetail(Photographer $photographer)
     {
@@ -107,5 +115,10 @@ class PhotographerController extends Controller
 
         return back()->with('success', 'Profile berhasil diperbarui!');
     }
+    public function showCatalogue(Photographer $photographer)
+    {
+        $catalogues = $photographer->catalogues()->latest()->get();
 
+        return view('admins.photographers.catalogue', compact('catalogues', 'photographer'));
+    }
 }

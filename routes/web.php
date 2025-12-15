@@ -35,6 +35,9 @@ Route::middleware(['auth', 'role:1'])->group(function () {
     Route::get('/admins/photographers/to-verify', [PhotographerController::class, 'showAllUnverify']);
     Route::put('/admins/photographers/to-verify/{photographer:id}', [PhotographerController::class, 'updatePhotographerVerify']);
     Route::get('/admins/photographers/detail/{photographer:id}', [PhotographerController::class, 'showDetail']);
+    Route::get('/admins/photographers/catalogue/{photographer:id}', [PhotographerController::class, 'showCatalogue']);
+    Route::get('/admins/photographers/suspended', [PhotographerController::class, 'showAllSuspended']);
+    Route::put('/admins/photographers/suspend/{photographer:id}', [PhotographerController::class, 'suspendPhotographer']);
     // See User Account
     Route::get('/admins/users', [UserController::class, 'index']);
     // See Booking
@@ -62,11 +65,12 @@ Route::middleware(['auth', 'role:2'])->group(function () {
     // Photo Result
     Route::get('/photographers/bookings/upload', [BookingController::class, 'showToUpload']);
     Route::post('/photographers/photo-result/{booking:id}', [PhotoResultController::class, 'store'])
-    ->name('photoresult.store');
+        ->name('photoresult.store');
     Route::get('/photographers/bookings/upload/status', [BookingController::class, 'showToUploadStatus']);
     // Catalogue
     Route::get('/photographers/catalogue', [CatalogueController::class, 'showPerPhotographer']);
-    Route::put('/photographers/catalogue/{photographer:id}', [CatalogueController::class, 'store']);
+    Route::post('/photographers/catalogue/{photographer:id}', [CatalogueController::class, 'store']);
+    Route::delete('/photographers/catalogue/delete/{catalogue:id}', [CatalogueController::class, 'destroy']);
 });
 
 // User

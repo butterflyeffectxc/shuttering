@@ -1,20 +1,16 @@
 @extends('layouts.admin')
 @section('contentCms')
     <div class="page-heading">
-        <h3>Photographer Catalogue</h3>
+        <h3>Photographer Detail</h3>
     </div>
     <div class="page-content">
         <div class="card">
             <div class="card-header mb-2">
                 <div class="d-flex justify-content-between">
                     <h5 class="card-title">
-                        Profile Catalogue
+                        Catalogue
                     </h5>
                     <div class="ml-auto">
-                        <button type="button" class="btn btn-primary" data-bs-toggle="modal"
-                            data-bs-target="#uploadCatalogue">
-                            Manage Catalogue
-                        </button>
                     </div>
                 </div>
             </div>
@@ -28,59 +24,19 @@
                     @forelse ($catalogues as $catalogue)
                         <div class="col-md-4 col-lg-3 col-12">
                             <div class="catalogue-card position-relative">
-
-                                {{-- DELETE BUTTON --}}
-                                <form action="{{ url('photographers/catalogue/delete', $catalogue->id) }}" method="POST"
-                                    class="delete-form">
-                                    @csrf
-                                    @method('DELETE')
-
-                                    <button type="submit" class="delete-btn">
-                                        &times;
-                                    </button>
-                                </form>
-
                                 {{-- IMAGE --}}
                                 <img src="{{ asset('catalogue/' . $catalogue->photo) }}"
                                     class="img-fluid rounded catalogue-img">
                             </div>
                         </div>
                     @empty
-                        <p>You have no image catalogue at the moment.</p>
+                        <p>Photographer have no image catalogue at the moment.</p>
                     @endforelse
                 </div>
-            </div>
-        </div>
-    </div>
-    <div class="modal fade" id="uploadCatalogue" tabindex="-1" aria-hidden="true">
-        <div class="modal-dialog modal-dialog-centered modal-lg">
-            <div class="modal-content">
-                <div class="modal-header border-0">
-                    <h5 class="modal-title">Upload Photo Result</h5>
-                    <button type="button" class="btn-close" data-bs-dismiss="modal"></button>
+                <div class="d-flex justify-content-end">
+                    <a href="{{ url('admins/photographers/detail/' . $photographer->id) }}"
+                        class="btn btn-primary back-button"><span>Back</span></a>
                 </div>
-                <form id="uploadForm" action="{{ url('photographers/catalogue/' . $photographer->id) }}" method="POST"
-                    enctype="multipart/form-data">
-                    @csrf
-                    <input type="hidden" name="photographer_id" value="{{ Auth::user('id') }}">
-                    <div class="modal-body">
-                        {{-- Drag & Drop Area --}}
-                        <div id="dropArea" class="border border-2 rounded p-5 text-center" style="border-style: dashed;">
-                            <h6>Drag & Drop your images here</h6>
-                            <p class="text-muted">or click to browse</p>
-                            <input type="file" name="photo[]" id="fileInput" class="d-none" multiple accept="image/*">
-                            <button type="button" id="triggerBtn" class="btn btn-primary mt-3">
-                                Choose Files
-                            </button>
-                        </div>
-                        {{-- Preview --}}
-                        <div id="preview" class="row mt-4 g-3"></div>
-                    </div>
-                    <div class="modal-footer border-0">
-                        <button class="btn btn-secondary" data-bs-dismiss="modal">Cancel</button>
-                        <button class="btn btn-success" type="submit">Upload</button>
-                    </div>
-                </form>
             </div>
         </div>
     </div>

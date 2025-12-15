@@ -62,6 +62,11 @@
                                  <a href="{{ url('admins/photographers/to-verify') }}" class="submenu-link">Unverify
                                      Photographer</a>
                              </li>
+                             <li
+                                 class="submenu-item {{ Request::is('admins/photographers/suspended') ? 'active' : '' }}">
+                                 <a href="{{ url('admins/photographers/suspended') }}" class="submenu-link">Suspended
+                                     Photographer</a>
+                             </li>
                          </ul>
                      </li>
                      <li class="sidebar-item {{ Request::is('admins/bookings') ? 'active' : '' }}">

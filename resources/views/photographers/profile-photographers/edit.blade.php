@@ -145,8 +145,5 @@
 @endsection
 @section('scripts')
     <script>
-        document.getElementById("title").addEventListener("click", (e) => {
-            Swal2.fire("The Internet?", "That thing is still around?", "question")
-        })
     </script>
 @endsection

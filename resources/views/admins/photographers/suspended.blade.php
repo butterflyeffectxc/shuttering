@@ -27,7 +27,6 @@
                                 <th>Telephone</th>
                                 <th>Location</th>
                                 <th>Num of Book</th>
-                                <th>Detail</th>
                             </tr>
                         </thead>
                         <tbody>
@@ -39,21 +38,6 @@
                                     <td>{{ $photographer->user->phone }}</td>
                                     <td>{{ $photographer->location }}</td>
                                     <td>{{ $photographer->bookings->count() }}</td>
-                                    <td>
-                                        {{-- <div class="btn-group mr-2" role="group" aria-label="Action Button"> --}}
-                                        <a href="/admins/photographers/detail/{{ $photographer->id }}"
-                                            class="btn btn-primary w-100"><i class="bi bi-eye-fill"></i></a>
-                                        {{-- <a href="/photographers/edit/{{ $photographer->id }}" class="btn btn-warning"><i
-                                                    class="bi bi-pencil-square"></i></a>
-                                            <form action="/photographers/delete/{{ $photographer->id }}" method="POST">
-                                                @csrf
-                                                @method('DELETE')
-                                                <form action="photographers/delete/{{ $photographer->id }}" method="POST">
-                                                    <button type="submit" class="btn btn-danger"><i
-                                                            class="bi bi-trash3-fill"></i></button>
-                                                </form> --}}
-                                        {{-- </div> --}}
-                                    </td>
                                 </tr>
                             @endforeach
                         </tbody>

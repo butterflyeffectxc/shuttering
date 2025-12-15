@@ -799,9 +799,47 @@ a{
     border-radius: 10px;
     box-shadow: 0 4px 12px rgba(0,0,0,0.15);
 }
-
 /* preview image end */
+/* catalogue start */
+.catalogue-card {
+    overflow: hidden;
+    border-radius: 12px;
+}
 
+.catalogue-img {
+    width: 220px;
+    height: 220px;
+    object-fit: contain;
+}
+
+/* Tombol X */
+.delete-btn {
+    position: absolute;
+    top: 8px;
+    right: 8px;
+    background: rgba(0, 0, 0, 0.6);
+    border: none;
+    color: white;
+    font-size: 20px;
+    width: 32px;
+    height: 32px;
+    border-radius: 50%;
+    cursor: pointer;
+    opacity: 0;
+    transition: 0.2s ease;
+}
+
+/* Muncul saat hover */
+.catalogue-card:hover .delete-btn {
+    opacity: 1;
+}
+
+/* Hover effect */
+.delete-btn:hover {
+    background: #dc3545;
+}
+
+/* catalogue end */
 /* detail photographer end */
 @media (max-width: 600px) {
     small{
