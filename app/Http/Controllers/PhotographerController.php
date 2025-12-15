@@ -70,7 +70,7 @@ class PhotographerController extends Controller
             'location'      => 'required|max:255',
             'start_rate'    => 'required|numeric',
             'description'   => 'nullable|string',
-            'profile_photo' => 'nullable|image|mimes:jpg,jpeg,png|max:2048',
+            'profile_photo' => 'nullable|image|mimes:jpg,jpeg,png|max:3548',
             'photo_type'    => 'nullable|array|max:2',
             'photo_type.*'  => 'exists:photo_types,id'
         ]);

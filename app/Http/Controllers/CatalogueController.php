@@ -21,9 +21,16 @@ class CatalogueController extends Controller
     {
         $request->validate([
             'photo' => 'required|array',
-            'photo.*' => 'image|mimes:jpg,jpeg,png|max:8192',
+            'photo.*' => 'image|mimes:jpg,jpeg,png',
         ]);
-
+        foreach ($request->file('photo') as $image) {
+            if ($image->getSize() > 8 * 1024 * 1024) {
+                return back()->with(
+                    'error',
+                    'One or more photos exceed the maximum size of 8MB.'
+                );
+            }
+        }
         $photographer = Photographer::where('user_id', Auth::id())->first();
 
         if (!$photographer) {

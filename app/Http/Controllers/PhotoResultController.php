@@ -27,16 +27,12 @@ class PhotoResultController extends Controller
         // dd($request);
         $request->validate([
             'booking_id' => 'required',
-            'photo_link' => [
-                'required',
-                'url',
-                'regex:/^https?:\/\/(?:www\.)?drive\.google\.com\/.+$/'
-            ],
+            'photo_link' => 'required|url',
             'status' => 'required'
-        ], [
-            'photo_link.regex' => 'Photo link must be a valid Google Drive link.',
         ]);
-
+        if (!preg_match('/^https?:\/\/(?:www\.)?drive\.google\.com\/.+$/', $request->photo_link)) {
+            return back()->with('error', 'Photo link must be a valid Google Drive link.');
+        }
         PhotoResult::create([
             'photographer_id' => $photographer->id,
             'booking_id' => $request->booking_id,

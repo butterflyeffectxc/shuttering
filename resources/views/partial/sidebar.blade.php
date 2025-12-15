@@ -1,5 +1,5 @@
  <div id="sidebar">
-     <div class="sidebar-wrapper active">
+     <div class="sidebar-wrapper active d-flex flex-column">
          <div class="sidebar-header position-relative">
              <div class="d-flex justify-content-between align-items-center">
                  <div class="logo">
@@ -40,7 +40,7 @@
                  </div>
              </div>
          </div>
-         <div class="sidebar-menu">
+         <div class="sidebar-menu flex-grow-1 d-flex flex-column">
              <ul class="menu">
                  <li class="sidebar-title">Menu</li>
                  @if (Auth::user()->role == '1')
@@ -132,7 +132,40 @@
                          </ul>
                      </li>
                  @endif
+                 {{-- <li class="sidebar-item active mt-auto">
+                     <a href="{{ url('logout') }}" class='sidebar-link'>
+                         <i class="bi bi-box-arrow-left"></i>
+                         <span>Log out</span>
+                     </a>
+                 </li> --}}
+                 <li class="sidebar-item mt-auto">
+                     <form method="POST" action="{{ url('logout') }}" id="logout-form">
+                         @csrf
+                         <button type="button" class="sidebar-link btn w-100 text-start" onclick="confirmLogout()">
+                             <i class="bi bi-box-arrow-left"></i>
+                             <span>Log out</span>
+                         </button>
+                     </form>
+                 </li>
              </ul>
          </div>
      </div>
  </div>
+ @push('scripts')
+     <script>
+         function confirmLogout() {
+             Swal.fire({
+                 title: 'Logout?',
+                 text: 'Are you sure you want to log out?',
+                 icon: 'warning',
+                 showCancelButton: true,
+                 confirmButtonText: 'Yes, logout',
+                 cancelButtonText: 'Cancel'
+             }).then((result) => {
+                 if (result.isConfirmed) {
+                     document.getElementById('logout-form').submit();
+                 }
+             });
+         }
+     </script>
+ @endpush
