@@ -13,17 +13,28 @@
                                 <p>From creative shoots to cinematic storytelling — Shuttering is where emotions meet
                                     artistry.
                                 </p>
-                                <input type="text" class="form-control input-glass text-white py-2 mb-3" id="search"
-                                    placeholder="Search" name="search">
+                                <input type="text" id="search" class="form-control input-glass text-white py-2 mb-3"
+                                    placeholder="Search photographer, location..." name="search"
+                                    value="{{ request('search') }}">
+
+
                             </div>
-                            <div class="my-3">
-                                <a href=""><span class="chip">All</span></a>
-                                <a href=""><span class="chip">Potrait</span></a>
-                                <a href=""><span class="chip">Formal</span></a>
-                                <a href=""><span class="chip">Fashion</span></a>
-                                <a href=""><span class="chip">Lifestyle</span></a>
-                                <a href=""><span class="chip">Wedding</span></a>
-                                <a href=""><span class="chip">Maternity</span></a>
+                            <div class="my-3 d-flex flex-wrap gap-2">
+                                {{-- ALL --}}
+                                <a href="{{ request()->fullUrlWithQuery(['type' => null]) }}">
+                                    <span class="chip {{ request('type') ? '' : 'chip-active' }}">All</span>
+                                </a>
+                                {{-- <a href="{{ request()->url() }}">
+                                    <span class="chip {{ request('type') ? '' : 'chip-active' }}">All</span>
+                                </a> --}}
+                                {{-- FILTER BY PHOTOTYPE --}}
+                                @foreach ($photoTypes as $photoType)
+                                    <a href="{{ request()->fullUrlWithQuery(['type' => $photoType->id]) }}">
+                                        <span class="chip {{ request('type') == $photoType->id ? 'chip-active' : '' }}">
+                                            {{ $photoType->name }}
+                                        </span>
+                                    </a>
+                                @endforeach
                             </div>
                         </div>
                     </div>
@@ -33,16 +44,17 @@
         <div class="photocard-bg pt-3 pb-5">
             <div class="container">
                 <div class="photocard-container">
-                    @foreach ($photographers as $photographer)
+                    @forelse ($photographers as $photographer)
                         <a href="{{ url('users/photographers/detail/' . $photographer->id) }}" class="photocard-wrapper">
                             <div class="photocard">
                                 <img src="{{ $photographer->profile_photo ? asset('profile_photos/' . $photographer->profile_photo) : asset('assets/default_profile.png') }}"
                                     alt="">
                                 <div class="photocard-overlay">
                                     <div class="photocard-top">
+                                        {{-- <form action="{{ url('users/photographer/wishlist/' . $photographer->id) }}"></form>
                                         <button class="photocard-fav active btn-primary-sm">
                                             <img src="{{ asset('assets/favorite_outline.svg') }}" alt="">
-                                        </button>
+                                        </button> --}}
                                     </div>
                                     <div class="photocard-bottom">
                                         <span class="photocard-location">
@@ -51,7 +63,7 @@
                                         </span>
                                         <div class="d-flex justify-content-start align-items-center gap-2">
                                             <h3>{{ $photographer->user->name }}</h3>
-                                            @if ($photographer->verified_by_admin === '2')
+                                            @if ($photographer->verified_by_admin == '2')
                                                 <img src="{{ asset('assets/icon_verified.svg') }}" alt=""
                                                     style="width:24px; height:24px;">
                                             @endif
@@ -65,7 +77,9 @@
                                 </div>
                             </div>
                         </a>
-                    @endforeach
+                    @empty
+                        <h6>There is no available photographer at the moment.</h6>
+                    @endforelse
                 </div>
 
             </div>
@@ -73,15 +87,34 @@
     </div>
     @include('partial.footer')
 @endsection
-{{-- <div class="card text-bg-dark">
-                                <img src="https://images.unsplash.com/photo-1529626455594-4ff0802cfb7e" class="card-img"
-                                    alt="Cecilia Bright">
-                                <div class="photocard-overlay">
-                                    <div class="d-flex align-items-end">
-                                        <span class="photocard-location"><img src="{{ asset('assets/location.svg') }}"
-                                                width="24" alt=""> Jakarta</span>
-                                        <h3 class="card-title">Cecilia Bright</h3>
-                                        <p class="card-text">Wedding & Lifestyle</p>
-                                    </div>
-                                </div>
-                            </div> --}}
+@push('scripts')
+    <script>
+        const searchInput = document.getElementById('search');
+        if (searchInput) {
+            let debounceTimer;
+
+            searchInput.addEventListener('input', function() {
+                clearTimeout(debounceTimer);
+
+                debounceTimer = setTimeout(() => {
+                    const searchValue = this.value.trim();
+                    const url = new URL(window.location.href);
+
+                    if (searchValue) {
+                        url.searchParams.set('search', searchValue);
+                    } else {
+                        url.searchParams.delete('search');
+                    }
+
+                    // keep phototype filter
+                    const type = "{{ request('type') }}";
+                    if (type) {
+                        url.searchParams.set('type', type);
+                    }
+
+                    window.location.href = url.toString();
+                }, 400);
+            });
+        }
+    </script>
+@endpush

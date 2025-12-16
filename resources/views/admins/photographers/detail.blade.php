@@ -77,7 +77,7 @@
                         id="suspend-form-{{ $photographer->id }}">
                         @csrf
                         @method('PUT')
-                        <input type="hidden" name="status" value="3">
+                        <input type="hidden" name="verified_by_admin" value="3">
                         <button type="submit" class="btn btn-danger suspend-btn w-100"
                             data-id="{{ $photographer->id }}"><i class="bi bi-x-mark"></i>Suspend</button>
                     </form>

@@ -7,8 +7,9 @@
                 <div class="col-12 col-md-4">
                     <div class="sticky-scroll">
                         <h2>The Photographer.</h2>
-                        <img src="{{ asset('assets/Cecilia.jpg') }}" alt="" class="img-form">
-                        <h2>{{ $photographer->user->name }}</h2>
+                        <img src="{{ $photographer->profile_photo ? asset('profile_photos/' . $photographer->profile_photo) : asset('assets/default_profile.png') }}"
+                            alt="" class="img-form">
+                        <h2 class="pt-2">{{ $photographer->user->name }}</h2>
                         <div class="d-flex justify-content-start gap-3 pb-2">
                             <h6 class="photocard-location"><img src="{{ asset('assets/location.svg') }}" width="24"
                                     alt=""> {{ $photographer->location }}</h6>
@@ -36,20 +37,21 @@
                                         <div class="col">
                                             <label for="date" class="form-label"><b>Session Date</b></label>
                                             <input type="date" class="form-control input-glass text-white py-2"
-                                                id="date" placeholder="date" name="session_date">
+                                                id="date" name="session_date"
+                                                min="{{ \Carbon\Carbon::now()->addDays(7)->format('Y-m-d') }}" required>
                                         </div>
                                         <div class="col">
                                             <label for="duration" class="form-label"><b>Duration</b></label>
                                             <input type="time" class="form-control input-glass text-white py-2"
                                                 id="duration" placeholder="duration" name="session_duration"
-                                                data-rate="{{ $photographer->start_rate }}">
+                                                data-rate="{{ $photographer->start_rate }}" required>
                                         </div>
                                     </div>
                                     <div class="mb-3">
                                         <label for="location" class="form-label"><b>Session Location</b></label>
                                         <input type="text" class="form-control input-glass text-white py-2"
                                             id="location" placeholder="e.g. Grand Ballroom, Hotel XYZ, Jakarta"
-                                            name="session_location">
+                                            name="session_location" required>
                                     </div>
                                     <div class="mb-3">
                                         <label for="photo_type" class="form-label"><b>Type of Photoshoot</b></label>

@@ -38,18 +38,17 @@ class UserBookingController extends Controller
             'status' => 'pending',
         ]);
         // dd($booking);
-        return redirect()->to('users/booking')->with('success', 'Booking berhasil dibuat!');
+        return redirect()->to('users/booking')->with('success', 'Booking made successfully!');
     }
     public function showBooking()
     {
         $userId = auth()->id();
 
         // eager load to avoid N+1
-        $bookings = Booking::with(['photographer.user', 'photoType'])
+        $bookings = Booking::with(['photographer.user', 'photoType', 'review'])
             ->where('user_id', $userId)
             ->orderByDesc('created_at')
             ->get();
-
         // Format dates if you want here (optional)
         // We'll also keep raw values so blade/JS can use either
         $bookings->transform(function ($b) {
@@ -70,11 +69,24 @@ class UserBookingController extends Controller
         // dd($bookings);
         return view('users.bookings.list', compact('bookings'));
     }
-    public function cancelBooking(Booking $booking)
+    public function cancelBooking(Request $request, Booking $booking)
     {
+        // aturan H-1: tidak bisa cancel
+        if ($request->status == 'canceled') {
+            $sessionDate = Carbon::parse($booking->session_date);
+            $now = Carbon::now();
+
+            // jika hari ini >= H-1
+            if ($now->diffInDays($sessionDate, false) <= 2) {
+                return redirect()->back()->with(
+                    'error',
+                    'Booking cannot be canceled less than 1 day before the session.'
+                );
+            }
+        }
         $booking->update([
             'status' => 'canceled'
         ]);
-        return redirect()->to('users/booking')->with('success', 'Booking berhasil dibatalkan!');
+        return redirect()->to('users/booking')->with('success', 'Booking successfully canceled!');
     }
 }

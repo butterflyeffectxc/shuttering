@@ -3,6 +3,7 @@
 namespace App\Http\Controllers;
 
 use App\Models\Photographer;
+use App\Models\PhotoType;
 use App\Models\User;
 use Illuminate\Http\Request;
 use Illuminate\Support\Facades\Hash;
@@ -11,25 +12,25 @@ class PhotographerController extends Controller
 {
     function showAll()
     {
-        $photographers = Photographer::with(['user', 'photoTypes'])->where('status', 2)->get();
+        $photographers = Photographer::with(['user', 'photoTypes'])->where('verified_by_admin', 2)->get();
         return view('admins.photographers.index', compact('photographers'));
     }
     function showAllUnverify()
     {
-        $photographers = Photographer::with(['user', 'photoTypes'])->where('status', 1)->get();
+        $photographers = Photographer::with(['user', 'photoTypes'])->where('verified_by_admin', 1)->get();
         return view('admins.photographers.verify', compact('photographers'));
     }
     function showAllSuspended()
     {
-        $photographers = Photographer::with(['user', 'photoTypes'])->where('status', 3)->get();
+        $photographers = Photographer::with(['user', 'photoTypes'])->where('verified_by_admin', 3)->get();
         return view('admins.photographers.suspended', compact('photographers'));
     }
     function updatePhotographerVerify(Request $request, Photographer $photographer)
     {
         $request->validate([
-            'status' => 'required'
+            'verified_by_admin' => 'required'
         ]);
-        $photographer->status = $request->status;
+        $photographer->verified_by_admin = $request->verified_by_admin;
         $photographer->save();
 
         return redirect()->back()->with('success', 'Photographer status updated successfully.');
@@ -37,9 +38,9 @@ class PhotographerController extends Controller
     function suspendPhotographer(Request $request, Photographer $photographer)
     {
         $request->validate([
-            'status' => 'required'
+            'verified_by_admin' => 'required'
         ]);
-        $photographer->status = $request->status;
+        $photographer->verified_by_admin = $request->verified_by_admin;
         $photographer->save();
 
         return redirect()->back()->with('success', 'Photographer status updated successfully.');
@@ -58,7 +59,7 @@ class PhotographerController extends Controller
             ->where('user_id', $userId)
             ->firstOrFail();
         // ambil semua jenis foto
-        $photoTypes = \App\Models\PhotoType::all();
+        $photoTypes = PhotoType::all();
         return view('photographers.profile-photographers.edit', compact('photographer', 'photoTypes'));
     }
     public function editProfile(Request $request, Photographer $photographer)
@@ -72,7 +73,8 @@ class PhotographerController extends Controller
             'description'   => 'nullable|string',
             'profile_photo' => 'nullable|image|mimes:jpg,jpeg,png|max:3548',
             'photo_type'    => 'nullable|array|max:2',
-            'photo_type.*'  => 'exists:photo_types,id'
+            'photo_type.*'  => 'exists:photo_types,id',
+            'status' => 'required|in:1,2',
         ]);
 
         // Update USER table (name, phone, email)
@@ -103,6 +105,7 @@ class PhotographerController extends Controller
             'location'    => $validated['location'],
             'start_rate'  => $validated['start_rate'],
             'description' => $validated['description'] ?? $photographer->description,
+            'status' => $request->status,
         ]);
 
         // Update photo type (many to many)
@@ -113,7 +116,7 @@ class PhotographerController extends Controller
             $photographer->photoTypes()->sync([]);
         }
 
-        return back()->with('success', 'Profile berhasil diperbarui!');
+        return back()->with('success', 'Profile successfully changed!');
     }
     public function showCatalogue(Photographer $photographer)
     {

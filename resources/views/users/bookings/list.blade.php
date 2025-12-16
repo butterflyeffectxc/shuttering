@@ -27,7 +27,7 @@
                         <div class="booking-card-body">
                             <h3 class="booking-card-name">{{ $booking->photographer->user->name }}
                                 <div class="booking-card-info">
-                                    <div class="booking-card-row">
+                                    <div class="booking-card-row mb-1">
                                         <img src="{{ asset('assets/icon_calendar.svg') }}" class="booking-card-icon"
                                             alt="calendar" />
                                         <p>{{ $booking->session_date }}<br>{{ $booking->session_duration }}</p>
@@ -104,8 +104,8 @@
 
                                 <h6 class="fw-bold text-white">Includes:</h6>
                                 <ul class="text-white small mt-2">
-                                    <li>20 edited soft files (digital photos)</li>
-                                    <li>5 printed photos</li>
+                                    <li>Edited soft files in Google Drive</li>
+                                    {{-- <li>5 printed photos</li> --}}
                                 </ul>
                                 {{-- Review Section --}}
                                 <div class="mt-4">
@@ -125,30 +125,19 @@
                             </div>
                             {{-- RIGHT SIDE — PHOTO GRID --}}
                             <div class="flex-grow-1">
-                                <div class="d-flex justify-content-between align-items-center mb-3">
+                                <div class="container mb-3">
                                     <h5 class="text-white mb-0">Your Photos</h5>
-                                    <div class="d-flex gap-2">
-                                        <button class="btn btn-light btn-sm" id="select-all">Select All</button>
-                                        <button class="btn btn-warning btn-sm">
-                                            <i class="fa fa-download me-1"></i> Download (5)
-                                        </button>
-                                    </div>
-                                </div>
-
-                                {{-- <p class="small text-white mb-3">Total {{ count($booking->photos) }} edited photos</p> --}}
-
-                                <div class="photo-grid row g-3">
-                                    {{-- @foreach ($booking->photos as $photo)
-                                        <div class="col-4">
-                                            <div class="photo-item position-relative">
-                                                <img src="{{ asset('booking_photos/' . $photo->filename) }}"
-                                                    class="w-100 rounded-3" style="height:150px; object-fit: cover;">
-                                                <div class="check-overlay position-absolute top-0 end-0 m-2">
-                                                    <input type="checkbox" class="photo-check">
-                                                </div>
-                                            </div>
+                                    <div class="card p-3 mt-3">
+                                        <div class="mb-3">
+                                            <p><span class="text-danger">*</span>
+                                                Please download your photos immediatly</p>
                                         </div>
-                                    @endforeach --}}
+                                        <div class="d-flex gap-2">
+                                            <i class="bi bi-link-45deg"></i>
+                                            <a href="{{ $booking->photoResult->photo_link }}"
+                                                class="link-photo">{{ $booking->photoResult->photo_link }}</a>
+                                        </div>
+                                    </div>
                                 </div>
                             </div>
                         </div>
@@ -174,14 +163,14 @@
                                         <p class="small mb-0">You canceled this booking.</p>
                                     </div>
                                 </div>
-                            @elseif($booking->status == 'paid')
+                                {{-- @elseif($booking->status == 'paid')
                                 <div class="photographer-box d-flex gap-3 align-items-center p-3 rounded-3 mb-3">
                                     <img src="{{ asset('assets/icon_info.svg') }}" class="detail-icon"
                                         alt="photographer">
                                     <div class="flex-grow-1 text-white">
                                         <p class="small mb-0">Your photo will be uploaded within 5–7 days.</p>
                                     </div>
-                                </div>
+                                </div> --}}
                             @endif
                             <div class="photographer-box d-flex gap-3 align-items-center p-3 rounded-3 mb-3">
                                 <img id="dataPhoto"
@@ -224,21 +213,31 @@
                             <div class="mt-4">
                                 <h6 class="fw-bold text-white">Includes:</h6>
                                 <ul class="text-white small mt-2" id="dataIncludes">
-                                    <li>20 edited soft files (digital photos)</li>
-                                    <li>5 printed photos</li>
+                                    <li>Edited soft files in Gooogle Drive</li>
                                 </ul>
                             </div>
                         </div>
                         <div class="modal-footer border-0" style="display: block;">
-                            <form action="/users/booking/cancel/{{ $booking->id }}" method="POST"
-                                id="cancel-form-{{ $booking->id }}">
-                                @csrf
-                                @method('PUT')
-                                <button class="btn btn-secondary-sm d-block w-100 cancel-btn" type="submit"
-                                    data-id="{{ $booking->id }}">
-                                    Cancel Booking
-                                </button>
-                            </form>
+                            @if ($booking->status == 'pending' || $booking->status == 'confirmed')
+                                <form action="/users/booking/cancel/{{ $booking->id }}" method="POST"
+                                    id="cancel-form-{{ $booking->id }}">
+                                    @csrf
+                                    @method('PUT')
+                                    <input type="text" hidden name="status" value="canceled">
+                                    <button class="btn btn-secondary-sm d-block w-100 cancel-btn" type="submit"
+                                        data-id="{{ $booking->id }}">
+                                        Cancel Booking
+                                    </button>
+                                </form>
+                            @elseif ($booking->status == 'paid')
+                                <div class="d-flex gap-2">
+                                    <img src="{{ asset('assets/icon_info.svg') }}" class="detail-icon"
+                                        alt="photographer">
+                                    <div class="flex-grow-1 text-white">
+                                        <p class="small mb-0">Your photo will be uploaded within 5–7 days.</p>
+                                    </div>
+                                </div>
+                            @endif
                         </div>
                     </div>
                 </div>
@@ -261,9 +260,15 @@
 
                         <div class="modal-body">
                             <input type="hidden" name="booking_id" value="{{ $booking->id }}">
-                            <input type="hidden" id="ratingInput_{{ $booking->id }}" name="rating">
+                            @php
+                                $currentRating = old('rating', optional($booking->review)->rating);
+                            @endphp
 
-                            <div class="stars d-flex justify-content-between mb-3">
+                            <input type="hidden" id="ratingInput_{{ $booking->id }}" name="rating"
+                                value="{{ $currentRating }}">
+
+                            <div class="stars d-flex justify-content-between mb-3" data-booking="{{ $booking->id }}"
+                                data-rating="{{ $currentRating ?? 0 }}">
                                 <i class="bi bi-star star" data-value="1"></i>
                                 <i class="bi bi-star star" data-value="2"></i>
                                 <i class="bi bi-star star" data-value="3"></i>
@@ -273,7 +278,7 @@
 
                             <div class="form-floating">
                                 <textarea class="form-control" name="note" id="note" placeholder="Leave a comment here"
-                                    style="height: 100px"></textarea>
+                                    style="height: 100px">{{ old('note', optional($booking->review)->note) }}</textarea>
                                 <label for="note">Add a comment...</label>
                             </div>
                         </div>
@@ -288,46 +293,6 @@
                 </div>
             </div>
         </div>
-
-        {{-- <div class="modal fade" id="modalReview_{{ $booking->id }}" tabindex="-1" aria-labelledby="modalReviewLabel"
-            aria-hidden="true">
-            <div class="modal-dialog modal-dialog-centered">
-                <div class="modal-content booking-modal p-3">
-                    <div class="modal-header border-0">
-                        <h1 class="modal-title fs-5" id="modalReviewLabel">Write a Review</h1>
-                        <button type="button" class="btn-close btn-close-white" data-bs-dismiss="modal"
-                            aria-label="Close"></button>
-                    </div>
-                    <!-- FORM START -->
-                    <form action="{{ url('users/booking/review/' . $booking->id) }}" method="POST">
-                        @csrf
-                        <div class="modal-body">
-                            <!-- Hidden input to store rating -->
-                            <input type="hidden" name="booking_id" value="{{ $booking->id }}">
-                            <input type="hidden" name="rating" id="ratingInput">
-                            <div class="stars d-flex justify-content-between mb-3">
-                                <i class="bi bi-star star" data-value="1"></i>
-                                <i class="bi bi-star star" data-value="2"></i>
-                                <i class="bi bi-star star" data-value="3"></i>
-                                <i class="bi bi-star star" data-value="4"></i>
-                                <i class="bi bi-star star" data-value="5"></i>
-                            </div>
-                            <div class="form-floating">
-                                <textarea class="form-control input-glass-stretch" placeholder="Leave a comment here" id="note"
-                                    style="height: 100px" name="note"></textarea>
-                                <label for="note">Add a comment...</label>
-                            </div>
-                        </div>
-                        <div class="modal-footer border-0">
-                            <button type="submit" class="btn btn-primary-sm w-100">Submit Review
-                                {{ $booking->id }}</button>
-                        </div>
-                    </form>
-                    <!-- FORM END -->
-
-                </div>
-            </div>
-        </div> --}}
     @endforeach
 
     @include('partial.footer')
@@ -355,29 +320,6 @@
             });
         });
 
-        // document.querySelectorAll('.cancel-btn').forEach(btn => {
-        //     btn.addEventListener('click', function(e) {
-        //         e.preventDefault();
-
-        //         let id = this.getAttribute('data-id');
-        //         let form = document.getElementById('cancel-form-' + id);
-
-        //         Swal.fire({
-        //             title: "Cancel Booking?",
-        //             text: "Are you sure you want to cancel this booking?",
-        //             icon: "warning",
-        //             showCancelButton: true,
-        //             confirmButtonColor: "#d33",
-        //             cancelButtonColor: "#3085d6",
-        //             confirmButtonText: "Yes, cancel it"
-        //         }).then((result) => {
-        //             if (result.isConfirmed) {
-        //                 form.submit();
-        //             }
-        //         });
-        //     });
-        // });
-
         // submit review
         document.querySelectorAll('form[action*="/users/booking/review/"]').forEach(form => {
             form.addEventListener('submit', function(e) {
@@ -393,6 +335,32 @@
                     if (result.isConfirmed) this.submit();
                 });
             });
+        });
+        // star state
+        document.querySelectorAll('.stars').forEach(wrapper => {
+            const bookingId = wrapper.dataset.booking;
+            const input = document.getElementById(`ratingInput_${bookingId}`);
+            const stars = wrapper.querySelectorAll('.star');
+            let currentRating = parseInt(wrapper.dataset.rating) || 0;
+
+            // render awal (rating lama)
+            paintStars(currentRating);
+
+            stars.forEach(star => {
+                star.addEventListener('click', () => {
+                    currentRating = parseInt(star.dataset.value);
+                    input.value = currentRating;
+                    paintStars(currentRating);
+                });
+            });
+
+            function paintStars(rating) {
+                stars.forEach(star => {
+                    const value = parseInt(star.dataset.value);
+                    star.classList.toggle('bi-star-fill', value <= rating);
+                    star.classList.toggle('bi-star', value > rating);
+                });
+            }
         });
     </script>
 @endpush

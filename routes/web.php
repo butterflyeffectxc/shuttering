@@ -9,6 +9,7 @@ use App\Http\Controllers\ReviewController;
 use App\Http\Controllers\UserBookingController;
 use App\Http\Controllers\UserController;
 use App\Http\Controllers\UserViewController;
+use App\Http\Controllers\WishlistController;
 use Illuminate\Support\Facades\Route;
 
 /*
@@ -74,15 +75,23 @@ Route::middleware(['auth', 'role:2'])->group(function () {
     Route::delete('/photographers/catalogue/delete/{catalogue:id}', [CatalogueController::class, 'destroy']);
 });
 
-// User
-Route::get('/homepage', [UserViewController::class, 'showPhotographer']);
-Route::get('/users/photographers/detail/{photographer:id}', [UserViewController::class, 'showPhotographerDetail']);
-Route::get('/booking/fill-form/{photographer:id}', [UserBookingController::class, 'showForm']);
-Route::post('/booking/fill-form/{photographer:id}', [UserBookingController::class, 'fillForm']);
-Route::get('/users/booking', [UserBookingController::class, 'showBooking']);
-Route::put('/users/booking/cancel/{booking:id}', [UserBookingController::class, 'cancelBooking']);
-Route::get('/users/booking/review/{booking:id}', [ReviewController::class, 'showFormUser']);
-Route::post('/users/booking/review/{booking:id}', [ReviewController::class, 'store']);
+// User Start
+Route::middleware(['auth', 'role:3'])->group(function () {
+    Route::get('/homepage', [UserViewController::class, 'showPhotographer']);
+    Route::get('/users/photographers/detail/{photographer:id}', [UserViewController::class, 'showPhotographerDetail']);
+    Route::get('/booking/fill-form/{photographer:id}', [UserBookingController::class, 'showForm']);
+    Route::post('/booking/fill-form/{photographer:id}', [UserBookingController::class, 'fillForm']);
+    Route::get('/users/profile/', [UserController::class, 'showProfile']);
+    Route::get('/users/profile/edit', [UserController::class, 'updateProfile']);
+    Route::put('/users/profile/edit/{user:id}', [UserController::class, 'editProfile']);
+    Route::get('/users/booking', [UserBookingController::class, 'showBooking']);
+    Route::put('/users/booking/cancel/{booking:id}', [UserBookingController::class, 'cancelBooking']);
+    Route::get('/users/booking/review/{booking:id}', [ReviewController::class, 'showFormUser']);
+    Route::post('/users/booking/review/{booking:id}', [ReviewController::class, 'store']);
+    // Route::post('/users/photographer/wishlist/{photographer}', [WishlistController::class, 'store']);
+    // Route::delete('/users/photographer/wishlist/{photographer}', [WishlistController::class, 'destroy']);
+});
+
 Route::get('/', function () {
     return view('users.landing-page');
 });

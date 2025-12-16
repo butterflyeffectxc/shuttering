@@ -23,7 +23,7 @@
                     <div class="row">
                         {{-- LEFT COLUMN --}}
                         <div class="col-md-6">
-                            {{-- NAME --}}
+                            {{-- name --}}
                             <div class="mb-3">
                                 <label class="form-label fw-bold">Full Name</label>
                                 <input type="text" name="name"
@@ -33,8 +33,7 @@
                                     <small class="text-danger">{{ $message }}</small>
                                 @enderror
                             </div>
-
-                            {{-- PHONE --}}
+                            {{-- phone --}}
                             <div class="mb-3">
                                 <label class="form-label fw-bold">Phone</label>
                                 <input type="text" name="phone"
@@ -44,8 +43,7 @@
                                     <small class="text-danger">{{ $message }}</small>
                                 @enderror
                             </div>
-
-                            {{-- EMAIL --}}
+                            {{-- email --}}
                             <div class="mb-3">
                                 <label class="form-label fw-bold">Email</label>
                                 <input type="email" name="email"
@@ -55,8 +53,7 @@
                                     <small class="text-danger">{{ $message }}</small>
                                 @enderror
                             </div>
-
-                            {{-- LOCATION --}}
+                            {{-- location --}}
                             <div class="mb-3">
                                 <label class="form-label fw-bold">Location</label>
                                 <input type="text" name="location"
@@ -66,13 +63,22 @@
                                     <small class="text-danger">{{ $message }}</small>
                                 @enderror
                             </div>
-
+                            <div class="mb-3">
+                                @if ($photographer->verified_by_admin == '2')
+                                    <img src="{{ asset('assets/icon_verified.svg') }}" alt=""
+                                        style="width:24px; height:24px;"> <span>User Verified</span>
+                                @elseif($photographer->verified_by_admin == '1')
+                                    <img src="{{ asset('assets/icon_unverified.svg') }}" alt=""
+                                        style="width:24px; height:24px;"> <span>User Unverified</span>
+                                @else
+                                    <img src="{{ asset('assets/icon_suspended.svg') }}" alt=""
+                                        style="width:24px; height:24px;"> <span>User Suspended</span>
+                                @endif
+                            </div>
                         </div>
-
                         {{-- RIGHT COLUMN --}}
                         <div class="col-md-6">
-
-                            {{-- START RATE --}}
+                            {{-- start rate --}}
                             <div class="mb-3">
                                 <label class="form-label fw-bold">Start Rate</label>
                                 <input type="text" name="start_rate"
@@ -82,26 +88,22 @@
                                     <small class="text-danger">{{ $message }}</small>
                                 @enderror
                             </div>
-
-                            {{-- PROFILE PHOTO --}}
+                            {{-- profile photo --}}
                             <div class="mb-3">
-                                <label class="form-label fw-bold">Profile Photo</label>
+                                <label class="form-label fw-bold">Thumbnail</label>
                                 <input type="file" name="profile_photo"
                                     class="form-control @error('profile_photo') is-invalid @enderror">
-
                                 @if ($photographer->profile_photo)
                                     <div class="mt-2">
                                         <img src="{{ asset('profile_photos/' . $photographer->profile_photo) }}"
                                             width="120" class="rounded shadow-sm">
                                     </div>
                                 @endif
-
                                 @error('profile_photo')
                                     <small class="text-danger">{{ $message }}</small>
                                 @enderror
                             </div>
-
-                            {{-- DESCRIPTION --}}
+                            {{-- description --}}
                             <div class="mb-3">
                                 <label class="form-label fw-bold">Description</label>
                                 <textarea name="description" class="form-control" rows="4">{{ old('description', $photographer->description) }}</textarea>
@@ -109,15 +111,11 @@
                                     <small class="text-danger">{{ $message }}</small>
                                 @enderror
                             </div>
-
                         </div>
-
                     </div>
-
-                    {{-- PHOTO TYPES --}}
+                    {{-- photo types --}}
                     <div class="mb-3">
                         <label class="form-label fw-bold">Photo Types (max 2)</label>
-
                         <div class="d-flex flex-wrap gap-3">
                             @foreach ($photoTypes as $type)
                                 <label class="d-flex align-items-center gap-2">
@@ -127,23 +125,66 @@
                                 </label>
                             @endforeach
                         </div>
-
                         @error('photo_type')
                             <small class="text-danger">{{ $message }}</small>
                         @enderror
                     </div>
+                    {{-- Edit Status --}}
+                    <div class="mb-3">
+                        <label class="form-label fw-bold">Account Status</label>
+                        <div class="form-check form-switch">
+                            <input class="form-check-input" type="checkbox" role="switch" id="statusSwitch"
+                                {{ $photographer->status == 1 ? 'checked' : '' }}>
 
-                    <button class="btn btn-primary mt-2 w-100">
+                            <label class="form-check-label" id="statusLabel">
+                                {{ $photographer->status == 1 ? 'Active' : 'Inactive' }}
+                            </label>
+                        </div>
+                        {{-- hidden input for controller --}}
+                        <input type="hidden" name="status" id="statusInput" value="{{ $photographer->status }}">
+                    </div>
+                    <button class="btn btn-primary mt-2 w-100" type="submit">
                         Update Profile
                     </button>
-
                 </form>
-
             </div>
         </div>
     </div>
 @endsection
-@section('scripts')
+@push('scripts')
     <script>
+        const switchStatus = document.getElementById('statusSwitch');
+        const statusInput = document.getElementById('statusInput');
+        const statusLabel = document.getElementById('statusLabel');
+
+        function updateStatusUI() {
+            if (switchStatus.checked) {
+                statusInput.value = 1;
+                statusLabel.innerText = 'Active';
+            } else {
+                statusInput.value = 2;
+                statusLabel.innerText = 'Inactive';
+            }
+        }
+        // inisialisasi saat page load
+        updateStatusUI();
+        // saat switch di klik
+        switchStatus.addEventListener('change', updateStatusUI);
+        // sweetalert
+        document.querySelectorAll('form[action*="/photographers/profile/"]').forEach(form => {
+            form.addEventListener('submit', function(e) {
+                e.preventDefault();
+                Swal.fire({
+                    title: 'Change Profile?',
+                    text: 'Are you sure your profile is correct?',
+                    icon: 'question',
+                    showCancelButton: true,
+                    confirmButtonText: 'Submit',
+                    cancelButtonText: 'Cancel'
+                }).then(result => {
+                    if (result.isConfirmed) this.submit();
+                });
+            });
+        });
     </script>
-@endsection
+@endpush

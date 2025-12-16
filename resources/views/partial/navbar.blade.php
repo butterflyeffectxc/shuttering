@@ -7,7 +7,9 @@
              class="btn link-white {{ Request::is('users/booking') ? 'btn-primary-sm' : '' }} px-3">Booking</a>
      </div>
      <div class="">
-         <a href="" class="btn btn-primary-sm "><i class="fa-solid icon-small fa-heart"></i></a>
-         <a href="" class="btn btn-primary-sm ms-2"><i class="fa-solid icon-small fa-envelope"></i></a>
+         {{-- <a href="" class="btn {{ Request::is('users/booking') ? 'btn-primary-sm' : '' }}"><i class="fa-solid px-1 fa-heart"></i></a> --}}
+         <a href="{{ url('users/profile') }}"
+             class="btn btn-outline {{ Request::is('users/profile') ? 'btn-primary-sm' : '' }} ms-2"><i
+                 class="bi px-1 bi-person"></i></a>
      </div>
  </div>

@@ -43,7 +43,7 @@
                                                 method="POST" class="flex-fill" id="verify-form-{{ $photographer->id }}">
                                                 @csrf
                                                 @method('PUT')
-                                                <input type="hidden" name="status" value="2">
+                                                <input type="hidden" name="verified_by_admin" value="2">
                                                 <button type="submit" class="btn btn-success verify-btn w-100"
                                                     data-id="{{ $photographer->id }}"><i
                                                         class="bi bi-check-lg"></i></button>

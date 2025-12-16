@@ -72,7 +72,7 @@ class ReviewController extends Controller
             'review.user',
             'photographer.user',
             'photoType',
-            'photoResults'
+            'photoResult'
         ]);
         // dd($booking->review);
         return view('photographers.bookings.detail', compact('booking'));

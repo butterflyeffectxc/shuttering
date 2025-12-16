@@ -1,7 +1,7 @@
 @extends('layouts.admin')
 @section('contentCms')
     <div class="page-heading">
-        <h3>Profile Statistics</h3>
+        <h3>Detail Booking</h3>
     </div>
     <div class="page-content">
         <div class="card px-5 py-3">

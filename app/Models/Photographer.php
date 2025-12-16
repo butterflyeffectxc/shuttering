@@ -39,4 +39,8 @@ class   Photographer extends Model
   {
     return $this->hasMany(Catalogue::class, 'photographer_id');
   }
+  public function wishlists()
+  {
+    return $this->hasMany(Wishlist::class, 'photographer_id');
+  }
 }
