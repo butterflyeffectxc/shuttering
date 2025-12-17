@@ -1,65 +1,391 @@
-<p align="center"><a href="https://laravel.com" target="_blank"><img src="https://raw.githubusercontent.com/laravel/art/master/logo-lockup/5%20SVG/2%20CMYK/1%20Full%20Color/laravel-logolockup-cmyk-red.svg" width="400" alt="Laravel Logo"></a></p>
+# 📸 Shuttering
 
-<p align="center">
-<a href="https://github.com/laravel/framework/actions"><img src="https://github.com/laravel/framework/workflows/tests/badge.svg" alt="Build Status"></a>
-<a href="https://packagist.org/packages/laravel/framework"><img src="https://img.shields.io/packagist/dt/laravel/framework" alt="Total Downloads"></a>
-<a href="https://packagist.org/packages/laravel/framework"><img src="https://img.shields.io/packagist/v/laravel/framework" alt="Latest Stable Version"></a>
-<a href="https://packagist.org/packages/laravel/framework"><img src="https://img.shields.io/packagist/l/laravel/framework" alt="License"></a>
-</p>
+Shuttering is a photographer booking platform that connects users with professional photographers for various photography needs, ranging from personal photoshoots to special events.
+The platform is designed with a strong focus on easy discovery, transparent booking, and efficient schedule management.
 
-## About Laravel
+---
 
-Laravel is a web application framework with expressive, elegant syntax. We believe development must be an enjoyable and creative experience to be truly fulfilling. Laravel takes the pain out of development by easing common tasks used in many web projects, such as:
+## 🚀 Key Feature
 
-- [Simple, fast routing engine](https://laravel.com/docs/routing).
-- [Powerful dependency injection container](https://laravel.com/docs/container).
-- Multiple back-ends for [session](https://laravel.com/docs/session) and [cache](https://laravel.com/docs/cache) storage.
-- Expressive, intuitive [database ORM](https://laravel.com/docs/eloquent).
-- Database agnostic [schema migrations](https://laravel.com/docs/migrations).
-- [Robust background job processing](https://laravel.com/docs/queues).
-- [Real-time event broadcasting](https://laravel.com/docs/broadcasting).
+### 👤 User
 
-Laravel is accessible, powerful, and provides tools required for large, robust applications.
+- Registration & Login (including Google Login)
+- Search photographers by:
+  - Photographer name
+  - Location
+  - Photography type (Photo Types)
+- Real-time filter & search (no need to press Enter)
+- View photographer details
+- Book photographers
+- Submit ratings & reviews
 
-## Learning Laravel
+### 📷 Photographer
 
-Laravel has the most extensive and thorough [documentation](https://laravel.com/docs) and video tutorial library of all modern web application frameworks, making it a breeze to get started with the framework.
+- Photographer profile separated from user account
+- Booking management (Confirm / Cancel)
+- Security validation (only the assigned photographer can update booking status)
 
-You may also try the [Laravel Bootcamp](https://bootcamp.laravel.com), where you will be guided through building a modern Laravel application from scratch.
+### 🛠 Admin
 
-If you don't feel like reading, [Laracasts](https://laracasts.com) can help. Laracasts contains thousands of video tutorials on a range of topics including Laravel, modern PHP, unit testing, and JavaScript. Boost your skills by digging into our comprehensive video library.
+- Photographer verification
+- Photographer management
 
-## Laravel Sponsors
+### System
 
-We would like to extend our thanks to the following sponsors for funding Laravel development. If you are interested in becoming a sponsor, please visit the [Laravel Partners program](https://partners.laravel.com).
+- Auto-cancel booking if not confirmed 3 days before the session date while still in `pending` status
+- Booking cancellation restriction (cannot cancel on H-1)
 
-### Premium Partners
+---
 
-- **[Vehikl](https://vehikl.com/)**
-- **[Tighten Co.](https://tighten.co)**
-- **[WebReinvent](https://webreinvent.com/)**
-- **[Kirschbaum Development Group](https://kirschbaumdevelopment.com)**
-- **[64 Robots](https://64robots.com)**
-- **[Curotec](https://www.curotec.com/services/technologies/laravel/)**
-- **[Cyber-Duck](https://cyber-duck.co.uk)**
-- **[DevSquad](https://devsquad.com/hire-laravel-developers)**
-- **[Jump24](https://jump24.co.uk)**
-- **[Redberry](https://redberry.international/laravel/)**
-- **[Active Logic](https://activelogic.com)**
-- **[byte5](https://byte5.de)**
-- **[OP.GG](https://op.gg)**
+## ⚙️ Technology Stack
 
-## Contributing
+- **Framework** : Laravel ^10.10
+- **Language** : PHP ^8.1
+- **Database** : MySQL
+- **Frontend** : Blade Template, Bootstrap, JavaScript
+- **Authentication** : Laravel Auth
+- **Scheduler** : Laravel Task Scheduling
 
-Thank you for considering contributing to the Laravel framework! The contribution guide can be found in the [Laravel documentation](https://laravel.com/docs/contributions).
+---
 
-## Code of Conduct
+## 🗂 Database Structure
 
-In order to ensure that the Laravel community is welcoming to all, please review and abide by the [Code of Conduct](https://laravel.com/docs/contributions#code-of-conduct).
+# Main Tables
 
-## Security Vulnerabilities
+- `users`
+- `photographers` (relasi ke users)
+- `photo_types`
+- `bookings`
+- `reviews`
+- `catalogues`
+- `photo_results`
 
-If you discover a security vulnerability within Laravel, please send an e-mail to Taylor Otwell via [taylor@laravel.com](mailto:taylor@laravel.com). All security vulnerabilities will be promptly addressed.
+# Supporting Tables
+
+- `photographer_photo_type`
+- `photo_results`
+
+Core Relationship:
+
+- User ➜ Photographer : One to One
+  A user can have one photographer profile.
+- Photographer ➜ Photo Types : Many to Many
+  A photographer can have multiple photography specializations.
+- User ➜ Booking ➜ Photographer : Many to One
+  A user can create multiple bookings with different photographers.
+- Booking ➜ Reviews : One to One
+  Each booking can have only one review.
+- Photographer ➜ Catalogues : One to Many
+  A photographer can have multiple portfolio items.
+- Booking ➜ Photo Results : One to Many
+  A single booking can generate multiple final photo results.
+
+---
+
+## 🔎 Search & Filter Logic
+
+- Search uses query string: ?search=
+- Photo Type filter uses: ?type=
+- Search and filter can be applied simultaneously
+- Real-time search implemented using JavaScript + debounce
+
+---
+
+## ⭐ Rating System
+
+- Rating uses star icons (1–5)
+- Star state is automatically filled based on existing rating
+- Ratings are stored in the `reviews` table
+
+---
+
+## ⏰ Auto Cancel Booking
+
+A booking will automatically be marked as `canceled` if:
+
+- Status is still `pending`
+- The session date reaches 3 days before the booking date
+- The photographer has not confirmed the booking
+
+Implemented using a Laravel Command:
+
+```
+php artisan app:auto-cancel-pending-bookings
+```
+
+Executed automatically via Laravel Scheduler.
+
+---
+
+## 🖥 Running Scheduler (Windows)
+
+Since this project runs on Windows, the scheduler is executed using Windows **Task Scheduler** with the following command:
+
+```
+php path/to/artisan schedule:run
+```
+
+---
+
+## 🧪 Validasi & Keamanan
+
+- Photographers can only modify their own bookings
+- Booking cancellation is restricted (cannot cancel on H-1)
+- Request validation handled using Laravel Validator
+
+---
+
+## 📦 Project Installation
+
+1. Clone the repository
+
+```
+git clone https://github.com/butterflyeffectxc/shuttering.git
+```
+
+2. Install dependency
+
+```
+composer install
+```
+
+3. Copy environment
+
+```
+cp .env.example .env
+```
+
+4. Generate key
+
+```
+php artisan key:generate
+```
+
+5. Migrasi database
+
+```
+php artisan migrate
+```
+
+6. Jalankan server
+
+```
+php artisan serve
+```
+
+---
+
+## 📝 Development Notes
+
+This project was developed as:
+- A photographer booking platform
+- A case study for database relationships & Laravel business logic
+- An implementation of real-time UX (search, filter, wishlist)
+
+---
+
+## 👩‍💻 Author
+
+**Shuttering**
+Developed by _Munaa Raudhatul Jannah_
+
+---
+
+✨ Feel. Frame. Repeat.
+
+<!-- Indonesia -->
+
+# 📸 Shuttering
+
+Shuttering adalah platform pemesanan fotografer yang menghubungkan **user** dengan **photographer profesional** untuk berbagai kebutuhan fotografi, mulai dari personal photoshoot hingga event khusus. Platform ini dirancang dengan fokus pada kemudahan pencarian, transparansi booking, dan manajemen jadwal yang efisien.
+
+---
+
+## 🚀 Fitur Utama
+
+### 👤 User
+
+- Registrasi & Login (termasuk Google Login)
+- Pencarian fotografer berdasarkan:
+  - Nama fotografer
+  - Lokasi
+  - Jenis fotografi (Photo Types)
+- Filter & Search realtime (tanpa harus tekan Enter)
+- Melihat detail fotografer
+- Booking fotografer
+- Memberi rating & review
+
+### 📷 Photographer
+
+- Profil fotografer terpisah dari user
+- Manajemen booking (Confirm / Cancel)
+- Validasi keamanan (hanya fotografer terkait yang bisa mengubah status booking)
+
+### 🛠 Admin
+
+- Verifikasi fotografer
+- Manajemen fotografer
+
+### System
+
+- Auto-cancel booking jika tidak dikonfirmasi h-3 sebelum hari booking jika masih berstatus `pending`
+- Pembatasan cancel booking (tidak bisa H-1)
+
+---
+
+## ⚙️ Teknologi yang Digunakan
+
+- **Framework** : Laravel ^10.10
+- **Language** : PHP ^8.1
+- **Database** : MySQL
+- **Frontend** : Blade Template, Bootstrap, JavaScript
+- **Authentication** : Laravel Auth
+- **Scheduler** : Laravel Task Scheduling
+
+---
+
+## 🗂 Struktur Database
+
+# Tabel Utama
+
+- `users`
+- `photographers` (relasi ke users)
+- `photo_types`
+- `bookings`
+- `reviews`
+- `catalogues`
+- `photo_results`
+
+# Tabel Pendukung
+
+- `photographer_photo_type`
+- `photo_results`
+
+Relasi utama:
+
+- User ➜ Photographer : One to One
+  Satu user dapat memiliki satu profil photographer.
+- Photographer ➜ Photo Types : Many to Many
+  Photographer dapat memiliki lebih dari satu spesialisasi fotografi.
+- User ➜ Booking ➜ Photographer : Many to One
+  User dapat membuat banyak booking ke photographer yang berbeda.
+- Booking ➜ Reviews : One to One
+  Satu booking hanya dapat memiliki satu review.
+- Photographer ➜ Catalogues : One to Many
+  Photographer dapat memiliki banyak item portofolio.
+- Booking ➜ Photo Results : One to Many
+  Satu booking dapat menghasilkan beberapa file foto hasil akhir
+
+---
+
+## 🔎 Search & Filter Logic
+
+- Search menggunakan query string `?search=`
+- Filter Photo Type menggunakan `?type=`
+- Search & Filter dapat berjalan **bersamaan**
+- Realtime search menggunakan JavaScript + debounce
+
+---
+
+## ⭐ Rating System
+
+- Rating menggunakan icon bintang (1–5)
+- State bintang otomatis terisi sesuai rating sebelumnya
+- Disimpan dalam tabel `reviews`
+
+---
+
+## ⏰ Auto Cancel Booking
+
+Booking akan otomatis berubah menjadi `canceled` jika:
+
+- Status masih `pending`
+- Tanggal sesi sudah memasuki **H-3**
+- Photographer belum melakukan konfirmasi
+
+Menggunakan Laravel Command:
+```
+php artisan app:auto-cancel-pending-bookings
+```
+Dijalankan otomatis melalui Laravel Scheduler.
+
+---
+
+## 🖥 Menjalankan Scheduler (Windows)
+
+Karena project berjalan di Windows, scheduler dijalankan menggunakan **Task Scheduler** dengan command:
+```
+php path/to/artisan schedule:run
+```
+---
+
+## 🧪 Validasi & Keamanan
+
+- Photographer hanya bisa mengubah booking miliknya
+- Cancel booking dibatasi (tidak bisa H-1)
+- Validasi request menggunakan Laravel Validator
+
+---
+
+## 📦 Instalasi Project
+
+1. Clone repository
+
+```
+git clone https://github.com/butterflyeffectxc/shuttering.git
+```
+
+2. Install dependency
+
+```
+composer install
+```
+
+3. Copy environment
+
+```
+cp .env.example .env
+```
+
+4. Generate key
+
+```
+php artisan key:generate
+```
+
+5. Migrasi database
+
+```
+php artisan migrate
+```
+
+6. Jalankan server
+
+```
+php artisan serve
+```
+
+---
+
+## 📝 Catatan Pengembangan
+
+Project ini dikembangkan sebagai:
+
+- Platform booking fotografer
+- Studi kasus relasi database & business logic Laravel
+- Implementasi real-time UX (search, filter, wishlist)
+
+---
+
+## 👩‍💻 Author
+
+**Shuttering**
+Developed by _Munaa Raudhatul Jannah_
+
+---
+
+✨ Feel. Frame. Repeat.
+
 
 ## License
 

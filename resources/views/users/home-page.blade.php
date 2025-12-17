@@ -24,9 +24,6 @@
                                 <a href="{{ request()->fullUrlWithQuery(['type' => null]) }}">
                                     <span class="chip {{ request('type') ? '' : 'chip-active' }}">All</span>
                                 </a>
-                                {{-- <a href="{{ request()->url() }}">
-                                    <span class="chip {{ request('type') ? '' : 'chip-active' }}">All</span>
-                                </a> --}}
                                 {{-- FILTER BY PHOTOTYPE --}}
                                 @foreach ($photoTypes as $photoType)
                                     <a href="{{ request()->fullUrlWithQuery(['type' => $photoType->id]) }}">

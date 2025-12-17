@@ -22,7 +22,7 @@
                                     <div class="mb-3">
                                         <label for="name" class="form-label"><b>Full Name</b></label>
                                         <input type="text" class="form-control input-glass text-white py-2"
-                                            id="name" placeholder="Nutty Matcha" name="name"
+                                            id="name" placeholder="Nutty Matcha" name="name" maxlength="50"
                                             value="{{ old('name') }}" required>
                                         @error('name')
                                             <small class="text-danger">{{ $message }}</small>
@@ -31,8 +31,8 @@
                                     <div class="mb-3">
                                         <label for="phone" class="form-label"><b>Phone Number</b></label>
                                         <input type="text" class="form-control input-glass text-white py-2"
-                                            id="phone" placeholder="+6212345678910" name="phone" maxlength="15"
-                                            value="{{ old('phone') }}"
+                                            id="phone" placeholder="08212345678910" name="phone" minlength="10"
+                                            maxlength="15" value="{{ old('phone') }}"
                                             oninput="this.value = this.value.replace(/[^0-9+]/g, '')" required>
                                         @error('phone')
                                             <small class="text-danger">{{ $message }}</small>
@@ -40,7 +40,7 @@
                                     </div>
                                     <div class="mb-3">
                                         <label for="email" class="form-label"><b>Email</b></label>
-                                        <input type="text" class="form-control input-glass text-white py-2"
+                                        <input type="email" class="form-control input-glass text-white py-2"
                                             id="email" placeholder="nutmatch45@gmail.com" name="email"
                                             value="{{ old('email') }}" required>
                                         @error('email')
@@ -106,7 +106,7 @@
                                         <label for="phone" class="form-label"><b>Phone Number</b></label>
                                         <input type="text"
                                             class="form-control input-glass text-white py-2  @error('phone') is-invalid @enderror"
-                                            id="phone" placeholder="+6212345678910" name="phone" maxlength="15"
+                                            id="phone" placeholder="08212345678910" name="phone" maxlength="15"
                                             value="{{ old('phone') }}" required
                                             oninput="this.value = this.value.replace(/[^0-9+]/g, '')">
                                         @error('phone')
@@ -167,10 +167,17 @@
                                         @enderror
                                     </div>
                                     <div class="mb-3">
-                                        <label for="start_rate" class="form-label"><b>Start Rate</b></label>
-                                        <input type="text"
+                                        <label for="start_rate" class="form-label"><b>Rate per Hour</b></label>
+                                        {{-- <input type="text"
                                             class="form-control input-glass text-white py-2  @error('start_rate') is-invalid @enderror"
-                                            id="start_rate" placeholder="Rp. 80.000" name="start_rate"
+                                            id="start_rate" placeholder="Rp80.000" name="start_rate"
+                                            value="{{ old('start_rate') }}" required> --}}
+                                        <!-- INPUT YANG DILIHAT USER -->
+                                        <input type="text" class="form-control input-glass text-white py-2"
+                                            id="start_rate_display" placeholder="Rp 80.000"
+                                            value="{{ old('start_rate') }}" autocomplete="off">
+                                        <!-- INPUT YANG DIKIRIM KE BACKEND -->
+                                        <input type="hidden" name="start_rate" id="start_rate"
                                             value="{{ old('start_rate') }}" required>
                                         @error('start_rate')
                                             <small class="text-danger">{{ $message }}</small>

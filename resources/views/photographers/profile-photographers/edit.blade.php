@@ -38,7 +38,8 @@
                                 <label class="form-label fw-bold">Phone</label>
                                 <input type="text" name="phone"
                                     class="form-control @error('phone') is-invalid @enderror"
-                                    value="{{ old('phone', $photographer->user->phone) }}">
+                                    value="{{ old('phone', $photographer->user->phone) }}"
+                                    oninput="this.value = this.value.replace(/[^0-9+]/g, '')">
                                 @error('phone')
                                     <small class="text-danger">{{ $message }}</small>
                                 @enderror
@@ -80,10 +81,17 @@
                         <div class="col-md-6">
                             {{-- start rate --}}
                             <div class="mb-3">
-                                <label class="form-label fw-bold">Start Rate</label>
-                                <input type="text" name="start_rate"
+                                <label class="form-label fw-bold">Rate per Hour</label>
+                                <!-- INPUT TAMPILAN (RUPIAH) -->
+                                <input type="text" id="start_rate_display"
+                                    class="form-control input-glass @error('start_rate') is-invalid @enderror"
+                                    placeholder="Rp 80.000" autocomplete="off">
+                                <!-- INPUT ASLI (INTEGER) -->
+                                <input type="hidden" id="start_rate" name="start_rate"
+                                    value="{{ old('start_rate', $photographer->start_rate) }}" required>
+                                {{-- <input type="text" name="start_rate"
                                     class="form-control @error('start_rate') is-invalid @enderror"
-                                    value="{{ old('start_rate', $photographer->start_rate) }}">
+                                    value="{{ old('start_rate', $photographer->start_rate) }}"> --}}
                                 @error('start_rate')
                                     <small class="text-danger">{{ $message }}</small>
                                 @enderror
@@ -153,6 +161,30 @@
 @endsection
 @push('scripts')
     <script>
+        document.addEventListener('DOMContentLoaded', function() {
+            const display = document.getElementById('start_rate_display');
+            const raw = document.getElementById('start_rate');
+
+            // 👉 tampilkan value dari DB / old() dalam format Rp
+            if (raw.value) {
+                display.value = 'Rp ' + parseInt(raw.value).toLocaleString('id-ID');
+            }
+
+            // 👉 format saat user ngetik
+            display.addEventListener('input', function() {
+                let value = this.value.replace(/\D/g, '');
+
+                if (!value) {
+                    raw.value = '';
+                    this.value = '';
+                    return;
+                }
+
+                raw.value = value;
+                this.value = 'Rp ' + parseInt(value).toLocaleString('id-ID');
+            });
+        });
+
         const switchStatus = document.getElementById('statusSwitch');
         const statusInput = document.getElementById('statusInput');
         const statusLabel = document.getElementById('statusLabel');

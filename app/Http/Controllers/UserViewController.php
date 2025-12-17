@@ -14,8 +14,8 @@ class UserViewController extends Controller
 
         $photographers = Photographer::with(['user', 'photoTypes'])
             ->where('status', '1')
-            ->whereIn('verified_by_admin', ['1', '2'])
-            // 🔍 SEARCH
+            ->whereIn('verified_by_admin', ['1', '2'])->whereHas('photoTypes')
+            // SEARCH
             ->when($request->search, function ($query) use ($request) {
                 $query->whereHas('user', function ($q) use ($request) {
                     $q->where('name', 'like', '%' . $request->search . '%');
@@ -23,7 +23,7 @@ class UserViewController extends Controller
                     ->orWhere('location', 'like', '%' . $request->search . '%');
             })
 
-            // 🏷 FILTER BY PHOTO TYPE
+            // FILTER BY PHOTO TYPE
             ->when($request->type, function ($query) use ($request) {
                 $query->whereHas('photoTypes', function ($q) use ($request) {
                     $q->where('photo_types.id', $request->type);

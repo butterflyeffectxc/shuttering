@@ -15,12 +15,12 @@
                                 @csrf
                                 <div class="mb-3">
                                     <label for="email" class="form-label"><b>Email</b></label>
-                                    <input type="text" class="form-control input-glass text-white py-2" id="email"
+                                    <input type="email" class="form-control input-glass text-white py-2" id="email"
                                         placeholder="nutmatch45@gmail.com" name="email" value="{{ old('email') }}"
                                         required>
-                                    @error('email')
+                                    {{-- @error('email')
                                         <small class="text-danger">{{ $message }}</small>
-                                    @enderror
+                                    @enderror --}}
                                 </div>
                                 <div class="position-relative mb-3">
                                     <label for="password" class="form-label"><b>Password</b></label>
@@ -31,7 +31,7 @@
                                     <!-- Ikon Mata -->
                                     <span class="fa fa-fw fa-eye field-icon toggle-password"
                                         onclick="visiblePassword()"></span>
-                                    @error('name')
+                                    @error('email')
                                         <small class="text-danger">{{ $message }}</small>
                                     @enderror
                                 </div>

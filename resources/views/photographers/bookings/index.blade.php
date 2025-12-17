@@ -27,6 +27,7 @@
                                 <th>Duration</th>
                                 <th>Location</th>
                                 <th>Photo Type</th>
+                                <th>Price</th>
                                 <th>Status</th>
                                 <th>Approval</th>
                             </tr>
@@ -35,14 +36,12 @@
                             @foreach ($bookings as $booking)
                                 <tr>
                                     <td>{{ $loop->iteration }}</td>
-                                    {{-- <td>@foreach ($booking->customer as $customer)
-                                        {{ $customer->name }}
-                                    @endforeach</td> --}}
                                     <td>{{ $booking->user->name }}</td>
                                     <td>{{ $booking->session_date }}</td>
                                     <td>{{ $booking->session_duration }}</td>
                                     <td>{{ $booking->session_location }}</td>
                                     <td>{{ $booking->photoType->name }}</td>
+                                    <td>Rp{{ number_format($booking->total_price) }}</td>
                                     <td><span class="chip-status chip-pending">Pending</span></td>
                                     <td>
                                         <div class="d-flex gap-2">

@@ -54,25 +54,27 @@
                             </tr>
                         </tbody>
                     </table>
-                    <table class="table table-borderless p-0 m-0">
-                        <thead>
-                            <tr>
-                                <th colspan="2">Review Rating: {{ $booking->review->rating }}</th>
-                            </tr>
-                        </thead>
-                        <tbody>
-                            @if ($booking->review)
+                    @if ($booking->review)
+                        <table class="table table-borderless p-0 m-0">
+                            <thead>
                                 <tr>
-                                    <td>Notes:</td>
+                                    <th colspan="2">Review Rating: {{ $booking->review->rating }}</th>
                                 </tr>
-                                <tr>
-                                    <td>{{ $booking->review->note }}</td>
-                                </tr>
-                            @else
-                                <p>There is no review yet.</p>
-                            @endif
-                        </tbody>
-                    </table>
+                            </thead>
+                            <tbody>
+                                @if ($booking->review)
+                                    <tr>
+                                        <td>Notes:</td>
+                                    </tr>
+                                    <tr>
+                                        <td>{{ $booking->review->note }}</td>
+                                    </tr>
+                                @else
+                                    <p>There is no review yet.</p>
+                                @endif
+                            </tbody>
+                        </table>
+                    @endif
                 </div>
             </div>
             <div class="d-flex justify-content-start pt-3">

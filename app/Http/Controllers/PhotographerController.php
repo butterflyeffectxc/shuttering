@@ -72,9 +72,13 @@ class PhotographerController extends Controller
             'start_rate'    => 'required|numeric',
             'description'   => 'nullable|string',
             'profile_photo' => 'nullable|image|mimes:jpg,jpeg,png|max:3548',
-            'photo_type'    => 'nullable|array|max:2',
-            'photo_type.*'  => 'exists:photo_types,id',
             'status' => 'required|in:1,2',
+            'photo_type' => 'required|array|min:1|max:2',
+            'photo_type.*' => 'exists:photo_types,id',
+        ], [
+            'photo_type.required' => 'Choose minimal 1 photo type',
+            'photo_type.min' => 'Choose minimal 1 photo type',
+            'photo_type.max' => 'Choose maximal 2 photo type',
         ]);
 
         // Update USER table (name, phone, email)

@@ -27,6 +27,7 @@
                                 <th>Duration</th>
                                 <th>Location</th>
                                 <th>Photo Type</th>
+                                <th>Price</th>
                                 <th>Status</th>
                                 <th>Payment</th>
                             </tr>
@@ -43,9 +44,9 @@
                                     <td>{{ $booking->session_duration }}</td>
                                     <td>{{ $booking->session_location }}</td>
                                     <td>{{ $booking->photoType->name }}</td>
+                                    <td>Rp{{ number_format($booking->total_price) }}</td>
                                     <td><span class="chip-status chip-confirmed">Confirmed</span></td>
                                     <td>
-                                        {{-- <div class="btn-group mr-2" role="group" aria-label="Action Button"> --}}
                                         <form action="/photographers/bookings/update-status/{{ $booking->id }}"
                                             method="POST" class="d-inline">
                                             @csrf
@@ -55,24 +56,6 @@
                                                 <i class="bi bi-cash"></i>
                                             </button>
                                         </form>
-                                        {{-- <form action="/photographers/bookings/update-status/{{ $booking->id }}"
-                                                method="POST" class="d-inline">
-                                                @csrf
-                                                @method('PUT')
-                                                <input type="hidden" name="status" value="Canceled">
-                                                <button type="submit" class="btn btn-danger">
-                                                    <i class="bi bi-x-circle"></i>
-                                                </button>
-                                            </form> --}}
-
-                                        {{-- <form action="/bookings/delete/{{ $booking->id }}" method="POST">
-                                                @csrf
-                                                @method('DELETE')
-                                                <form action="bookings/delete/{{ $booking->id }}" method="POST">
-                                                    <button type="submit" class="btn btn-danger"><i
-                                                            class="bi bi-trash3-fill"></i></button>
-                                                </form> --}}
-                                        {{-- </div> --}}
                                     </td>
                                 </tr>
                             @endforeach
@@ -83,3 +66,22 @@
         </div>
     </div>
 @endsection
+@push('scripts')
+    <script>
+        document.querySelectorAll('form[action*="/photographers/bookings/update-status/"]').forEach(form => {
+            form.addEventListener('submit', function(e) {
+                e.preventDefault();
+                Swal.fire({
+                    title: 'Change Status to Paid?',
+                    text: 'Are you sure payment is success?',
+                    icon: 'question',
+                    showCancelButton: true,
+                    confirmButtonText: 'Submit',
+                    cancelButtonText: 'Cancel'
+                }).then(result => {
+                    if (result.isConfirmed) this.submit();
+                });
+            });
+        });
+    </script>
+@endpush

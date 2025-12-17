@@ -33,6 +33,8 @@ Route::post('/register/photographer', [AuthController::class, 'registerPhotograp
 // Admin Start
 Route::middleware(['auth', 'role:1'])->group(function () {
     // Verified Photographer Account
+    Route::get('/admins/profile/edit', [UserController::class, 'updateAdminProfile']);
+    Route::put('/admins/profile/edit/{user:id}', [UserController::class, 'editAdminProfile']);
     Route::get('/admins/photographers', [PhotographerController::class, 'showAll']);
     Route::get('/admins/photographers/to-verify', [PhotographerController::class, 'showAllUnverify']);
     Route::put('/admins/photographers/to-verify/{photographer:id}', [PhotographerController::class, 'updatePhotographerVerify']);

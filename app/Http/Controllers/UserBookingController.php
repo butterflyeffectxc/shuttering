@@ -12,6 +12,9 @@ class UserBookingController extends Controller
 {
     public function showForm(Photographer $photographer)
     {
+        $photographer->loadAvg('reviews', 'rating')
+            ->loadCount('reviews');
+        // dd($photographers);
         $photoTypes = $photographer->photoTypes;
         return view('users.bookings.form', compact('photographer', 'photoTypes'));
     }
@@ -40,34 +43,62 @@ class UserBookingController extends Controller
         // dd($booking);
         return redirect()->to('users/booking')->with('success', 'Booking made successfully!');
     }
-    public function showBooking()
+    public function showBooking(Request $request)
     {
         $userId = auth()->id();
+        $status = $request->query('status');
 
-        // eager load to avoid N+1
-        $bookings = Booking::with(['photographer.user', 'photoType', 'review'])
-            ->where('user_id', $userId)
-            ->orderByDesc('created_at')
-            ->get();
-        // Format dates if you want here (optional)
-        // We'll also keep raw values so blade/JS can use either
+        $query = Booking::with(['photographer.user', 'photoType', 'review'])
+            ->where('user_id', $userId);
+
+        if ($status && $status !== 'all') {
+            $query->where('status', $status);
+        }
+
+        $bookings = $query->orderByDesc('created_at')->get();
+
+        // TAMBAH FIELD BARU, JANGAN TIMPA session_date
         $bookings->transform(function ($b) {
-            // example: format session_date (if stored as date or datetime)
             if ($b->session_date) {
                 try {
-                    $b->formatted_session_date = Carbon::parse($b->session_date)->translatedFormat('l, F j, Y');
-                    // combine times if you store duration/time differently
+                    $b->formatted_session_date = \Carbon\Carbon::parse($b->session_date)
+                        ->translatedFormat('l, d F Y');
                 } catch (\Exception $e) {
                     $b->formatted_session_date = $b->session_date;
                 }
             } else {
                 $b->formatted_session_date = '-';
             }
-
             return $b;
         });
-        // dd($bookings);
-        return view('users.bookings.list', compact('bookings'));
+
+        return view('users.bookings.list', compact('bookings', 'status'));
+
+        // $userId = auth()->id();
+        // // eager load to avoid N+1
+        // $bookings = Booking::with(['photographer.user', 'photoType', 'review'])
+        //     ->where('user_id', $userId)
+        //     ->orderByDesc('created_at')
+        //     ->get();
+        // // Format dates if you want here (optional)
+        // // We'll also keep raw values so blade/JS can use either
+        // $bookings->transform(function ($b) {
+        //     // example: format session_date (if stored as date or datetime)
+        //     if ($b->session_date) {
+        //         try {
+        //             $b->formatted_session_date = Carbon::parse($b->session_date)->translatedFormat('l, F j, Y');
+        //             // combine times if you store duration/time differently
+        //         } catch (\Exception $e) {
+        //             $b->formatted_session_date = $b->session_date;
+        //         }
+        //     } else {
+        //         $b->formatted_session_date = '-';
+        //     }
+
+        //     return $b;
+        // });
+        // // dd($bookings);
+        // return view('users.bookings.list', compact('bookings'));
     }
     public function cancelBooking(Request $request, Booking $booking)
     {

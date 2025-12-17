@@ -39,7 +39,7 @@
                                     <label for="name" class="form-label"><b>Name</b></label>
                                     <input type="text" class="form-control input-glass text-white py-2" id="name"
                                         placeholder="Nutty Matcha" name="name" value="{{ old('name', $user->name) }}"
-                                        required>
+                                        required maxlength="50">
                                     @error('name')
                                         <small class="text-danger">{{ $message }}</small>
                                     @enderror
@@ -56,8 +56,9 @@
                                 <div class="mb-3">
                                     <label for="phone" class="form-label"><b>Phone Number</b></label>
                                     <input type="text" class="form-control input-glass text-white py-2" id="phone"
-                                        placeholder="nutmatch45@gmail.com" name="phone"
-                                        value="{{ old('phone', $user->phone) }}" required>
+                                        placeholder="089789098765" name="phone" minlength="10" maxlength="15"
+                                        value="{{ old('phone', $user->phone) }}"
+                                        oninput="this.value = this.value.replace(/[^0-9+]/g, '')" required>
                                     @error('phone')
                                         <small class="text-danger">{{ $message }}</small>
                                     @enderror

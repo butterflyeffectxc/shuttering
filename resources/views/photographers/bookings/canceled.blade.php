@@ -27,6 +27,7 @@
                                 <th>Duration</th>
                                 <th>Location</th>
                                 <th>Photo Type</th>
+                                <th>Price</th>
                                 <th>Status</th>
                                 <th>Detail</th>
                             </tr>
@@ -40,6 +41,7 @@
                                     <td>{{ $booking->session_duration }}</td>
                                     <td>{{ $booking->session_location }}</td>
                                     <td>{{ $booking->photoType->name }}</td>
+                                     <td>Rp{{ number_format($booking->total_price) }}</td>
                                     <td><span class="chip-status chip-canceled">Canceled</span></td>
                                     <td>
                                         <a href="/bookings/detail/{{ $booking->id }}" class="btn btn-primary w-100"><i

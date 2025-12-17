@@ -4,6 +4,34 @@
         <div class="container page-content">
             @include('partial.navbar')
             <h3>My Bookings</h3>
+            {{-- filter --}}
+            @php
+                $currentStatus = request('status', 'all');
+            @endphp
+            <div class="mb-3 mt-5 d-flex flex-wrap gap-2">
+                <a href="{{ url()->current() }}" class="chip {{ $currentStatus == 'all' ? 'active' : '' }}">
+                    All
+                </a>
+                <a href="{{ url()->current() }}?status=pending"
+                    class="chip {{ $currentStatus == 'pending' ? 'active' : '' }}">
+                    Pending
+                </a>
+                <a href="{{ url()->current() }}?status=confirmed"
+                    class="chip {{ $currentStatus == 'confirmed' ? 'active' : '' }}">
+                    Confirmed
+                </a>
+                <a href="{{ url()->current() }}?status=canceled"
+                    class="chip {{ $currentStatus == 'canceled' ? 'active' : '' }}">
+                    Canceled
+                </a>
+                <a href="{{ url()->current() }}?status=paid" class="chip {{ $currentStatus == 'paid' ? 'active' : '' }}">
+                    Paid
+                </a>
+                <a href="{{ url()->current() }}?status=completed"
+                    class="chip {{ $currentStatus == 'completed' ? 'active' : '' }}">
+                    Completed
+                </a>
+            </div>
             {{-- list booking --}}
             <div class="booking-container mt-5 m-0 justify-content-start text-white">
                 @forelse ($bookings as $booking)
@@ -30,7 +58,7 @@
                                     <div class="booking-card-row mb-1">
                                         <img src="{{ asset('assets/icon_calendar.svg') }}" class="booking-card-icon"
                                             alt="calendar" />
-                                        <p>{{ $booking->session_date }}<br>{{ $booking->session_duration }}</p>
+                                        <p>{{ $booking->formatted_session_date }}<br>{{ $booking->session_duration }}</p>
                                     </div>
                                     <div class="booking-card-row">
                                         <img src="{{ asset('assets/location.svg') }}" class="booking-card-icon"

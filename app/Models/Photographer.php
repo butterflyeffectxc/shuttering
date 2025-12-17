@@ -43,4 +43,8 @@ class   Photographer extends Model
   {
     return $this->hasMany(Wishlist::class, 'photographer_id');
   }
+  public function reviews()
+  {
+    return $this->hasManyThrough(Review::class, Booking::class);
+  }
 }

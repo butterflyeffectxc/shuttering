@@ -58,8 +58,15 @@ class AuthController extends Controller
             'name' => 'required',
             'phone' => 'required',
             'email' => 'required|email|unique:users,email',
-            'password' => 'required|confirmed|min:8',
             'role' => 'required',
+            'password' => [
+                'required',
+                'string',
+                'min:8',
+                'regex:/^(?=.*[A-Za-z])(?=.*\d)(?=.*[@$!%*#?&^_\-]).+$/'
+            ],
+        ], [
+            'password.regex' => 'Password must contain letters, numbers, and symbols.'
         ]);
 
         // Hash password
@@ -79,7 +86,6 @@ class AuthController extends Controller
             'name' => 'required|max:255',
             'phone' => 'required|max:20',
             'email' => 'required|email|unique:users,email',
-            'password' => 'required|confirmed|min:8',
             'role' => 'required', // 1 = customer, 2 = photographer (sesuaikan)
 
             // PHOTOGRAPHER TABLE
@@ -88,6 +94,14 @@ class AuthController extends Controller
             'start_rate' => 'required|numeric',
             'description' => 'nullable|string',
             'status' => 'required|in:1,2',
+            'password' => [
+                'required',
+                'string',
+                'min:8',
+                'regex:/^(?=.*[A-Za-z])(?=.*\d)(?=.*[@$!%*#?&^_\-]).+$/'
+            ],
+        ], [
+            'password.regex' => 'Password must contain letters, numbers, and symbols.'
         ]);
         // 1️⃣ Insert ke tabel USERS
         $user = User::create([

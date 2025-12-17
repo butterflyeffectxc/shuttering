@@ -20,8 +20,11 @@
     <link rel="stylesheet" href="{{ asset('asset-template/compiled/css/app-dark.css') }}" />
     <link rel="stylesheet" href="{{ asset('asset-template/compiled/css/iconly.css') }}" />
     <link rel="stylesheet" href="{{ asset('asset-template/extensions/sweetalert2/sweetalert2.min.css') }}">
-    <link rel="stylesheet" href="{{ asset('asset-template/extensions/simple-datatables/style.css') }}" />
-    <link rel="stylesheet" href="{{ asset('asset-template/compiled/css/table-datatable.css') }}" />
+    {{-- <link rel="stylesheet" href="{{ asset('asset-template/extensions/simple-datatables/style.css') }}" />
+    <link rel="stylesheet" href="{{ asset('asset-template/compiled/css/table-datatable.css') }}" /> --}}
+    <link rel="stylesheet"
+        href="{{ asset('asset-template/extensions/datatables.net-bs5/css/dataTables.bootstrap5.min.css') }}">
+    <link rel="stylesheet" href="{{ asset('asset-template/compiled/css/table-datatable-jquery.css') }}">
     {{-- <link rel="stylesheet" href="{{ asset('asset-template/compiled/svg/favicon.svg') }}"> --}}
     {{-- <link rel="stylesheet" href="{{ asset('asset-template/compiled/svg/favicon.svg.css') }}"> --}}
     <!-- Dependencies for scriptupload.js -->
@@ -55,8 +58,12 @@
     <!-- Need: Apexcharts -->
     {{-- <script src="{{ asset('asset-template/static/js/pages/dashboard.js') }}"></script> --}}
     <!-- datatables -->
-    <script src="{{ asset('asset-template/extensions/simple-datatables/umd/simple-datatables.js') }}"></script>
-    <script src="{{ asset('asset-template/static/js/pages/simple-datatables.js') }}"></script>
+    <script src="{{ asset('asset-template/extensions/jquery/jquery.min.js') }}"></script>
+    <script src="{{ asset('asset-template/extensions/datatables.net/js/jquery.dataTables.min.js') }}"></script>
+    <script src="{{ asset('asset-template/extensions/datatables.net-bs5/js/dataTables.bootstrap5.min.js') }}"></script>
+    <script src="{{ asset('asset-template/static/js/pages/datatables.js') }}"></script>
+    {{-- <script src="{{ asset('asset-template/extensions/simple-datatables/umd/simple-datatables.js') }}"></script>
+    <script src="{{ asset('asset-template/static/js/pages/simple-datatables.js') }}"></script> --}}
     <!-- carts -->
     {{-- <script src="{{ asset('asset-template/extensions/dayjs/dayjs.min.js') }}"></script>
     <script src="{{ asset('asset-template/extensions/apexcharts/apexcharts.min.js') }}"></script>

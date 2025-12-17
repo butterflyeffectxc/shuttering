@@ -2,9 +2,14 @@
      <div class="sidebar-wrapper active d-flex flex-column">
          <div class="sidebar-header position-relative">
              <div class="d-flex justify-content-between align-items-center">
-                 <div class="logo">
-                     <a href="index.html"><img src="{{ asset('assets/Shuttering.svg') }}" class="logo-medium" alt="Logo"
-                             srcset="" /></a>
+                 <div class="p-0 m-0">
+                     <a href="#" class="logo-wrapper">
+                         <img src="{{ asset('assets/Shuttering_light.svg') }}" alt="Logo Light" class="logo logo-light"
+                             width="100" height="100" />
+
+                         <img src="{{ asset('assets/Shuttering.svg') }}" alt="Logo Dark" class="logo logo-dark"
+                             width="100" height="100" />
+                     </a>
                  </div>
                  <div class="theme-toggle d-flex gap-2 align-items-center mt-2">
                      <svg xmlns="http://www.w3.org/2000/svg" xmlns:xlink="http://www.w3.org/1999/xlink"
@@ -75,6 +80,12 @@
                              <span>Booking</span>
                          </a>
                      </li>
+                     <li class="sidebar-item {{ Request::is('admins/profile/edit') ? 'active' : '' }}">
+                         <a href="{{ url('admins/profile/edit') }}" class="sidebar-link">
+                             <i class="bi bi-person-fill"></i>
+                             <span>Profile</span>
+                         </a>
+                     </li>
                  @endif
                  @if (Auth::user()->role == '2')
                      <li class="sidebar-item has-sub">
@@ -100,34 +111,31 @@
                          <ul class="submenu">
                              <li
                                  class="submenu-item {{ Request::is('photographers/bookings/history') ? 'active' : '' }}">
-                                 <a href="{{ url('photographers/bookings/history') }}" class="submenu-link">History
-                                     Booking</a>
+                                 <a href="{{ url('photographers/bookings/history') }}"
+                                     class="submenu-link">History</a>
                              </li>
                              <li class="submenu-item {{ Request::is('photographers/bookings') ? 'active' : '' }}">
-                                 <a href="{{ url('photographers/bookings') }}" class="submenu-link">Incoming
-                                     Booking</a>
+                                 <a href="{{ url('photographers/bookings') }}" class="submenu-link">Incoming</a>
                              </li>
                              <li
                                  class="submenu-item {{ Request::is('photographers/bookings/processed') ? 'active' : '' }}">
-                                 <a href="{{ url('photographers/bookings/processed') }}" class="submenu-link">Processed
-                                     Booking</a>
+                                 <a href="{{ url('photographers/bookings/processed') }}"
+                                     class="submenu-link">Confirmed</a>
                              </li>
                              <li
                                  class="submenu-item {{ Request::is('photographers/bookings/canceled') ? 'active' : '' }}">
-                                 <a href="{{ url('photographers/bookings/canceled') }}" class="submenu-link">Canceled
-                                     Booking</a>
+                                 <a href="{{ url('photographers/bookings/canceled') }}"
+                                     class="submenu-link">Canceled</a>
                              </li>
                              <li
                                  class="submenu-item {{ Request::is('photographers/bookings/upload') ? 'active' : '' }}">
                                  <a href="{{ url('photographers/bookings/upload') }}" class="submenu-link">Upload
-                                     Image
-                                     Booking</a>
+                                     Image</a>
                              </li>
                              <li
                                  class="submenu-item {{ Request::is('photographers/bookings/completed') ? 'active' : '' }}">
                                  <a href="{{ url('photographers/bookings/completed') }}"
-                                     class="submenu-link">Completed
-                                     Booking</a>
+                                     class="submenu-link">Completed</a>
                              </li>
                          </ul>
                      </li>

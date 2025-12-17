@@ -20,12 +20,12 @@ class ReviewSeeder extends Seeder
                 'rating' => 4,
                 'note' => 'Such a great experience',
             ],
-            // [
-            //     'booking_id' => 2,
-            //     'user_id' => 2,
-            //     'rating' => 5,
-            //     'note' => '',
-            // ],
+            [
+                'booking_id' => 2,
+                'user_id' => 2,
+                'rating' => 5,
+                'note' => '',
+            ],
             [
                 'booking_id' => 3,
                 'user_id' => 3,

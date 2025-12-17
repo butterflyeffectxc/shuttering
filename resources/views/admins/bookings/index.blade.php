@@ -10,13 +10,24 @@
                     <h5 class="card-title">
                         Booking List
                     </h5>
-                    <div class="ml-auto">
-                        {{-- <a href="/admins/bookings/create" class="btn btn-primary add-button"><span>Add Data</span></a> --}}
-                        {{-- <a href="/admins/bookings/index" class="btn btn-warning back-button"><span>Back</span></a> --}}
-                    </div>
+                    {{-- <div class="ml-auto">
+                    </div> --}}
                 </div>
             </div>
             <div class="card-body">
+                <div class="row mb-3">
+                    <div class="col-md-3">
+                        <label class="form-label fw-bold">Filter Status</label>
+                        <select id="statusFilter" class="form-select">
+                            <option value="">All Status</option>
+                            <option value="Pending">Pending</option>
+                            <option value="Confirmed">Confirmed</option>
+                            <option value="Paid">Paid</option>
+                            <option value="Complete">Complete</option>
+                            <option value="Canceled">Canceled</option>
+                        </select>
+                    </div>
+                </div>
                 <div class="table-responsive">
                     <table class="table" id="table1">
                         <thead>
@@ -73,3 +84,25 @@
         </div>
     </div>
 @endsection
+@push('scripts')
+    <script>
+        $(document).ready(function() {
+            let table;
+
+            if (!$.fn.DataTable.isDataTable('#table1')) {
+                table = $('#table1').DataTable({
+                    responsive: true
+                });
+            } else {
+                table = $('#table1').DataTable();
+            }
+
+            $('#statusFilter').on('change', function() {
+                table
+                    .column(7) // kolom Status
+                    .search(this.value)
+                    .draw();
+            });
+        });
+    </script>
+@endpush
