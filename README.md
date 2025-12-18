@@ -386,7 +386,17 @@ Developed by _Munaa Raudhatul Jannah_
 
 ✨ Feel. Frame. Repeat.
 
-
 ## License
 
 The Laravel framework is open-sourced software licensed under the [MIT license](https://opensource.org/licenses/MIT).
+
+## Perkembangan ke Depannya
+[  ] auto alert informasi tanda conrfirm pass ga matching (js)
+[  ] kolom password, buat checklist semua udh terpenuhi (js)
+[  ] saat upload foto, progress uploading (js)
+[  ] info sizenya kurang dan penting, maksimumnya ga keliatan, yg udh masuk brp belom ada (admin hrus tau) - 8 mb per foto - bisa dibikin monetisasi 
+[  ] email already taken hrusnya sebelum pencet register.
+[  ] kenapa tagging yg kategori fotografer *tanya aja* (select option)
+[  ] kenapa ga kalender aja, user nya hrusnya tau juga biar tau availability fotografernya. dashboard kalender.
+[  ] role admin gabole gitu, terpisah dari login page public, harusnya ditambahain dsb, superadmin + admin, databasenya dikasi flag first user
+[  ] admin bisa kelola photo type
